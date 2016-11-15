@@ -41,6 +41,7 @@ public class Map extends AppCompatActivity{
     List<Address> kappa;
     android.location.LocationListener locationListener;
     LocationManager service;
+    int test;
     double laenge,breite;
 
     @Override
