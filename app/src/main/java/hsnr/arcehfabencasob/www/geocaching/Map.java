@@ -39,7 +39,6 @@ public class Map extends AppCompatActivity{
     Geocoder geo;
     String name;
     List<Address> kappa;
-    int test;
     android.location.LocationListener locationListener;
     LocationManager service;
     double laenge,breite;
