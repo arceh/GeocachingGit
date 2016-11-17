@@ -28,10 +28,6 @@ package hsnr.arcehfabencasob.www.geocaching;
         import java.io.IOException;
         import java.util.List;
 
-        import hsnr.arcehfabencasob.www.geocaching.R;
-
-        import static android.widget.Toast.LENGTH_LONG;
-
 public class Map extends AppCompatActivity{
 
     MapView mapView;
