@@ -10,11 +10,14 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.xmlpull.v1.XmlPullParser;
+
+import java.util.ArrayList;
 
 /**
  * Created by Assares on 03.11.2016.
@@ -28,16 +31,16 @@ public class MainPage extends AppCompatActivity {
         //setHasOptionsMenu(true);
         setContentView(R.layout.main_page);
 
-        TextView testen = null;
-        Context context = findViewById(R.id.main_page_header).getContext();
-        XmlPullParser parser = getResources().getXml(R.xml.element);
-        AttributeSet attr = Xml.asAttributeSet(parser);
-
-
-        testen = (TextView) onCreateView("1.Rätsel",context,attr);
+        TextView testen = new TextView(this);
+        testen.setText("1.Rätsel");
+        ArrayAdapter<String> adapter;
+        ArrayList<String> listItem = new ArrayList<String>();
+        listItem.add("1.Rätsel");
+        listItem.add("2.Rätsel");
+        adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,listItem);
         ListView container;
         container = (ListView) findViewById(R.id.contentList);
-        container.addFooterView(testen);
+        container.setAdapter(adapter);
     }
 
     @Override
