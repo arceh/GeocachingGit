@@ -12,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ListView;
@@ -43,12 +44,16 @@ public class MainPage extends AppCompatActivity {
         ListView container;
         container = (ListView) findViewById(R.id.main_page_contentList);
         container.setAdapter(adapter);
+
+
+
+
         /*/
         GridView container = (GridView) findViewById(R.id.main_page_container);
 
         String [] header = {"_id", "Name", "Checkpoints", "Bewertung",};
         MatrixCursor cursor = new MatrixCursor(header);
-        int [] layouts = {R.id.main_page_container};
+        int [] layouts = {R.id.main_pasge_container};
 
         for (int i=0; i<5;i++){
             cursor.addRow(new Object[]{i, (i + "Rätsel"), i*4, i*7%4});
@@ -81,6 +86,12 @@ public class MainPage extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    public void listClick(View view){
+        Toast.makeText(this, view.toString(), Toast.LENGTH_LONG).show();
+    }
+
+
 }
 
 
