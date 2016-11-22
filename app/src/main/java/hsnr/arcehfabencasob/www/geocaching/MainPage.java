@@ -86,7 +86,7 @@ public class MainPage extends AppCompatActivity {
     }
 
     protected void startRiddle(String name){
-        Intent intent = new Intent(this,riddleStart.class);
+        Intent intent = new Intent(this,RiddleStart.class);
         intent.putExtra("riddleName", name);
         startActivity(intent);
     }
