@@ -36,22 +36,41 @@ public class RiddleDataSource {
             RiddleDbHelper.TABLE_RIDDLES_SPECIFIC_ANSWER
     };
 
+    private boolean matchesColumn(String column) {
+        if(column == RiddleDbHelper.TABLE_RIDDLES_COLUMN_ID || column == RiddleDbHelper.TABLE_RIDDLES_COUNT_QUESTIONS || column == RiddleDbHelper.TABLE_RIDDLES_CREATORNAME || column == RiddleDbHelper.TABLE_RIDDLES_RATING || column == RiddleDbHelper.TABLE_RIDDLES_RIDDLENAME || column == RiddleDbHelper.TABLE_RIDDLES_TARGET_COORD) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public RiddleDataSource(Context context) {
         Log.d(LOG_TAG, "Die DataSource erzeugt den DbHelper");
         dbHelper = new RiddleDbHelper(context);
     }
 
+
+    /**
+     * Öffnet die Datenquelle.
+     * */
     public void open() {
         Log.d(LOG_TAG, "Eine Referenz auf die Datenbank wird angefragt.");
         database = dbHelper.getWritableDatabase();
         Log.d(LOG_TAG, "Datenbank-Referenz erhalten. Pfad zur Datenbank: " + database.getPath());
     }
 
+    /**
+     * Schließt die Datenquelle.
+     * */
     public void close() {
         dbHelper.close();
         Log.d(LOG_TAG, "Datenbank wurde mit Hilfe des DbHelpers geschlossen.");
     }
 
+    /**
+     * Setzt ein neues Rätsel in die Datenbank.
+     * @param r Riddle : Rätsel, welches hinzugefügt werden soll.
+     * */
     public Riddle setRiddleInDatabase(Riddle r) {
         ContentValues values_all_riddles = new ContentValues();
         values_all_riddles.put(RiddleDbHelper.TABLE_RIDDLES_CREATORNAME, r.getCreatorName());
@@ -113,6 +132,10 @@ public class RiddleDataSource {
         return new Riddle(Riddlename, RiddleQuestions, RiddleCreatorname, RiddleId, Riddlerating);
     }
 
+
+    /**
+     * Liefert alle Rätsel.
+     * */
     public ArrayList<Riddle> getAllRiddles() {
         ArrayList<Riddle> All_Riddles = new ArrayList<Riddle>();
         Cursor cursor_Ar = database.query(RiddleDbHelper.TABLE_RIDDLES, columns_all_riddles, null, null, null, null, null);
@@ -123,17 +146,31 @@ public class RiddleDataSource {
         return All_Riddles;
     }
 
+
+    /**
+     * Liefert alle Rätsel in der bestimmten Reihenfolge.
+     * @param Order String : Sortierreihenfolge.
+     * */
     public ArrayList<Riddle> getAllRiddles(String Order) {
+        if(matchesColumn(Order)) {
+            throw new IllegalArgumentException("Ungültige Sortierreihenfolge: " + Order);
+        }
         ArrayList<Riddle> All_Riddles = new ArrayList<Riddle>();
-        Cursor cursor_Ar = database.query(RiddleDbHelper.TABLE_RIDDLES, columns_all_riddles, null, null, null, Order, null);
+        Cursor cursor_Ar = database.query(RiddleDbHelper.TABLE_RIDDLES, columns_all_riddles, null, null, null, null, Order);
         do {
             All_Riddles.add(cursorToRiddle(cursor_Ar, CursorToRiddleMode.MULTIPLE));
         } while(cursor_Ar.moveToNext());
         return All_Riddles;
     }
 
-
+    /**
+     * Liefert das Rätsel mit der angegebenen ID.
+     * @param Id Integer : ID des Rätsels.
+     * */
     public Riddle getRiddleById(int Id) {
+        if(Id < 0) {
+            throw new IllegalArgumentException("Ungültige Id: " + Id);
+        }
         try {
             Cursor cursor = database.query(RiddleDbHelper.TABLE_RIDDLES, columns_all_riddles, RiddleDbHelper.TABLE_RIDDLES_COLUMN_ID + "=" + Id, null, null, null, null);
             return cursorToRiddle(cursor, CursorToRiddleMode.SINGLE);
@@ -143,6 +180,11 @@ public class RiddleDataSource {
         }
     }
 
+
+    /**
+     * Liefert alle Rätsel mit einem bestimmten Rätselnamen.
+     * @param Riddlename String : Name des Rätsels.
+     * */
     public ArrayList<Riddle> getRiddlesByName(String Riddlename) {
         ArrayList<Riddle> RiddlesByName = new ArrayList<Riddle>();
         try {
@@ -158,7 +200,16 @@ public class RiddleDataSource {
         }
     }
 
+
+    /**
+     * Liefert alle Rätsel mit einem bestimmten Rätselnamen
+     * @param Riddlename String : Name des Rätsels.
+     * @param Order String : Sortierreihenfolge der zurückgelieferten Liste.
+     * */
     public ArrayList<Riddle> getRiddlesByName(String Riddlename, String Order) {
+        if(!matchesColumn(Order)) {
+            throw new IllegalArgumentException("Ungültige Sortiereihenfolge: " + Order);
+        }
         ArrayList<Riddle> RiddlesByName = new ArrayList<Riddle>();
         try {
             Cursor cursor = database.query(RiddleDbHelper.TABLE_RIDDLES, columns_all_riddles, RiddleDbHelper.TABLE_RIDDLES_RIDDLENAME + "=\"" + Riddlename + "\"", null, null, null, Order);
@@ -173,6 +224,11 @@ public class RiddleDataSource {
         }
     }
 
+
+    /**
+     * Liefert alle Rätsel eines Erstellers.
+     * @param CreatorName String : Name des Erstellers.
+     * */
     public ArrayList<Riddle> getRiddlesByCreator(String CreatorName) {
         ArrayList<Riddle> Riddles = new ArrayList<Riddle>();
         Cursor cursor = database.query(RiddleDbHelper.TABLE_RIDDLES, columns_all_riddles, RiddleDbHelper.TABLE_RIDDLES_CREATORNAME + "=" + CreatorName, null, null, null, null);
@@ -183,13 +239,112 @@ public class RiddleDataSource {
         return Riddles;
     }
 
+
+    /**
+     * Liefert alle Rätsel eines Erstellers.
+     * @param CreatorName String : Name des Erstellers.
+     * @param Order String : Sortierung der zurückgelieferten Liste.
+     * */
     public ArrayList<Riddle> getRiddlesByCreator(String CreatorName, String Order) {
         ArrayList<Riddle> Riddles = new ArrayList<Riddle>();
-        Cursor cursor = database.query(RiddleDbHelper.TABLE_RIDDLES, columns_all_riddles, RiddleDbHelper.TABLE_RIDDLES_CREATORNAME + "=" + CreatorName, null, null, Order, null);
+        Cursor cursor = database.query(RiddleDbHelper.TABLE_RIDDLES, columns_all_riddles, RiddleDbHelper.TABLE_RIDDLES_CREATORNAME + "=" + CreatorName, null, null, null, Order);
         cursor.moveToFirst();
         do {
             Riddles.add(cursorToRiddle(cursor, CursorToRiddleMode.MULTIPLE));
         } while(cursor.moveToNext());
         return Riddles;
     }
+
+
+    /**
+     * Liefert alle Rätsel mit dem entsprechenden Rating.
+     * @param rating Float : Die gesuchte Bewertung.
+     * */
+    public ArrayList<Riddle> getRiddleByRatingExact(float rating) {
+        if(rating > 5 || rating < 0) {
+            throw new IllegalArgumentException("Das Rating muss zwischen 0 und 5 liegen.");
+        }
+        ArrayList<Riddle> Riddles = new ArrayList<>();
+        Cursor cursor = database.query(RiddleDbHelper.TABLE_RIDDLES, columns_all_riddles, RiddleDbHelper.TABLE_RIDDLES_RATING + "=" + Float.toString(rating), null, null, null, null);
+        cursor.moveToFirst();
+        do {
+            Riddles.add(cursorToRiddle(cursor, CursorToRiddleMode.MULTIPLE));
+        } while (cursor.moveToNext());
+        return Riddles;
+    }
+
+    /**
+     * Liefert alle Rätsel mit einem Rating entsprechend des angegebenen Operators und Rating, sortiert nach der angegebenen Order.
+     * @param rating Float : Der Wert der Bewertung nach der gesucht werden soll.
+     * @param operator String : Der operator für das Selectstatement.
+     * @param Order String : Die Sortierreihenfolge der zurückgelieferten Daten.
+     * */
+    public ArrayList<Riddle> getRiddleByRating(float rating, String operator, String Order) {
+        if(rating < 0 || rating > 5) {
+            throw new IllegalArgumentException("Das Rating muss zwischen 0 und 5 liegen.");
+        }
+        if(!operator.matches("[<>=]{1}|(!=){1}")) {
+            throw new IllegalArgumentException("Ungültiger Operator: " + operator);
+        }
+        if(!matchesColumn(Order)) {
+            throw new IllegalArgumentException("Ungültige Reihenfolge: " + Order);
+        }
+        ArrayList<Riddle> Riddles = new ArrayList<>();
+        Cursor cursor = database.query(RiddleDbHelper.TABLE_RIDDLES, columns_all_riddles, RiddleDbHelper.TABLE_RIDDLES_RATING + operator + Float.toString(rating), null, null, null, Order);
+        cursor.moveToFirst();
+        do {
+            Riddles.add(cursorToRiddle(cursor, CursorToRiddleMode.MULTIPLE));
+        } while(cursor.moveToNext());
+        return Riddles;
+    }
+
+    /**
+     * Liefert eine Liste von Rätseln nach dem Angegebenen Statement.
+     * @param statement String : Ein Statement der Form COLUMNNAME_ID = ID.
+     * */
+    public ArrayList<Riddle> getRiddleBySQL(String statement) {
+        ArrayList<Riddle> Riddles = new ArrayList<>();
+        Cursor cursor = database.query(RiddleDbHelper.TABLE_RIDDLES, columns_all_riddles, statement, null, null, null, null);
+        cursor.moveToFirst();
+        do {
+            Riddles.add(cursorToRiddle(cursor, CursorToRiddleMode.MULTIPLE));
+        } while(cursor.moveToNext());
+        return Riddles;
+    }
+
+    /**
+     * Liefert eine Liste von Rätseln nach dem Angegebenen Statement.
+     * @param statement String : Ein Statement der Form COLUMNNAME_ID = ID.
+     * */
+    public ArrayList<Riddle> getRiddleBySQL(String statement, String Order) {
+        if(!matchesColumn(Order)) {
+            throw new IllegalArgumentException("Ungültige Sortierreihenfolge");
+        }
+        ArrayList<Riddle> Riddles = new ArrayList<>();
+        Cursor cursor = database.query(RiddleDbHelper.TABLE_RIDDLES, columns_all_riddles, statement, null, null, null, Order);
+        cursor.moveToFirst();
+        do {
+            Riddles.add(cursorToRiddle(cursor, CursorToRiddleMode.MULTIPLE));
+        } while(cursor.moveToNext());
+        return Riddles;
+    }
+
+
+    /**
+     * Liefert eine Liste von Rätseln abhänging von den Übergabeparameter.
+     * @param statement String : Ein Statement der Form COLUMNNAME_ID = ID.
+     * @param groupBy String : Spalte nach der Gruppiert werden soll.
+     * @param having String : Having Argument des Statements.
+     * @param Order String : Sortierreihenfolge der zurückgeliferten Liste.
+     * */
+    public ArrayList<Riddle> getRiddles(String statement, String groupBy, String having, String Order) {
+        ArrayList<Riddle> Riddles = new ArrayList<>();
+        Cursor cursor = database.query(RiddleDbHelper.TABLE_RIDDLES, columns_all_riddles, statement, null, groupBy, having, Order);
+        cursor.moveToFirst();
+        do {
+            Riddles.add(cursorToRiddle(cursor, CursorToRiddleMode.MULTIPLE));
+        } while(cursor.moveToNext());
+        return Riddles;
+    }
+
 }
