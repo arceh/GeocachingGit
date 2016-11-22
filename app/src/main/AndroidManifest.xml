@@ -33,6 +33,13 @@
                 <category android:name="android.intent.category.Startseite" />
             </intent-filter>
         </activity>
+        <activity android:name=".RiddleStart">
+            <intent-filter>
+                <action android:name="android.intent.action.riddleinfo" />
+
+                <category android:name="android.intent.category.Riddle" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

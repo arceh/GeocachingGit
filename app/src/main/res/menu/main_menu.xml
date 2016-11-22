@@ -9,5 +9,8 @@
         android:id="@+id/menuLogout"
         android:title="Abmelden"
         app:showAsAction="never" />
-
+    <item
+        android:id="@+id/dummy"
+        android:title="dummydaten"
+        app:showAsAction="never" />
 </menu>
