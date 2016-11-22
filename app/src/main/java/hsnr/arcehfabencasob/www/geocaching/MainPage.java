@@ -8,7 +8,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -87,7 +86,7 @@ public class MainPage extends AppCompatActivity {
     }
 
     protected void startRiddle(String name){
-        Intent intent = new Intent(this,RiddleStart.class);
+        Intent intent = new Intent(this,riddleStart.class);
         intent.putExtra("riddleName", name);
         startActivity(intent);
     }
