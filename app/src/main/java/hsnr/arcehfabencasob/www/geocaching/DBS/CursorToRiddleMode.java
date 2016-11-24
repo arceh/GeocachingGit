@@ -1,4 +1,4 @@
-package hsnr.arcehfabencasob.www.geocaching;
+package hsnr.arcehfabencasob.www.geocaching.DBS;
 
 /**
  * Created by carsten on 15.11.16.

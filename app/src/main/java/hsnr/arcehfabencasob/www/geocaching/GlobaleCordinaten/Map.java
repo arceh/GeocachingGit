@@ -1,4 +1,4 @@
-package hsnr.arcehfabencasob.www.geocaching;
+package hsnr.arcehfabencasob.www.geocaching.GlobaleCordinaten;
 
         import android.Manifest;
         import android.app.Activity;

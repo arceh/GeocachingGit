@@ -1,17 +1,14 @@
-package hsnr.arcehfabencasob.www.geocaching;
+package hsnr.arcehfabencasob.www.geocaching.Aktivities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import static android.R.attr.id;
+import hsnr.arcehfabencasob.www.geocaching.R;
 
 public class MainActivity extends AppCompatActivity {
 

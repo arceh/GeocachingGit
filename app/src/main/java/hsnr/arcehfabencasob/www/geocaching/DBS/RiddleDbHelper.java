@@ -1,4 +1,4 @@
-package hsnr.arcehfabencasob.www.geocaching;
+package hsnr.arcehfabencasob.www.geocaching.DBS;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

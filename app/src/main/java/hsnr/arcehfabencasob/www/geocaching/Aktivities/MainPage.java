@@ -1,4 +1,4 @@
-package hsnr.arcehfabencasob.www.geocaching;
+package hsnr.arcehfabencasob.www.geocaching.Aktivities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +14,12 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import hsnr.arcehfabencasob.www.geocaching.DBS.Question;
+import hsnr.arcehfabencasob.www.geocaching.DBS.Riddle;
+import hsnr.arcehfabencasob.www.geocaching.DBS.RiddleDataSource;
+import hsnr.arcehfabencasob.www.geocaching.GlobaleCordinaten.Coordinate;
+import hsnr.arcehfabencasob.www.geocaching.R;
 
 /**
  * Created by Assares on 03.11.2016.
