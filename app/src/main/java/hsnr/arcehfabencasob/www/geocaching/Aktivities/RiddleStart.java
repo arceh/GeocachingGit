@@ -28,7 +28,6 @@ public class RiddleStart extends AppCompatActivity {
         String name = extras.getString("riddleName");
         TextView nameView = (TextView) findViewById(R.id.riddle_start_name);
         nameView.setText(name);
-dfghjkl
     }
 
     protected void startRiddle(View view){
