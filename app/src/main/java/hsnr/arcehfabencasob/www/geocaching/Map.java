@@ -1,6 +1,7 @@
 package hsnr.arcehfabencasob.www.geocaching;
 
         import android.Manifest;
+        import android.app.Activity;
         import android.content.Context;
         import android.content.pm.PackageManager;
         import android.location.Address;
@@ -28,7 +29,10 @@ package hsnr.arcehfabencasob.www.geocaching;
         import java.io.IOException;
         import java.util.List;
 
-public class Map extends AppCompatActivity{
+        import static android.content.Context.ACTIVITY_SERVICE;
+        import static android.content.Context.LOCATION_SERVICE;
+
+public class Map{
 
     MapView mapView;
     GoogleMap maps;
@@ -38,48 +42,17 @@ public class Map extends AppCompatActivity{
     private android.location.LocationListener locationListener;
     private LocationManager service;
     private double laenge,breite;
+    Context that;
 
-    public Map(View view){
-        final Context that=this;
-        service = (LocationManager) getSystemService(LOCATION_SERVICE);
-        locationListener = new android.location.LocationListener() {
-
-
-            @Override
-            public void onLocationChanged(Location location) {
-                Log.e("test", String.valueOf(location.getLongitude()));
-                laenge = location.getLongitude();
-                breite = location.getLatitude();
-                //LatLng mypos = new LatLng(breite, laenge);
-
-
-            }
-
-            @Override
-            public void onStatusChanged(String provider, int status, Bundle extras) {
-
-            }
-
-            @Override
-            public void onProviderEnabled(String provider) {
-                Log.e("provider",provider);
-            }
-
-            @Override
-            public void onProviderDisabled(String provider) {
-
-            }
-        };
-
-        // getReQuest(service, locationListener);
+    public Map(Context text){
+        this.onCreate(text);
+        that=text;
     }
-    /**
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_map);
-        final Context that=this;
-                service = (LocationManager) getSystemService(LOCATION_SERVICE);
+
+
+    protected void onCreate(Context context) {
+
+                service = (LocationManager) context.getSystemService(LOCATION_SERVICE);
                 locationListener = new android.location.LocationListener() {
 
 
@@ -111,7 +84,7 @@ public class Map extends AppCompatActivity{
 
                // getReQuest(service, locationListener);
             }
-    **/
+
 
     /** Wichtig für die Verwendung**/
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -140,9 +113,9 @@ public class Map extends AppCompatActivity{
     }
     @RequiresApi(api = Build.VERSION_CODES.M)
    private  void getReQuest(LocationManager lm, android.location.LocationListener ll) {
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(that, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(that, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
-            requestPermissions(new String[]{
+            ActivityCompat.requestPermissions((Activity) that,new String[]{
                     Manifest.permission.ACCESS_FINE_LOCATION,
                     Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.INTERNET
             },10);
@@ -150,27 +123,12 @@ public class Map extends AppCompatActivity{
             return;
         }
         else {
-            lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, ll);
+            do {
+                lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, ll);
+            }while(breite==0);
 
 
         }
-
-    }
-    @Override
-    public void onResume() {
-
-        super.onResume();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-
-    }
-
-    @Override
-    public void onLowMemory() {
-        super.onLowMemory();
 
     }
 }

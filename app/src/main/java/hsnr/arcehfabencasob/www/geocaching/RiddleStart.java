@@ -23,19 +23,19 @@ public class RiddleStart extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.riddle_start);
         Bundle extras = getIntent().getExtras();
         String name = extras.getString("riddleName");
         TextView nameView = (TextView) findViewById(R.id.riddle_start_name);
         nameView.setText(name);
-        map = new Map(savedInstanceState);
+        map = new Map(this);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void kappa(View view){
-        Map map = new Map(view);
-        LatLng test = map.getReQuestLatLng();
 
+        LatLng test = map.getReQuestLatLng();
         TextView testview = (TextView) findViewById(R.id.riddle_start_author);
         testview.setText(test.toString());
     }
