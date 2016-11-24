@@ -38,7 +38,41 @@ public class Map extends AppCompatActivity{
     private android.location.LocationListener locationListener;
     private LocationManager service;
     private double laenge,breite;
+    public Map(){
+        final Context that=this;
+        service = (LocationManager) getSystemService(LOCATION_SERVICE);
+        locationListener = new android.location.LocationListener() {
 
+
+            @Override
+            public void onLocationChanged(Location location) {
+                Log.e("test", String.valueOf(location.getLongitude()));
+                laenge = location.getLongitude();
+                breite = location.getLatitude();
+                //LatLng mypos = new LatLng(breite, laenge);
+
+
+            }
+
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+
+            }
+
+            @Override
+            public void onProviderEnabled(String provider) {
+                Log.e("provider",provider);
+            }
+
+            @Override
+            public void onProviderDisabled(String provider) {
+
+            }
+        };
+
+        // getReQuest(service, locationListener);
+    }
+    /**
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,6 +110,7 @@ public class Map extends AppCompatActivity{
 
                // getReQuest(service, locationListener);
             }
+    **/
 
     /** Wichtig für die Verwendung**/
     @RequiresApi(api = Build.VERSION_CODES.M)
