@@ -84,6 +84,9 @@ public class MainPage extends AppCompatActivity {
             case R.id.dummy:
                 fillDummy();
                 return true;
+            case R.id.cords:
+                kappe();
+                return true;
             default:
         }
         return super.onOptionsItemSelected(item);
@@ -133,7 +136,7 @@ public class MainPage extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void kappa(View view){
+    public void kappa(){
         LatLng test = map.getReQuestLatLng();
         Toast.makeText(this, test.toString(), Toast.LENGTH_LONG).show();
     }
