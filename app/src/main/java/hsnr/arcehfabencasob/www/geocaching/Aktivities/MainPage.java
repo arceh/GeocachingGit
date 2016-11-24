@@ -1,7 +1,9 @@
 package hsnr.arcehfabencasob.www.geocaching.Aktivities;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,6 +14,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -19,6 +23,7 @@ import hsnr.arcehfabencasob.www.geocaching.DBS.Question;
 import hsnr.arcehfabencasob.www.geocaching.DBS.Riddle;
 import hsnr.arcehfabencasob.www.geocaching.DBS.RiddleDataSource;
 import hsnr.arcehfabencasob.www.geocaching.GlobaleCordinaten.Coordinate;
+import hsnr.arcehfabencasob.www.geocaching.GlobaleCordinaten.Map;
 import hsnr.arcehfabencasob.www.geocaching.R;
 
 /**
@@ -28,7 +33,7 @@ import hsnr.arcehfabencasob.www.geocaching.R;
 public class MainPage extends AppCompatActivity {
 
     private RiddleDataSource database = new RiddleDataSource(this);
-
+    protected Map map;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +61,7 @@ public class MainPage extends AppCompatActivity {
         initOnClick();
         //*/
 
+        map = new Map(this);
     }
 
     @Override
@@ -124,6 +130,12 @@ public class MainPage extends AppCompatActivity {
         database.setRiddleInDatabase(r1);
         database.setRiddleInDatabase(r2);
         database.setRiddleInDatabase(r3);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void kappa(View view){
+        LatLng test = map.getReQuestLatLng();
+        Toast.makeText(this, test.toString(), Toast.LENGTH_LONG).show();
     }
 
 }

@@ -20,7 +20,7 @@ import hsnr.arcehfabencasob.www.geocaching.R;
 //Listen layout mit mehreren Elementen?
 
 public class RiddleStart extends AppCompatActivity {
-    protected Map map;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,15 +31,7 @@ public class RiddleStart extends AppCompatActivity {
         String name = extras.getString("riddleName");
         TextView nameView = (TextView) findViewById(R.id.riddle_start_name);
         nameView.setText(name);
-        map = new Map(this);
-    }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    public void kappa(View view){
-
-        LatLng test = map.getReQuestLatLng();
-        TextView testview = (TextView) findViewById(R.id.riddle_start_author);
-        testview.setText(test.toString());
     }
 
 }
