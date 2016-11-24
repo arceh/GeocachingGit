@@ -40,6 +40,13 @@ public class Riddle {
         this.id = id;
     }
 
+    public Riddle(String riddleName, HashMap<Integer, Question> questions, String creatorName, float rating) {
+        this.riddleName = riddleName;
+        this.questions = questions;
+        this.rating = rating;
+        this.creatorName = creatorName;
+    }
+
     public String getRiddleName() {
         return this.riddleName;
     }
