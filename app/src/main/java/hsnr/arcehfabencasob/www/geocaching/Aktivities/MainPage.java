@@ -100,16 +100,18 @@ public class MainPage extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 TextView viewName = (TextView) view;
                 String name = viewName.getText().toString();
-                startRiddle(name);
+                lookRiddle(name);
             }
         });
     }
 
-    protected void startRiddle(String name){
+    protected void lookRiddle(String name){
         Intent intent = new Intent(this,RiddleStart.class);
         intent.putExtra("riddleName", name);
         startActivity(intent);
     }
+
+    //-------------------------------------------------------------------------------------------------
 
     private void fillDummy() {
         database.open();

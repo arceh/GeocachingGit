@@ -16,12 +16,14 @@ public class RiddleRun extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.riddle_run);
+        /*
         Bundle extras = getIntent().getExtras();
         String name = extras.getString("name");
         String cp = extras.getString("cp");
         TextView nameView = (TextView) findViewById(R.id.riddle_run_name);
         nameView.setText(name);
         cp = "Checkpoint: " + "/" + cp;
+        */
     }
 
 }

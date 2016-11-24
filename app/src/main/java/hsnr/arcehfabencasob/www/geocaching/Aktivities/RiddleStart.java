@@ -1,5 +1,6 @@
 package hsnr.arcehfabencasob.www.geocaching.Aktivities;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -16,22 +17,29 @@ import hsnr.arcehfabencasob.www.geocaching.R;
  * Created by Assares on 22.11.2016.
  */
 
-//Unterordner für klassen?
-//Listen layout mit mehreren Elementen?
-
 public class RiddleStart extends AppCompatActivity {
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.riddle_start);
         Bundle extras = getIntent().getExtras();
         String name = extras.getString("riddleName");
         TextView nameView = (TextView) findViewById(R.id.riddle_start_name);
         nameView.setText(name);
 
+    }
+
+    protected void startRiddle(View view){
+        TextView nameView = (TextView) findViewById(R.id.riddle_start_name);
+        String name = nameView.getText().toString();
+        TextView cpView = (TextView) findViewById(R.id.riddle_start_cp);
+        String cp = cpView.getText().toString();
+        Intent intent = new Intent(this,RiddleRun.class);
+        //intent.putExtra("name", name);
+        //intent.putExtra("cp", cp);
+        startActivity(intent);
     }
 
 }
