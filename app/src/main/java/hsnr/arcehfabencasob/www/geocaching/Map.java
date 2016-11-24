@@ -38,7 +38,8 @@ public class Map extends AppCompatActivity{
     private android.location.LocationListener locationListener;
     private LocationManager service;
     private double laenge,breite;
-    public Map(){
+
+    public Map(View view){
         final Context that=this;
         service = (LocationManager) getSystemService(LOCATION_SERVICE);
         locationListener = new android.location.LocationListener() {
