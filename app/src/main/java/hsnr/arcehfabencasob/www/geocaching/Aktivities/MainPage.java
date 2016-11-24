@@ -70,6 +70,7 @@ public class MainPage extends AppCompatActivity {
         return true;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -85,7 +86,7 @@ public class MainPage extends AppCompatActivity {
                 fillDummy();
                 return true;
             case R.id.cords:
-                kappe();
+                kappa();
                 return true;
             default:
         }
