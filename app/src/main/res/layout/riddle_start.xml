@@ -14,7 +14,8 @@
         android:layout_toEndOf="@+id/riddle_start_header2"
         android:layout_alignBottom="@+id/riddle_start_header2"
         android:layout_alignTop="@+id/riddle_start_header2"
-        android:text="Hier steht der Autor" />
+        android:text="Hier steht der Autor"
+        android:paddingRight="5dp" />
 
     <TextView
         android:text="Checkpoints: "
@@ -25,7 +26,8 @@
         android:id="@+id/riddle_start_header3"
         android:layout_marginTop="29dp"
         android:layout_below="@+id/riddle_start_header2"
-        android:layout_alignParentStart="true"/>
+        android:layout_alignParentStart="true"
+        android:paddingLeft="5dp" />
 
     <TextView
         android:text="123"
@@ -37,7 +39,8 @@
         android:gravity="center_horizontal"
         android:layout_toEndOf="@+id/riddle_start_header3"
         android:layout_alignBottom="@+id/riddle_start_header3"
-        android:layout_alignTop="@+id/riddle_start_header3" />
+        android:layout_alignTop="@+id/riddle_start_header3"
+        android:paddingRight="5dp" />
 
     <TextView
         android:text="Bewertung: "
@@ -48,7 +51,8 @@
         android:id="@+id/riddle_start_header4"
         android:layout_marginTop="29dp"
         android:layout_below="@+id/riddle_start_header3"
-        android:layout_alignParentStart="true"/>
+        android:layout_alignParentStart="true"
+        android:paddingLeft="5dp" />
 
     <TextView
         android:text=" 4,5"
@@ -60,7 +64,8 @@
         android:gravity="center_horizontal"
         android:layout_toEndOf="@+id/riddle_start_header4"
         android:layout_alignBottom="@+id/riddle_start_header4"
-        android:layout_alignTop="@+id/riddle_start_header4" />
+        android:layout_alignTop="@+id/riddle_start_header4"
+        android:paddingRight="5dp" />
 
     <Button
         android:text="Starten"
@@ -82,7 +87,8 @@
         android:id="@+id/riddle_start_header2"
         android:layout_marginTop="26dp"
         android:layout_below="@+id/riddle_start_name"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:paddingLeft="5dp" />
 
     <TextView
         android:text="Das Rätselddddddddddf"
@@ -104,7 +110,8 @@
         android:id="@+id/riddle_start_header5"
         android:layout_marginTop="29dp"
         android:layout_below="@+id/riddle_start_header4"
-        android:layout_alignParentStart="true"/>
+        android:layout_alignParentStart="true"
+        android:paddingLeft="5dp" />
 
     <TextView
         android:text=" 88km"
@@ -116,7 +123,8 @@
         android:gravity="center_horizontal"
         android:layout_toEndOf="@+id/riddle_start_header5"
         android:layout_alignBottom="@+id/riddle_start_header5"
-        android:layout_alignTop="@+id/riddle_start_header5" />
+        android:layout_alignTop="@+id/riddle_start_header5"
+        android:paddingRight="5dp" />
 
 
 </RelativeLayout>

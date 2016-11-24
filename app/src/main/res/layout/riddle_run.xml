@@ -1,17 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="1">
-
-    <Button
-        android:text="Button"
-        android:layout_width="match_parent"
-        android:layout_height="141dp"
-        android:id="@+id/riddle_run_next"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:textColor="#000000" />
 
     <TextView
         android:text="Name"
@@ -43,10 +35,22 @@
         android:layout_height="wrap_content"
         android:id="@+id/riddle_run_riddle"
         android:textColor="#000000"
-        android:layout_below="@+id/riddle_run_cp"
-        android:layout_alignParentStart="true"
-        android:layout_above="@+id/riddle_run_next"
         android:textSize="25sp"
-        android:gravity="center_vertical" />
+        android:gravity="center_vertical"
+        android:layout_below="@+id/riddle_run_cp"
+        android:layout_above="@+id/riddle_run_next"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp" />
+
+    <Button
+        android:text="Position prüfen"
+        android:layout_width="match_parent"
+        android:layout_height="141dp"
+        android:id="@+id/riddle_run_next"
+        android:textColor="#000000"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:onClick="nextCp"
+        android:textSize="25sp" />
 
 </RelativeLayout>

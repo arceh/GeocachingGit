@@ -31,13 +31,18 @@ public class RiddleStart extends AppCompatActivity {
     }
 
     protected void startRiddle(View view){
+        int cp = 0;
         TextView nameView = (TextView) findViewById(R.id.riddle_start_name);
         String name = nameView.getText().toString();
         TextView cpView = (TextView) findViewById(R.id.riddle_start_cp);
-        String cp = cpView.getText().toString();
+        try {
+            cp = Integer.parseInt(cpView.getText().toString());
+        } catch(NumberFormatException nfe) {
+            return;
+        }
         Intent intent = new Intent(this,RiddleRun.class);
-        //intent.putExtra("name", name);
-        //intent.putExtra("cp", cp);
+        intent.putExtra("name", name);
+        intent.putExtra("cp", cp);
         startActivity(intent);
     }
 

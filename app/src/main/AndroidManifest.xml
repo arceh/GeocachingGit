@@ -40,6 +40,13 @@
                 <category android:name="android.intent.category.Riddle" />
             </intent-filter>
         </activity>
+        <activity android:name=".Aktivities.RiddleRun">
+            <intent-filter>
+                <action android:name="android.intent.action.riddleRun" />
+
+                <category android:name="android.intent.category.Riddle" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
