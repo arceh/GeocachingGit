@@ -35,9 +35,9 @@ public class Map extends AppCompatActivity{
     Geocoder geo;
     String name;
     List<Address> kappa;
-    android.location.LocationListener locationListener;
-    LocationManager service;
-    double laenge,breite;
+    private android.location.LocationListener locationListener;
+    private LocationManager service;
+    private double laenge,breite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +77,7 @@ public class Map extends AppCompatActivity{
                // getReQuest(service, locationListener);
             }
 
+    /** Wichtig für die Verwendung**/
     @RequiresApi(api = Build.VERSION_CODES.M)
      public  LatLng getReQuestLatLng(){
         getReQuest(service,locationListener);
@@ -84,12 +85,14 @@ public class Map extends AppCompatActivity{
 
         return l;
     }
+    /** Wichtig für die Verwendung**/
     public  float getDistanz(LatLng x,LatLng y){
         float[] m=new float[1];
         Location.distanceBetween(x.latitude,x.longitude,y.latitude,y.longitude,m);
 
         return m[0];
     }
+    /** Wichtig für die Verwendung**/
     public boolean compareCoords(LatLng x,LatLng y){
 
         if(x.latitude==y.latitude && x.longitude==y.longitude){
