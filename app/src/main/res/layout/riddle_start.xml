@@ -30,7 +30,7 @@
         android:paddingLeft="5dp" />
 
     <TextView
-        android:text="123"
+        android:text="12"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/riddle_start_cp"

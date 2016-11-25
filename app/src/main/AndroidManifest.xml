@@ -47,6 +47,13 @@
                 <category android:name="android.intent.category.Riddle" />
             </intent-filter>
         </activity>
+        <activity android:name=".Aktivities.RiddleWin">
+            <intent-filter>
+                <action android:name="android.intent.action.riddlewin" />
+
+                <category android:name="android.intent.category.Riddle" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

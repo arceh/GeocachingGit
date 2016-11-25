@@ -15,8 +15,9 @@ import hsnr.arcehfabencasob.www.geocaching.R;
 public class RiddleRun extends AppCompatActivity {
     int cpAkt = 1;
     int cpAnz = 1;
-    String name;
-    String Answer;
+    String name = "";
+    String question = "";
+    String answer = "";
 
 
     @Override
@@ -27,23 +28,38 @@ public class RiddleRun extends AppCompatActivity {
         name = extras.getString("name");
         cpAnz = extras.getInt("cp");
         cpAkt = extras.getInt("cpOld", 1);
+        //lade frage zu cpAnz
+        question = "Wer kam am 23.11.2016 zu spät zu EZS?";
+        //lade antwort zu cpAnz
+        answer = "123";
         TextView nameView = (TextView) findViewById(R.id.riddle_run_name);
         nameView.setText(name);
         TextView cpView = (TextView) findViewById(R.id.riddle_run_cp);
         cpView.setText("Checkpoint: " + cpAkt + "/" + cpAnz);
+        TextView questionView = (TextView) findViewById(R.id.riddle_run_riddle);
+        questionView.setText(question);
     }
 
     protected void nextCp(View view){
-        //antwort kontrollieren
-        if(cpAkt>=cpAnz){
-            //Gewonnen
+        if(answer == "123") {//kontrolliere position
+            if (cpAkt >= cpAnz) {
+                //Gewonnen
+            } else {
+                cpAkt++;
+                //lade neue frage
+                //lade neue antwort
+                TextView cpView = (TextView) findViewById(R.id.riddle_run_cp);
+                cpView.setText("Checkpoint: " + cpAkt + "/" + cpAnz);
+                /*
+                Intent intent = new Intent(this, RiddleRun.class);
+                intent.putExtra("name", name);
+                intent.putExtra("cp", cpAnz);
+                intent.putExtra("cpOld", cpAkt);
+                startActivity(intent);
+                */
+            }
         } else {
-            cpAkt++;
-            Intent intent = new Intent(this,RiddleRun.class);
-            intent.putExtra("name", name);
-            intent.putExtra("cp", cpAnz);
-            intent.putExtra("cpOld", cpAkt);
-            startActivity(intent);
+            //nicht in der nähe
         }
     }
 
