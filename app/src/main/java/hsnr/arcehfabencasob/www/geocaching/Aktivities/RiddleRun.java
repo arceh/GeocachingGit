@@ -53,13 +53,13 @@ public class RiddleRun extends AppCompatActivity {
                 //lade neue antwort
                 TextView cpView = (TextView) findViewById(R.id.riddle_run_cp);
                 cpView.setText("Checkpoint: " + cpAkt + "/" + cpAnz);
-                /*
+                /*/
                 Intent intent = new Intent(this, RiddleRun.class);
                 intent.putExtra("name", name);
                 intent.putExtra("cp", cpAnz);
                 intent.putExtra("cpOld", cpAkt);
                 startActivity(intent);
-                */
+                //*/
             }
         } else {
             //nicht in der nähe

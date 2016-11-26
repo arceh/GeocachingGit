@@ -32,7 +32,7 @@ import hsnr.arcehfabencasob.www.geocaching.R;
 
 public class MainPage extends AppCompatActivity {
 
-    private RiddleDataSource database = new RiddleDataSource(this);
+    protected RiddleDataSource database = new RiddleDataSource(this);
     protected Map map;
 
     @Override
@@ -40,7 +40,8 @@ public class MainPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_page);
 
-        //*
+        //liste mit allen rätseln
+
         ArrayAdapter<String> adapter;
         ArrayList<String> listItem = new ArrayList<String>();
         listItem.add("1.Rätsel");
@@ -50,16 +51,6 @@ public class MainPage extends AppCompatActivity {
         container = (ListView) findViewById(R.id.main_page_contentList);
         container.setAdapter(adapter);
         initOnClick();
-        /*/
-        GridView container = (GridView) findViewById(R.id.main_page_contentList);
-        ArrayAdapter<String> adapter;
-        ArrayList<String> listItem = new ArrayList<String>();
-        listItem.add("1.Rätsel");
-        listItem.add("2.Rätsel");
-        adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,listItem);
-        container.setAdapter(adapter);
-        initOnClick();
-        //*/
 
         map = new Map(this);
     }
@@ -93,7 +84,7 @@ public class MainPage extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void initOnClick() {
+    protected void initOnClick() {
         ListView ContactList = (ListView) findViewById(R.id.main_page_contentList);
         ContactList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -111,7 +102,7 @@ public class MainPage extends AppCompatActivity {
         startActivity(intent);
     }
 
-    //-------------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------
 
     private void fillDummy() {
         database.open();

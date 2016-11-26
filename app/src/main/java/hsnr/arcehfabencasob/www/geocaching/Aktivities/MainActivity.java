@@ -21,7 +21,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void registry(View view) {
+
+    protected void registry(View view) {
         TextView error;
         error = (TextView) findViewById(R.id.errorField);
         EditText user;
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void login(View view) {
+    protected void login(View view) {
         TextView error;
         error = (TextView) findViewById(R.id.errorField);
         EditText user;
