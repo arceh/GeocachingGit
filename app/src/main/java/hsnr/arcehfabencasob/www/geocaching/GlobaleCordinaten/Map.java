@@ -1,38 +1,43 @@
 package hsnr.arcehfabencasob.www.geocaching.GlobaleCordinaten;
 
-        import android.Manifest;
-        import android.app.Activity;
-        import android.content.Context;
-        import android.content.pm.PackageManager;
-        import android.location.Address;
-        import android.location.Geocoder;
-        import android.location.Location;
-        import android.location.LocationManager;
-        import android.os.Build;
-        import android.support.annotation.RequiresApi;
-        import android.support.v4.app.ActivityCompat;
-        import android.support.v7.app.AppCompatActivity;
-        import android.os.Bundle;
-        import android.util.Log;
-        import android.view.View;
-        import android.widget.Button;
-        import android.widget.EditText;
-        import android.widget.Toast;
-        import com.google.android.gms.maps.CameraUpdate;
-        import com.google.android.gms.maps.CameraUpdateFactory;
-        import com.google.android.gms.maps.GoogleMap;
-        import com.google.android.gms.maps.MapView;
-        import com.google.android.gms.maps.OnMapReadyCallback;
-        import com.google.android.gms.maps.model.LatLng;
-        import com.google.android.gms.maps.model.MarkerOptions;
+import android.Manifest;
+import android.annotation.TargetApi;
+import android.app.Activity;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
-        import java.io.IOException;
-        import java.util.List;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
-        import static android.content.Context.ACTIVITY_SERVICE;
-        import static android.content.Context.LOCATION_SERVICE;
+import java.io.IOException;
+import java.util.List;
 
-public class Map{
+import hsnr.arcehfabencasob.www.geocaching.Aktivities.MainActivity;
+import hsnr.arcehfabencasob.www.geocaching.Aktivities.MainPage;
+
+import static android.content.Context.ACTIVITY_SERVICE;
+import static android.content.Context.LOCATION_SERVICE;
+
+public class Map {
 
     MapView mapView;
     GoogleMap maps;
@@ -41,57 +46,112 @@ public class Map{
     List<Address> kappa;
     private android.location.LocationListener locationListener;
     private LocationManager service;
-    private double laenge,breite;
+    private double laenge, breite,sended;
+    private boolean triggergps = false;
     Context that;
+    Thread t;
 
-    public Map(Context text){
-        this.onCreate(text);
-        that=text;
+
+    public Map(Context text) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            this.onCreate(text);
+        }
+        that = text;
+        t = new Thread(){
+
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            public void run(){
+                while(sended==breite) {
+                    getReQuest(service, locationListener);
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+        };
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     protected void onCreate(Context context) {
 
-                service = (LocationManager) context.getSystemService(LOCATION_SERVICE);
-                locationListener = new android.location.LocationListener() {
+        service = (LocationManager) context.getSystemService(LOCATION_SERVICE);
+        locationListener = new android.location.LocationListener() {
 
 
-                    @Override
-                    public void onLocationChanged(Location location) {
-                        Log.e("test", String.valueOf(location.getLongitude()));
-                        laenge = location.getLongitude();
-                        breite = location.getLatitude();
-                        //LatLng mypos = new LatLng(breite, laenge);
+            @Override
+            public void onLocationChanged(Location location) {
+                Log.e("test", String.valueOf(location.getLongitude()));
+                laenge = location.getLongitude();
+                breite = location.getLatitude();
+                //LatLng mypos = new LatLng(breite, laenge);
 
 
-                    }
-
-                    @Override
-                    public void onStatusChanged(String provider, int status, Bundle extras) {
-
-                    }
-
-                    @Override
-                    public void onProviderEnabled(String provider) {
-                        Log.e("provider",provider);
-                    }
-
-                    @Override
-                    public void onProviderDisabled(String provider) {
-
-                    }
-                };
-
-               // getReQuest(service, locationListener);
             }
+
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+
+            }
+
+            @Override
+            public void onProviderEnabled(String provider)
+            {
+                Log.e("provider", provider);
+            }
+
+            @Override
+            public void onProviderDisabled(String provider) {
+
+            }
+        };
+        if (service.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            triggergps = true;
+        } else {
+            triggergps = false;
+        }
+
+        //getReQuest(service, locationListener);
+    }
 
 
     /** Wichtig für die Verwendung**/
     @RequiresApi(api = Build.VERSION_CODES.M)
-     public  LatLng getReQuestLatLng(){
-        getReQuest(service,locationListener);
-        LatLng l=new LatLng(breite,laenge);
+    public LatLng getReQuestLatLng() {
+        getReQuest(service, locationListener);
 
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        breite= service.getLastKnownLocation(LocationManager.GPS_PROVIDER).getLatitude();
+        laenge=service.getLastKnownLocation(LocationManager.GPS_PROVIDER).getLongitude();
+        getReQuest(service, locationListener);
+        if(sended==breite){
+            t.start();
+        }
+        else{
+            try {
+                t.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        try {
+            t.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        LatLng l = new LatLng(breite, laenge);
+        if (ActivityCompat.checkSelfPermission(that, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(that, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+        }
+        service.removeUpdates(locationListener);
+        sended=breite;
         return l;
     }
     /** Wichtig für die Verwendung**/
@@ -123,13 +183,15 @@ public class Map{
             return;
         }
         else {
-            do {
-                lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, ll);
-            }while(breite==0);
+                    if(breite==sended) {
+
+                        lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, ll);
+                    }
+                }
+
 
 
         }
 
     }
-}
 
