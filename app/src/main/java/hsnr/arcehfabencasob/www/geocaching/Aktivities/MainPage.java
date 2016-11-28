@@ -83,7 +83,7 @@ public class MainPage extends AppCompatActivity {
                 fillDummy();
                 return true;
             case R.id.cords:
-                kappa();
+                gpsTestenHeißtJetztDieFunktionWeilCarstenKappaNichtMochte();
                 return true;
             default:
         }
@@ -111,12 +111,14 @@ public class MainPage extends AppCompatActivity {
 
     //----------------------------------------------------------------------------------------------
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     private void fillDummy() {
         database.open();
         HashMap<Integer, Question> q1 = new HashMap<>();
-        q1.put(1, new Question("Wie sieht ein Hund aus?", new Coordinate(5.4, 7.8)));
+        q1.put(1, new Question("Wie sieht ein Hund aus?", new Coordinate(5.4, -7.8)));
         q1.put(2, new Question("Wie sieht eine Katze aus?", new Coordinate(10.5, 0.8)));
-        q1.put(3, new Question("Wie sieht eine Giraffe aus?", new Coordinate(4.2, 10.6)));
+        LatLng test = map.getReQuestLatLng();
+        q1.put(3, new Question("Wie sieht eine Giraffe aus?", new Coordinate(test.latitude, test.longitude)));
         Riddle r1 = new Riddle("Rätsel der Erste", q1, "Wambomann", 5.0f);
         HashMap<Integer, Question> q2 = new HashMap<>();
         q2.put(1, new Question("Was ist die Hauptstadt von Georgien?", new Coordinate(2.3, 5)));
@@ -138,7 +140,7 @@ public class MainPage extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void kappa(){
+    public void gpsTestenHeißtJetztDieFunktionWeilCarstenKappaNichtMochte(){
         LatLng test = map.getReQuestLatLng();
         Toast.makeText(this, test.toString(), Toast.LENGTH_LONG).show();
     }
