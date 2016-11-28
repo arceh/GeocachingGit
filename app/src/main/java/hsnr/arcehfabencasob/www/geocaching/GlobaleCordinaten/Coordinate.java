@@ -15,7 +15,7 @@ public class Coordinate {
     }
 
     public Coordinate(String coord) {
-        if(!coord.matches("[0-9]*.{1}[0-9]*,{1} [0-9]*.{1}[0-9]*")) {
+        if(!coord.matches("[-]{0,1}[0-9]*.{1}[0-9]*,{1} [-]{0,1}[0-9]*.{1}[0-9]*")) {
             throw new IllegalArgumentException();
         }
         String[] coordinates;
