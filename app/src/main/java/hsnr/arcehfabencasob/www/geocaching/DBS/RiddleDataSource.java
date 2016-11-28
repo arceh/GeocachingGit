@@ -361,6 +361,7 @@ public class RiddleDataSource {
                 break;
             }
         }while(cursor.moveToNext());
+        cursor.close();
         return RiddleNames;
     }
 
@@ -374,21 +375,21 @@ public class RiddleDataSource {
     //Müsste theoretisch geändert werden von int auf ArrayList<int>
     public int getRiddleCheckpointCountByName(String RiddleName) {
         String[] Columns = {RiddleDbHelper.TABLE_RIDDLES_COUNT_QUESTIONS};
-        Cursor cursor = database.query(RiddleDbHelper.TABLE_RIDDLES, Columns, RiddleName + "=" + RiddleDbHelper.TABLE_RIDDLES_RIDDLENAME, null, null, null, null);
+        Cursor cursor = database.query(RiddleDbHelper.TABLE_RIDDLES, Columns, RiddleDbHelper.TABLE_RIDDLES_RIDDLENAME + "=" + "\""+ RiddleName + "\"", null, null, null, null);
         cursor.moveToFirst();
         return cursor.getInt(cursor.getColumnIndex(RiddleDbHelper.TABLE_RIDDLES_COUNT_QUESTIONS));
     }
 
     public String getRiddleCreatorByName(String RiddleName) {
         String[] Columns = {RiddleDbHelper.TABLE_RIDDLES_CREATORNAME};
-        Cursor cursor = database.query(RiddleDbHelper.TABLE_RIDDLES, Columns, RiddleName + "=" + RiddleDbHelper.TABLE_RIDDLES_CREATORNAME, null, null, null, null);
+        Cursor cursor = database.query(RiddleDbHelper.TABLE_RIDDLES, Columns, RiddleName + "=" + "\"" + RiddleDbHelper.TABLE_RIDDLES_CREATORNAME + "\"", null, null, null, null);
         cursor.moveToFirst();
         return cursor.getString(cursor.getColumnIndex(RiddleDbHelper.TABLE_RIDDLES_CREATORNAME));
     }
 
     public float getRiddleRatingByName(String RiddleName) {
         String[] Columns = {RiddleDbHelper.TABLE_RIDDLES_RATING};
-        Cursor cursor = database.query(RiddleDbHelper.TABLE_RIDDLES, Columns, RiddleName + "=" + RiddleDbHelper.TABLE_RIDDLES_RIDDLENAME, null, null, null, null);
+        Cursor cursor = database.query(RiddleDbHelper.TABLE_RIDDLES, Columns, RiddleName + "=" + "\"" + RiddleDbHelper.TABLE_RIDDLES_RIDDLENAME + "\"", null, null, null, null);
         cursor.moveToFirst();
         return cursor.getFloat(cursor.getColumnIndex(RiddleDbHelper.TABLE_RIDDLES_RATING));
     }
