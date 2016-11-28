@@ -123,7 +123,7 @@ public class MainPage extends AppCompatActivity {
         q2.put(2, new Question("Was ist die Hauptstadt von Dark Souls?", new Coordinate(9.2, 9.76)));
         q2.put(3, new Question("Was ist die Hauptstadt von Bielefeld?", new Coordinate(0, 0)));
         q2.put(4, new Question("Was ist die Hauptstadt von Armin?", new Coordinate(69, 69.69)));
-        Riddle r2 = new Riddle("Rätsel der Erste", q2, "Wambofrau", 5.0f);
+        Riddle r2 = new Riddle("Rätsel der Zwei", q2, "Wambofrau", 5.0f);
         HashMap<Integer, Question> q3 = new HashMap<>();
         q3.put(1, new Question("Wer kam am 23.11.2016 zu spät zu EZS?", new Coordinate(69, 69.69)));
         q3.put(2, new Question("Wer wird 2017 Präsident der Vereinigten Staaten?", new Coordinate(666, 666.666)));
