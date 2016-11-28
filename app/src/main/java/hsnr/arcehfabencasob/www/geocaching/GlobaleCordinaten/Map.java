@@ -10,6 +10,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -37,7 +38,7 @@ import hsnr.arcehfabencasob.www.geocaching.Aktivities.MainPage;
 import static android.content.Context.ACTIVITY_SERVICE;
 import static android.content.Context.LOCATION_SERVICE;
 
-public class Map {
+public class Map implements ActivityCompat.OnRequestPermissionsResultCallback{
 
     MapView mapView;
     GoogleMap maps;
@@ -50,7 +51,8 @@ public class Map {
     private boolean triggergps = false;
     Context that;
     double timeout;
-    Thread t;
+    Thread t,pre;
+
 
 
     public Map(Context text) {
@@ -99,6 +101,19 @@ public class Map {
 
         //getReQuest(service, locationListener);
     }
+    private void permissioncheck(){
+        if (ActivityCompat.checkSelfPermission(that, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(that, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions((Activity) that,new String[]{
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                    Manifest.permission.INTERNET
+            },10);
+            Log.e("test","bin raus");
+
+
+        }
+    }
 
 
     /** Wichtig für die Verwendung**/
@@ -114,34 +129,57 @@ public class Map {
 
             }
         };
-        getReQuest(service, locationListener);
-        breite= service.getLastKnownLocation(LocationManager.GPS_PROVIDER).getLatitude();
-        laenge=service.getLastKnownLocation(LocationManager.GPS_PROVIDER).getLongitude();
-        getReQuest(service, locationListener);
-        if(!triggergps){
-            timeout=System.currentTimeMillis();
-            t.start();
+        pre= new Thread(){
+          public void run(){
+            if(ActivityCompat.checkSelfPermission(that, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(that, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+                permissioncheck();
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+          }
+        };
+        pre.start();
+        try {
+            pre.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-        else{
+        if(ActivityCompat.checkSelfPermission(that, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(that, android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            getReQuest(service, locationListener);
+            breite = service.getLastKnownLocation(LocationManager.GPS_PROVIDER).getLatitude();
+            laenge = service.getLastKnownLocation(LocationManager.GPS_PROVIDER).getLongitude();
+            getReQuest(service, locationListener);
+            if (!triggergps) {
+                timeout = System.currentTimeMillis();
+                t.start();
+            } else {
+                try {
+                    t.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
             try {
                 t.join();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+
+            LatLng l = new LatLng(breite, laenge);
+            if (ActivityCompat.checkSelfPermission(that, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(that, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            }
+            service.removeUpdates(locationListener);
+            triggergps = false;
+            return l;
         }
-        try {
-            t.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        else{
+            return new LatLng(0,0);
         }
 
-        LatLng l = new LatLng(breite, laenge);
-        if (ActivityCompat.checkSelfPermission(that, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(that, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-        }
-        service.removeUpdates(locationListener);
-        triggergps=false;
-        return l;
     }
     /** Wichtig für die Verwendung**/
     public  float getDistanz(LatLng x,LatLng y){
@@ -172,15 +210,28 @@ public class Map {
             return;
         }
         else {
-                    if(breite==sended) {
+
 
                         lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, ll);
-                    }
+
                 }
 
 
 
         }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+            if(requestCode==10){
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                        && (ActivityCompat.checkSelfPermission(that, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                        || ActivityCompat.checkSelfPermission(that, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)) {
+
+                }
+                else{
+                    permissioncheck();
+                }
+            }
     }
+}
 
