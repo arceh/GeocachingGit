@@ -6,7 +6,6 @@
     android:weightSum="1">
 
     <TextView
-        android:text="Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -18,7 +17,6 @@
         android:gravity="center_horizontal" />
 
     <TextView
-        android:text="Checkpoint: 3/10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/riddle_run_name"
@@ -30,7 +28,6 @@
         android:gravity="center_horizontal" />
 
     <TextView
-        android:text="Wer kam am 23.11.2016 zu spät zu EZS?"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/riddle_run_riddle"

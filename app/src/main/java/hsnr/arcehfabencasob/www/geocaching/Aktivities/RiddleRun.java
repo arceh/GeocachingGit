@@ -5,7 +5,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import hsnr.arcehfabencasob.www.geocaching.DBS.Riddle;
+import hsnr.arcehfabencasob.www.geocaching.DBS.RiddleDataSource;
 import hsnr.arcehfabencasob.www.geocaching.R;
 
 /**
@@ -18,6 +21,9 @@ public class RiddleRun extends AppCompatActivity {
     String name = "";
     String question = "";
     String answer = "";
+    String answer1 = "";
+    protected RiddleDataSource database = new RiddleDataSource(this);
+    Riddle riddle;
 
 
     @Override
@@ -27,11 +33,12 @@ public class RiddleRun extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         name = extras.getString("name");
         cpAnz = extras.getInt("cp");
-        cpAkt = extras.getInt("cpOld", 1);
-        //lade frage zu cpAnz
-        question = "Wer kam am 23.11.2016 zu spät zu EZS?";
+        database.open();
+        riddle = database.getRiddlesByName(name).get(0);
+        database.close();
+        question = riddle.getQuestions().get(cpAkt).getQuestion().toString().toString().toString();
         //lade antwort zu cpAnz
-        answer = "123";
+        answer = riddle.getQuestions().get(cpAkt).getAnswer().toString();
         TextView nameView = (TextView) findViewById(R.id.riddle_run_name);
         nameView.setText(name);
         TextView cpView = (TextView) findViewById(R.id.riddle_run_cp);
@@ -41,30 +48,26 @@ public class RiddleRun extends AppCompatActivity {
     }
 
     protected void nextCp(View view){
-        if(answer == "123") {//kontrolliere position
+        if(answer == answer) {//kontrolliere position
             if (cpAkt >= cpAnz) {
                 Intent intent = new Intent(this, RiddleWin.class);
                 intent.putExtra("name", name);
                 startActivity(intent);
                 finish();
                 return;
-                //Gewonnen
             } else {
                 cpAkt++;
-                //lade neue frage
-                //lade neue antwort
                 TextView cpView = (TextView) findViewById(R.id.riddle_run_cp);
                 cpView.setText("Checkpoint: " + cpAkt + "/" + cpAnz);
-                /*/
-                Intent intent = new Intent(this, RiddleRun.class);
-                intent.putExtra("name", name);
-                intent.putExtra("cp", cpAnz);
-                intent.putExtra("cpOld", cpAkt);
-                startActivity(intent);
-                //*/
+                question = riddle.getQuestions().get(cpAkt).getQuestion().toString().toString().toString();
+                answer = riddle.getQuestions().get(cpAkt).getAnswer().toString();
+                answer = answer1;
+                answer1.replace("1","2");
+                TextView questionView = (TextView) findViewById(R.id.riddle_run_riddle);
+                questionView.setText(question);
             }
         } else {
-            //nicht in der nähe
+            Toast.makeText(this, "ALDA DU BIS FALSCH HIA", Toast.LENGTH_LONG).show();
         }
     }
 

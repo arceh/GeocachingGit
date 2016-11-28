@@ -14,7 +14,6 @@
         android:layout_toEndOf="@+id/riddle_start_header2"
         android:layout_alignBottom="@+id/riddle_start_header2"
         android:layout_alignTop="@+id/riddle_start_header2"
-        android:text="Hier steht der Autor"
         android:paddingRight="5dp" />
 
     <TextView
@@ -30,7 +29,6 @@
         android:paddingLeft="5dp" />
 
     <TextView
-        android:text="12"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/riddle_start_cp"
@@ -55,7 +53,6 @@
         android:paddingLeft="5dp" />
 
     <TextView
-        android:text=" 4,5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/riddle_start_rating"
@@ -113,7 +110,6 @@
         android:paddingLeft="5dp" />
 
     <TextView
-        android:text=" 88km"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/riddle_start_diameter"
