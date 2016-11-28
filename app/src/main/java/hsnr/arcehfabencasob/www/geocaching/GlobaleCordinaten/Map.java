@@ -49,6 +49,7 @@ public class Map {
     private double laenge, breite,sended;
     private boolean triggergps = false;
     Context that;
+    double timeout;
     Thread t;
 
 
@@ -57,21 +58,7 @@ public class Map {
             this.onCreate(text);
         }
         that = text;
-        t = new Thread(){
 
-            @RequiresApi(api = Build.VERSION_CODES.M)
-            public void run(){
-                while(!triggergps) {
-                    getReQuest(service, locationListener);
-                    try {
-                        Thread.sleep(500);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-            }
-        };
     }
 
 
@@ -117,17 +104,22 @@ public class Map {
     /** Wichtig für die Verwendung**/
     @RequiresApi(api = Build.VERSION_CODES.M)
     public LatLng getReQuestLatLng() {
-        getReQuest(service, locationListener);
+        t = new Thread(){
 
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            public void run(){
+                while(!triggergps && System.currentTimeMillis()-timeout>500) {
+                    getReQuest(service, locationListener);
+                }
+
+            }
+        };
+        getReQuest(service, locationListener);
         breite= service.getLastKnownLocation(LocationManager.GPS_PROVIDER).getLatitude();
         laenge=service.getLastKnownLocation(LocationManager.GPS_PROVIDER).getLongitude();
         getReQuest(service, locationListener);
         if(!triggergps){
+            timeout=System.currentTimeMillis();
             t.start();
         }
         else{
@@ -142,13 +134,13 @@ public class Map {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        triggergps=false;
+
         LatLng l = new LatLng(breite, laenge);
         if (ActivityCompat.checkSelfPermission(that, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(that, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
         }
         service.removeUpdates(locationListener);
-        sended=breite;
+        triggergps=false;
         return l;
     }
     /** Wichtig für die Verwendung**/
