@@ -400,6 +400,13 @@ public class RiddleDataSource {
         return cursor.getFloat(cursor.getColumnIndex(RiddleDbHelper.TABLE_RIDDLES_RATING));
     }
 
+    //-----------------------------------------------------------------------USER-----------------------------------------------------------------------------------------------------
+
+
+    /**
+     * Fügt einen Nutzer in die Datenbank hinzu.
+     * @param user User : Der Nutzer welcher der Datenbankhinzugefügt werden soll.
+     * */
     public User setUserInDatabase(User user) {
         ContentValues values_user = new ContentValues();
         values_user.put(RiddleDbHelper.TABLE_USER_NAME, user.username);
@@ -411,6 +418,10 @@ public class RiddleDataSource {
         return cursorToUser(cursor);
     }
 
+    /**
+     * Erstellt aus einem Cursor auf einen Eintrag einen Nutzer.
+     * @param cursor Cursor : Der Cursor auf den Eintrag in der Tabelle.
+     * */
     public User cursorToUser(Cursor cursor) {
         String username = cursor.getString(cursor.getColumnIndex(RiddleDbHelper.TABLE_USER_NAME));
         String password = cursor.getString(cursor.getColumnIndex(RiddleDbHelper.TABLE_USER_PASSWORD));
@@ -418,6 +429,10 @@ public class RiddleDataSource {
         return new User(id, username, password);
     }
 
+
+    /**
+     * Liefert alle Nutzer in einer ArrayList<User>
+     * */
     public ArrayList<User> getAllUsers() {
         ArrayList<User> users = new ArrayList<>();
         Cursor cursor = database.query(RiddleDbHelper.TABLE_USER, columns_user, null, null, null, null, null);
@@ -426,5 +441,30 @@ public class RiddleDataSource {
             users.add(cursorToUser(cursor));
         }while(cursor.moveToNext());
         return users;
+    }
+
+    /**
+     * Liefert alle Usernames in einer ArrayList<String>
+     * */
+    public ArrayList<String> getAllUsernames() {
+        ArrayList<String> usernames = new ArrayList<>();
+        String[] columns = {RiddleDbHelper.TABLE_USER_NAME};
+        Cursor cursor = database.query(RiddleDbHelper.TABLE_USER, columns, null, null, null, null, null);
+        cursor.moveToFirst();
+        do {
+            usernames.add(cursor.getString(cursor.getColumnIndex(RiddleDbHelper.TABLE_USER_NAME)));
+        }while(cursor.moveToNext());
+        return usernames;
+    }
+
+
+    /**
+     * Liefert das Passwort zu einem User.
+     * */
+    public String getPasswordByUsername(String username) {
+        String[] columns = {RiddleDbHelper.TABLE_USER_PASSWORD};
+        Cursor cursor = database.query(RiddleDbHelper.TABLE_USER, columns, RiddleDbHelper.TABLE_USER_NAME + "=" + "\"" + username + "\"", null, null, null, null);
+        cursor.moveToFirst();
+        return cursor.getString(cursor.getColumnIndex(RiddleDbHelper.TABLE_USER_PASSWORD));
     }
 }
