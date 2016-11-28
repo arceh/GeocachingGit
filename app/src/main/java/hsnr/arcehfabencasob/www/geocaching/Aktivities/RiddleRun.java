@@ -1,14 +1,19 @@
 package hsnr.arcehfabencasob.www.geocaching.Aktivities;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import hsnr.arcehfabencasob.www.geocaching.DBS.Riddle;
 import hsnr.arcehfabencasob.www.geocaching.DBS.RiddleDataSource;
+import hsnr.arcehfabencasob.www.geocaching.GlobaleCordinaten.Map;
 import hsnr.arcehfabencasob.www.geocaching.R;
 
 /**
@@ -20,10 +25,10 @@ public class RiddleRun extends AppCompatActivity {
     int cpAnz = 1;
     String name = "";
     String question = "";
-    String answer = "";
-    String answer1 = "";
+    LatLng answer;
     protected RiddleDataSource database = new RiddleDataSource(this);
     Riddle riddle;
+    protected Map map;
 
 
     @Override
@@ -36,9 +41,10 @@ public class RiddleRun extends AppCompatActivity {
         database.open();
         riddle = database.getRiddlesByName(name).get(0);
         database.close();
-        question = riddle.getQuestions().get(cpAkt).getQuestion().toString().toString().toString();
+        question = riddle.getQuestions().get(cpAkt).getQuestion().toString();
         //lade antwort zu cpAnz
-        answer = riddle.getQuestions().get(cpAkt).getAnswer().toString();
+        LatLng tmp = new LatLng(riddle.getQuestions().get(cpAkt).getAnswer().x, riddle.getQuestions().get(cpAkt).getAnswer().y);
+        answer = tmp;
         TextView nameView = (TextView) findViewById(R.id.riddle_run_name);
         nameView.setText(name);
         TextView cpView = (TextView) findViewById(R.id.riddle_run_cp);
@@ -47,8 +53,9 @@ public class RiddleRun extends AppCompatActivity {
         questionView.setText(question);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     protected void nextCp(View view){
-        if(answer == answer1) {//kontrolliere position
+        if(answer == map.getReQuestLatLng()) {//kontrolliere position
             if (cpAkt >= cpAnz) {
                 Intent intent = new Intent(this, RiddleWin.class);
                 intent.putExtra("name", name);
@@ -59,10 +66,9 @@ public class RiddleRun extends AppCompatActivity {
                 cpAkt++;
                 TextView cpView = (TextView) findViewById(R.id.riddle_run_cp);
                 cpView.setText("Checkpoint: " + cpAkt + "/" + cpAnz);
-                question = riddle.getQuestions().get(cpAkt).getQuestion().toString().toString().toString();
-                answer = riddle.getQuestions().get(cpAkt).getAnswer().toString();
-                answer = answer1;
-                answer1.replace("1","2");
+                question = riddle.getQuestions().get(cpAkt).getQuestion().toString();
+                LatLng tmp = new LatLng(riddle.getQuestions().get(cpAkt).getAnswer().x, riddle.getQuestions().get(cpAkt).getAnswer().y);
+                answer = tmp;
                 TextView questionView = (TextView) findViewById(R.id.riddle_run_riddle);
                 questionView.setText(question);
             }

@@ -38,7 +38,6 @@
             android:ems="10"
             android:hint="Name"
             android:id="@+id/user"
-            android:text="Assares"
             android:textSize="22sp" />
 
 
@@ -49,7 +48,6 @@
             android:ems="10"
             android:hint="Passwort"
             android:id="@+id/password"
-            android:text="1234"
             android:textSize="22sp" />
 
         <TextView

@@ -8,17 +8,24 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 import hsnr.arcehfabencasob.www.geocaching.R;
 
 public class MainActivity extends AppCompatActivity {
 
     boolean i = false;
-
+    Map<String,String> acc = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        acc.put("Assares","1");
+        acc.put("Sobbi","2");
+        acc.put("neversluckys","3");
     }
 
 
@@ -84,10 +91,10 @@ public class MainActivity extends AppCompatActivity {
             fordere hash-pwd für name an => stimmen hash nicht über ein return 1
                                          => stimmt hash über ein return 2
          */
-        if(!Username.equals("Assares")){
+        if(!acc.containsKey(Username)){
             return 0;
         }
-        if(password.equals("1234")){
+        if(password.equals(acc.get(Username).toString())){
             return 2;
         } else {
             return 1;
@@ -101,15 +108,18 @@ public class MainActivity extends AppCompatActivity {
             lege neuen user in db an => passwort nicht aktzeptabel return 2
                                      => alles ok return 3
          */
+
+
         if(Username.isEmpty()){
             return 0;
         }
-        if(Username.equals("Assares")){
+        if(acc.containsKey(Username)){
             return 1;
         }
         if(password.isEmpty()){
             return 2;
         }
+        acc.put(Username, password);
         return 3;
     }
 }
