@@ -115,9 +115,9 @@ public class MainPage extends AppCompatActivity {
     private void fillDummy() {
         database.open();
         HashMap<Integer, Question> q1 = new HashMap<>();
-        q1.put(1, new Question("Wie sieht ein Hund aus?", new Coordinate(5.4, -7.8)));
-        q1.put(2, new Question("Wie sieht eine Katze aus?", new Coordinate(10.5, 0.8)));
         LatLng test = map.getReQuestLatLng();
+        q1.put(1, new Question("Wie sieht ein Hund aus?", new Coordinate(test.latitude, test.longitude)));
+        q1.put(2, new Question("Wie sieht eine Katze aus?", new Coordinate(test.latitude, test.longitude)));
         q1.put(3, new Question("Wie sieht eine Giraffe aus?", new Coordinate(test.latitude, test.longitude)));
         Riddle r1 = new Riddle("Rätsel der Erste", q1, "Wambomann", 5.0f);
         HashMap<Integer, Question> q2 = new HashMap<>();

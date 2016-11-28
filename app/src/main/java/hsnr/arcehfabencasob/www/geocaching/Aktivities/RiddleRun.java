@@ -11,6 +11,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import java.io.Console;
+
 import hsnr.arcehfabencasob.www.geocaching.DBS.Riddle;
 import hsnr.arcehfabencasob.www.geocaching.DBS.RiddleDataSource;
 import hsnr.arcehfabencasob.www.geocaching.GlobaleCordinaten.Map;
@@ -51,11 +53,14 @@ public class RiddleRun extends AppCompatActivity {
         cpView.setText("Checkpoint: " + cpAkt + "/" + cpAnz);
         TextView questionView = (TextView) findViewById(R.id.riddle_run_riddle);
         questionView.setText(question);
+        map = new Map(this);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     protected void nextCp(View view){
-        if(answer == map.getReQuestLatLng()) {//kontrolliere position
+        LatLng temp = map.getReQuestLatLng();
+        Toast.makeText(this, answer.toString() + temp.toString(), Toast.LENGTH_LONG).show();
+        if(map.getDistanz(answer, temp) <= 10) {//kontrolliere position
             if (cpAkt >= cpAnz) {
                 Intent intent = new Intent(this, RiddleWin.class);
                 intent.putExtra("name", name);
