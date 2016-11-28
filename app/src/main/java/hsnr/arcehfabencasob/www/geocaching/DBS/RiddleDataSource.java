@@ -382,7 +382,7 @@ public class RiddleDataSource {
 
     public String getRiddleCreatorByName(String RiddleName) {
         String[] Columns = {RiddleDbHelper.TABLE_RIDDLES_CREATORNAME};
-        Cursor cursor = database.query(RiddleDbHelper.TABLE_RIDDLES, Columns, RiddleName + "=" + "\"" + RiddleDbHelper.TABLE_RIDDLES_RIDDLENAME + "\"", null, null, null, null);
+        Cursor cursor = database.query(RiddleDbHelper.TABLE_RIDDLES, Columns, RiddleDbHelper.TABLE_RIDDLES_RIDDLENAME + "=" + "\"" + RiddleName + "\"", null, null, null, null);
         cursor.moveToFirst();
         return cursor.getString(cursor.getColumnIndex(RiddleDbHelper.TABLE_RIDDLES_CREATORNAME));
     }
