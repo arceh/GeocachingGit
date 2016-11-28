@@ -38,6 +38,12 @@ public class RiddleDataSource {
             RiddleDbHelper.TABLE_RIDDLES_SPECIFIC_ANSWER
     };
 
+    private String[] columns_user = {
+            RiddleDbHelper.TABLE_USER_ID,
+            RiddleDbHelper.TABLE_USER_PASSWORD,
+            RiddleDbHelper.TABLE_USER_NAME
+    };
+
     private boolean matchesColumn(String column) {
         if(column == RiddleDbHelper.TABLE_RIDDLES_COLUMN_ID || column == RiddleDbHelper.TABLE_RIDDLES_COUNT_QUESTIONS || column == RiddleDbHelper.TABLE_RIDDLES_CREATORNAME || column == RiddleDbHelper.TABLE_RIDDLES_RATING || column == RiddleDbHelper.TABLE_RIDDLES_RIDDLENAME || column == RiddleDbHelper.TABLE_RIDDLES_TARGET_COORD) {
             return true;
@@ -392,5 +398,33 @@ public class RiddleDataSource {
         Cursor cursor = database.query(RiddleDbHelper.TABLE_RIDDLES, Columns, RiddleDbHelper.TABLE_RIDDLES_RIDDLENAME + "=" + "\"" + RiddleName + "\"", null, null, null, null);
         cursor.moveToFirst();
         return cursor.getFloat(cursor.getColumnIndex(RiddleDbHelper.TABLE_RIDDLES_RATING));
+    }
+
+    public User setUserInDatabase(User user) {
+        ContentValues values_user = new ContentValues();
+        values_user.put(RiddleDbHelper.TABLE_USER_NAME, user.username);
+        values_user.put(RiddleDbHelper.TABLE_USER_PASSWORD, user.password);
+        long insertId = database.insert(RiddleDbHelper.TABLE_USER, null, values_user);
+
+        Cursor cursor = database.query(RiddleDbHelper.TABLE_USER, columns_user, RiddleDbHelper.TABLE_USER_ID + "=" + insertId, null, null, null, null);
+        cursor.moveToFirst();
+        return cursorToUser(cursor);
+    }
+
+    public User cursorToUser(Cursor cursor) {
+        String username = cursor.getString(cursor.getColumnIndex(RiddleDbHelper.TABLE_USER_NAME));
+        String password = cursor.getString(cursor.getColumnIndex(RiddleDbHelper.TABLE_USER_PASSWORD));
+        int id = cursor.getInt(cursor.getColumnIndex(RiddleDbHelper.TABLE_USER_ID));
+        return new User(id, username, password);
+    }
+
+    public ArrayList<User> getAllUsers() {
+        ArrayList<User> users = new ArrayList<>();
+        Cursor cursor = database.query(RiddleDbHelper.TABLE_USER, columns_user, null, null, null, null, null);
+        cursor.moveToFirst();
+        do {
+            users.add(cursorToUser(cursor));
+        }while(cursor.moveToNext());
+        return users;
     }
 }
