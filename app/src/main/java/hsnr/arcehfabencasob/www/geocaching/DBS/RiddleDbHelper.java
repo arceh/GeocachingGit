@@ -19,6 +19,7 @@ public class RiddleDbHelper extends SQLiteOpenHelper {
 
     public static final String TABLE_RIDDLES = "all_riddles";
     public static final String TABLE_RIDDLES_SPECIFIC = "all_riddles_specific";
+    public static final String TABLE_USER = "users";
 
     public static final String TABLE_RIDDLES_COLUMN_ID = "_id";
     public static final String TABLE_RIDDLES_RIDDLENAME = "riddle_name";
@@ -32,6 +33,10 @@ public class RiddleDbHelper extends SQLiteOpenHelper {
     public static final String TABLE_RIDDLES_SPECIFIC_QUESTIONNUMBER = "question_number";
     public static final String TABLE_RIDDLES_SPECIFIC_QUESTION = "question";
     public static final String TABLE_RIDDLES_SPECIFIC_ANSWER = "answer";
+
+    public static final String TABLE_USER_ID = "_id";
+    public static final String TABLE_USER_NAME = "name";
+    public static final String TABLE_USER_PASSWORD = "password";
 
     public static final String SQL_CREATE_TABLE_RIDDLES = "CREATE TABLE " + TABLE_RIDDLES +
             "(" + TABLE_RIDDLES_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -49,6 +54,11 @@ public class RiddleDbHelper extends SQLiteOpenHelper {
             "FOREIGN KEY(" + TABLE_RIDDLES_SPECIFIC_ID + ") REFERENCES " + TABLE_RIDDLES + "(" + TABLE_RIDDLES_COLUMN_ID + "), " +
             "UNIQUE(" + TABLE_RIDDLES_SPECIFIC_ID + "," + TABLE_RIDDLES_SPECIFIC_QUESTIONNUMBER + "));";
 
+    public static final String SQL_CREATE_TABLE_USER = "CREATE TABLE " + TABLE_USER +
+            "(" + TABLE_USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            TABLE_USER_NAME + " TEXT NOT NULL, " +
+            TABLE_USER_PASSWORD + " TEXT NOT NULL);";
+
 
     public RiddleDbHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -62,6 +72,8 @@ public class RiddleDbHelper extends SQLiteOpenHelper {
             db.execSQL(SQL_CREATE_TABLE_RIDDLES);
             Log.d(LOG_TAG, "Die Tabelle " + TABLE_RIDDLES_SPECIFIC + " wird mittels dem SQL-Befehl: " + SQL_CREATE_TABLE_RIDDLES_SPECIFIC + " angelegt");
             db.execSQL(SQL_CREATE_TABLE_RIDDLES_SPECIFIC);
+            Log.d(LOG_TAG, "Die Tabelle " + TABLE_USER + " wird mittels dem SQL-Befehl: " + SQL_CREATE_TABLE_USER + " angelegt");
+            db.execSQL(SQL_CREATE_TABLE_USER);
         } catch(Exception ex) {
             Log.e(LOG_TAG, "Fehler beim Anlegen der Tabelle: " + ex.getMessage());
         }
