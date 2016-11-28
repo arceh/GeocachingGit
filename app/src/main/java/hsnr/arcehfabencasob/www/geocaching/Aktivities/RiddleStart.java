@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import hsnr.arcehfabencasob.www.geocaching.DBS.RiddleDataSource;
 import hsnr.arcehfabencasob.www.geocaching.GlobaleCordinaten.Map;
 import hsnr.arcehfabencasob.www.geocaching.R;
 
@@ -19,6 +20,7 @@ import hsnr.arcehfabencasob.www.geocaching.R;
 
 public class RiddleStart extends AppCompatActivity {
 
+    protected RiddleDataSource database = new RiddleDataSource(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,10 +30,18 @@ public class RiddleStart extends AppCompatActivity {
         String name = extras.getString("riddleName");
         TextView nameView = (TextView) findViewById(R.id.riddle_start_name);
         nameView.setText(name);
+        TextView cpView = (TextView) findViewById(R.id.riddle_start_cp);
+        TextView authorView = (TextView) findViewById(R.id.riddle_start_author);
+        TextView rateView = (TextView) findViewById(R.id.riddle_start_rating);
+        database.open();
         //Anzahl cp holen und Anzeigen
+        cpView.setText(database.getRiddleCheckpointCountByName(name));
         //Autor holen und Anzeigen
+        authorView.setText(database.getRiddleCreatorByName(name));
         //Bewertung
+        rateView.setText(Float.toString(database.getRiddleRatingByName(name)));
         //Durchmesser
+        database.close();
     }
 
     protected void startRiddle(View view){

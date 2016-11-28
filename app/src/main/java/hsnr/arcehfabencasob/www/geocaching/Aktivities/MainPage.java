@@ -43,9 +43,16 @@ public class MainPage extends AppCompatActivity {
         //liste mit allen rätseln
 
         ArrayAdapter<String> adapter;
+
         ArrayList<String> listItem = new ArrayList<String>();
+        /*
         listItem.add("1.Rätsel");
         listItem.add("2.Rätsel");
+        */
+        database.open();
+        listItem = database.getAllRiddleNames();
+        database.close();
+
         adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,listItem);
         ListView container;
         container = (ListView) findViewById(R.id.main_page_contentList);
@@ -70,8 +77,7 @@ public class MainPage extends AppCompatActivity {
                 Toast.makeText(this, "Gibt es noch nicht", Toast.LENGTH_LONG).show();
                 return true;
             case R.id.menuLogout:
-                Intent intent = new Intent(this,MainActivity.class);
-                startActivity(intent);
+                finish();
                 return true;
             case R.id.dummy:
                 fillDummy();
@@ -92,6 +98,7 @@ public class MainPage extends AppCompatActivity {
                 TextView viewName = (TextView) view;
                 String name = viewName.getText().toString();
                 lookRiddle(name);
+
             }
         });
     }
