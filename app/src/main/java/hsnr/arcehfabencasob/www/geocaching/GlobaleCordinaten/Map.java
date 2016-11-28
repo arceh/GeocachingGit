@@ -61,7 +61,7 @@ public class Map {
 
             @RequiresApi(api = Build.VERSION_CODES.M)
             public void run(){
-                while(sended==breite) {
+                while(!triggergps) {
                     getReQuest(service, locationListener);
                     try {
                         Thread.sleep(500);
@@ -87,6 +87,7 @@ public class Map {
                 Log.e("test", String.valueOf(location.getLongitude()));
                 laenge = location.getLongitude();
                 breite = location.getLatitude();
+                triggergps=true;
                 //LatLng mypos = new LatLng(breite, laenge);
 
 
@@ -108,11 +109,6 @@ public class Map {
 
             }
         };
-        if (service.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            triggergps = true;
-        } else {
-            triggergps = false;
-        }
 
         //getReQuest(service, locationListener);
     }
@@ -131,7 +127,7 @@ public class Map {
         breite= service.getLastKnownLocation(LocationManager.GPS_PROVIDER).getLatitude();
         laenge=service.getLastKnownLocation(LocationManager.GPS_PROVIDER).getLongitude();
         getReQuest(service, locationListener);
-        if(sended==breite){
+        if(!triggergps){
             t.start();
         }
         else{
@@ -146,6 +142,7 @@ public class Map {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        triggergps=false;
         LatLng l = new LatLng(breite, laenge);
         if (ActivityCompat.checkSelfPermission(that, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(that, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
