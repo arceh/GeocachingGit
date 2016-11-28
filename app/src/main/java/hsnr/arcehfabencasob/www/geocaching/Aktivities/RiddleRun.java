@@ -48,7 +48,7 @@ public class RiddleRun extends AppCompatActivity {
     }
 
     protected void nextCp(View view){
-        if(answer == answer) {//kontrolliere position
+        if(answer == answer1) {//kontrolliere position
             if (cpAkt >= cpAnz) {
                 Intent intent = new Intent(this, RiddleWin.class);
                 intent.putExtra("name", name);
