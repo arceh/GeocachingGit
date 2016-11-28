@@ -24,8 +24,10 @@ public class RiddleWin extends AppCompatActivity {
 
     protected void rating(View view){
         //berechne rating und setzte neues rating
-        Intent intent = new Intent(this,MainPage.class);
-        startActivity(intent);
+        //Intent intent = new Intent(this,MainPage.class);
+        //startActivity(intent);
+        finish(); //schließen der Activity
+        return;
     }
 
 }

@@ -349,4 +349,22 @@ public class RiddleDataSource {
         return Riddles;
     }
 
+    public ArrayList<String> getAllRiddleNames() {
+        ArrayList<String> RiddleNames = new ArrayList<>();
+        String[] Columns = {RiddleDbHelper.TABLE_RIDDLES_RIDDLENAME};
+        Cursor cursor = database.query(RiddleDbHelper.TABLE_RIDDLES, Columns, null, null, null, null, null);
+        cursor.moveToFirst();
+        do {
+            RiddleNames.add(cursor.getString(cursor.getColumnIndex(RiddleDbHelper.TABLE_RIDDLES_RIDDLENAME)));
+        }while(cursor.moveToNext());
+        return RiddleNames;
+    }
+
+    public String getRiddleNameByID(int Id) {
+        String[] Columns = {RiddleDbHelper.TABLE_RIDDLES_RIDDLENAME};
+        Cursor cursor = database.query(RiddleDbHelper.TABLE_RIDDLES, Columns, Id + "=" + RiddleDbHelper.TABLE_RIDDLES_COLUMN_ID, null, null, null, null);
+        cursor.moveToFirst();
+        return cursor.getString(cursor.getColumnIndex(RiddleDbHelper.TABLE_RIDDLES_RIDDLENAME));
+    }
+
 }

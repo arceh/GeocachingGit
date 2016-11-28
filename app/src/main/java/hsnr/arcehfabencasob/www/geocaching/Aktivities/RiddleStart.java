@@ -48,6 +48,8 @@ public class RiddleStart extends AppCompatActivity {
         intent.putExtra("name", name);
         intent.putExtra("cp", cp);
         startActivity(intent);
+        finish(); //schließen der Activity
+        return;
     }
 
 }

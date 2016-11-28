@@ -46,6 +46,8 @@ public class RiddleRun extends AppCompatActivity {
                 Intent intent = new Intent(this, RiddleWin.class);
                 intent.putExtra("name", name);
                 startActivity(intent);
+                finish();
+                return;
                 //Gewonnen
             } else {
                 cpAkt++;
