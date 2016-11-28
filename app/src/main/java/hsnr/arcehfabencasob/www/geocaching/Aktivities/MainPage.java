@@ -127,6 +127,7 @@ public class MainPage extends AppCompatActivity {
         database.setRiddleInDatabase(r1);
         database.setRiddleInDatabase(r2);
         database.setRiddleInDatabase(r3);
+        database.close();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)

@@ -19,7 +19,7 @@ import hsnr.arcehfabencasob.www.geocaching.GlobaleCordinaten.Coordinate;
 public class RiddleDataSource {
 
     private static final String LOG_TAG = RiddleDataSource.class.getSimpleName();
-    private SQLiteDatabase database;
+    private static SQLiteDatabase database;
     private RiddleDbHelper dbHelper;
 
     private String[] columns_all_riddles = {
@@ -355,7 +355,11 @@ public class RiddleDataSource {
         Cursor cursor = database.query(RiddleDbHelper.TABLE_RIDDLES, Columns, null, null, null, null, null);
         cursor.moveToFirst();
         do {
-            RiddleNames.add(cursor.getString(cursor.getColumnIndex(RiddleDbHelper.TABLE_RIDDLES_RIDDLENAME)));
+            try {
+                RiddleNames.add(cursor.getString(cursor.getColumnIndex(RiddleDbHelper.TABLE_RIDDLES_RIDDLENAME)));
+            } catch(Exception ex) {
+                break;
+            }
         }while(cursor.moveToNext());
         return RiddleNames;
     }
