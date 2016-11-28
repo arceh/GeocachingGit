@@ -389,7 +389,7 @@ public class RiddleDataSource {
 
     public float getRiddleRatingByName(String RiddleName) {
         String[] Columns = {RiddleDbHelper.TABLE_RIDDLES_RATING};
-        Cursor cursor = database.query(RiddleDbHelper.TABLE_RIDDLES, Columns, RiddleName + "=" + "\"" + RiddleDbHelper.TABLE_RIDDLES_RIDDLENAME + "\"", null, null, null, null);
+        Cursor cursor = database.query(RiddleDbHelper.TABLE_RIDDLES, Columns, RiddleDbHelper.TABLE_RIDDLES_RIDDLENAME + "=" + "\"" + RiddleName + "\"", null, null, null, null);
         cursor.moveToFirst();
         return cursor.getFloat(cursor.getColumnIndex(RiddleDbHelper.TABLE_RIDDLES_RATING));
     }
