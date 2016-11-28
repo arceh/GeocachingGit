@@ -371,4 +371,11 @@ public class RiddleDataSource {
         return cursor.getString(cursor.getColumnIndex(RiddleDbHelper.TABLE_RIDDLES_RIDDLENAME));
     }
 
+    //Müsste theoretisch geändert werden von int auf ArrayList<int>
+    public int getRiddleCheckpointCountByName(String RiddleName) {
+        String[] Columns = {RiddleDbHelper.TABLE_RIDDLES_COUNT_QUESTIONS};
+        Cursor cursor = database.query(RiddleDbHelper.TABLE_RIDDLES, Columns, RiddleName + "=" + RiddleDbHelper.TABLE_RIDDLES_RIDDLENAME, null, null, null, null);
+        cursor.moveToFirst();
+        return cursor.getInt(cursor.getColumnIndex(RiddleDbHelper.TABLE_RIDDLES_COUNT_QUESTIONS));
+    }
 }
