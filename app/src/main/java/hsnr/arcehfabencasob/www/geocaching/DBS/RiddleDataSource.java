@@ -464,6 +464,9 @@ public class RiddleDataSource {
     public String getPasswordByUsername(String username) {
         String[] columns = {RiddleDbHelper.TABLE_USER_PASSWORD};
         Cursor cursor = database.query(RiddleDbHelper.TABLE_USER, columns, RiddleDbHelper.TABLE_USER_NAME + "=" + "\"" + username + "\"", null, null, null, null);
+        if(cursor.getCount() < 1) {
+            return null;
+        }
         cursor.moveToFirst();
         return cursor.getString(cursor.getColumnIndex(RiddleDbHelper.TABLE_USER_PASSWORD));
     }
