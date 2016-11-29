@@ -5,8 +5,6 @@ import android.util.Log;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import javax.sql.DataSource;
-
 /**
  * Created by Carsten on 28.11.2016.
  */
