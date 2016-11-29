@@ -408,6 +408,9 @@ public class RiddleDataSource {
      * @param user User : Der Nutzer welcher der Datenbankhinzugefügt werden soll.
      * */
     public User setUserInDatabase(User user) {
+        if(user.id != -1) {
+            throw new IllegalArgumentException("Der Nutzer darf nicht mit einer Id angelegt worden sein!");
+        }
         ContentValues values_user = new ContentValues();
         values_user.put(RiddleDbHelper.TABLE_USER_NAME, user.username);
         values_user.put(RiddleDbHelper.TABLE_USER_PASSWORD, user.password);

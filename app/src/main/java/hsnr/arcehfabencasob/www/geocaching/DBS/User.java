@@ -25,6 +25,7 @@ public class User {
             messageDigest.update(password.getBytes());
             String hash = new String(messageDigest.digest());
             this.password = hash;
+            this.id = -1;
         } catch(NoSuchAlgorithmException ex) {
             return;
         }
@@ -32,6 +33,9 @@ public class User {
     }
 
     public User(int id, String username, String passwordHash) {
+        if(id < 0) {
+            throw new IllegalArgumentException("Id darf nicht negativ sein");
+        }
         this.username = username;
         this.password = passwordHash;
         this.id = id;
