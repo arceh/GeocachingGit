@@ -189,9 +189,9 @@ public class Map implements ActivityCompat.OnRequestPermissionsResultCallback{
         return m[0];
     }
     /** Wichtig für die Verwendung**/
-    public boolean compareCoords(LatLng x,LatLng y){
+    public boolean compareCoords(LatLng x,LatLng y,int z){
 
-        if(x.latitude==y.latitude && x.longitude==y.longitude){
+        if(getDistanz(x,y)<=z){
             return true;
         }else {
 

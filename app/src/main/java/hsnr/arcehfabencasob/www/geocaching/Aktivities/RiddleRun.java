@@ -60,7 +60,7 @@ public class RiddleRun extends AppCompatActivity {
     protected void nextCp(View view){
         LatLng temp = map.getReQuestLatLng();
         Toast.makeText(this, answer.toString() + temp.toString(), Toast.LENGTH_LONG).show();
-        if(map.getDistanz(answer, temp) <= 10) {//kontrolliere position
+        if(map.compareCoords(answer,temp,5)) {//kontrolliere position
             if (cpAkt >= cpAnz) {
                 Intent intent = new Intent(this, RiddleWin.class);
                 intent.putExtra("name", name);
