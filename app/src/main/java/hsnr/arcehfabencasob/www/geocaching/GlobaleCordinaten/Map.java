@@ -123,8 +123,10 @@ public class Map implements ActivityCompat.OnRequestPermissionsResultCallback{
 
             @RequiresApi(api = Build.VERSION_CODES.M)
             public void run(){
-                while(!triggergps && System.currentTimeMillis()-timeout>500) {
+                double tmp=System.currentTimeMillis()-timeout;
+                while(!triggergps && tmp<3000) {
                     getReQuest(service, locationListener);
+                    tmp=System.currentTimeMillis()-timeout;
                 }
 
             }
@@ -162,12 +164,14 @@ public class Map implements ActivityCompat.OnRequestPermissionsResultCallback{
                     e.printStackTrace();
                 }
             }
+           while(t.isAlive()){
+
+           }
             try {
                 t.join();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
             LatLng l = new LatLng(breite, laenge);
             if (ActivityCompat.checkSelfPermission(that, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(that, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
