@@ -35,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         map = new hsnr.arcehfabencasob.www.geocaching.GlobaleCordinaten.Map(this);
         map.getReQuestLatLng();
+
+
     }
 
 
