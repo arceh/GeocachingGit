@@ -7,17 +7,21 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import hsnr.arcehfabencasob.www.geocaching.DBS.RiddleDataSource;
+import hsnr.arcehfabencasob.www.geocaching.DBS.User;
 import hsnr.arcehfabencasob.www.geocaching.R;
 
 public class MainActivity extends AppCompatActivity {
 
     boolean i = false;
     Map<String,String> acc = new HashMap<>();
+    protected RiddleDataSource database = new RiddleDataSource(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,35 +74,15 @@ public class MainActivity extends AppCompatActivity {
         pwd = (EditText) findViewById(R.id.password);
         user.setBackgroundColor(Color.argb(0,0,0,0));
         pwd.setBackgroundColor(Color.argb(0,0,0,0));
-        switch (checkLogin(user.getText().toString(),pwd.getText().toString())){
-            case 0: error.setTextColor(Color.RED);
-                error.setText("Anmeldung fehlgeschlagen \n Name oder Passwort falsch");
-                break;
-            case 1: error.setTextColor(Color.RED);
-                error.setText("Anmeldung fehlgeschlagen \n Name oder Passwort falsch");
-                break;
-            case 2: Intent intent = new Intent(this,MainPage.class);
-                startActivity(intent);
-                break;
-            default: error.setTextColor(Color.RED);
-                error.setText("Unbekannter Fehler bei Login");
-        }
-    }
-
-    protected int checkLogin(String Username,String password){
-        /* Datenbank:
-            suche nach name => falls nicht vorhanden return 0
-            fordere hash-pwd für name an => stimmen hash nicht über ein return 1
-                                         => stimmt hash über ein return 2
-         */
-        if(!acc.containsKey(Username)){
-            return 0;
-        }
-        if(password.equals(acc.get(Username).toString())){
-            return 2;
+        database.open();
+        if(User.compareLoginCredentials(user.getText().toString(),pwd.getText().toString(),database)){
+            Intent intent = new Intent(this,MainPage.class);
+            startActivity(intent);
         } else {
-            return 1;
+            error.setTextColor(Color.RED);
+            error.setText("Anmeldung fehlgeschlagen \n Name oder Passwort falsch");
         }
+        database.close();
     }
 
     protected int checkRegistry(String Username,String password){
@@ -109,17 +93,20 @@ public class MainActivity extends AppCompatActivity {
                                      => alles ok return 3
          */
 
-
         if(Username.isEmpty()){
             return 0;
-        }
-        if(acc.containsKey(Username)){
-            return 1;
         }
         if(password.isEmpty()){
             return 2;
         }
+        database.open();
+        User user = new User(Username, password);
+        Toast.makeText(this, database.setUserInDatabase(user).toString(), Toast.LENGTH_LONG).show();
+        if(true){
+            return 1;
+        }
         acc.put(Username, password);
+        database.close();
         return 3;
     }
 }

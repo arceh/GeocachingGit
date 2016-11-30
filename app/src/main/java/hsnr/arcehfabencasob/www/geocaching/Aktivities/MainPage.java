@@ -41,7 +41,6 @@ public class MainPage extends AppCompatActivity {
         setContentView(R.layout.main_page);
 
         //liste mit allen rätseln
-
         ArrayAdapter<String> adapter;
 
         ArrayList<String> listItem = new ArrayList<String>();
