@@ -13,7 +13,6 @@ public class User {
 
     public String username;
     public String password;
-    public int id;
 
     public User(String username, String password) {
         if(username == null || username.equals("") || password == null || password.equals("")) {
@@ -25,20 +24,10 @@ public class User {
             messageDigest.update(password.getBytes());
             String hash = new String(messageDigest.digest());
             this.password = hash;
-            this.id = -1;
         } catch(NoSuchAlgorithmException ex) {
             return;
         }
 
-    }
-
-    public User(int id, String username, String passwordHash) {
-        if(id < 0) {
-            throw new IllegalArgumentException("Id darf nicht negativ sein");
-        }
-        this.username = username;
-        this.password = passwordHash;
-        this.id = id;
     }
 
     static public boolean compareLoginCredentials(String username, String password, RiddleDataSource database) {

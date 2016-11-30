@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import hsnr.arcehfabencasob.www.geocaching.DBS.CursorToRiddleMode;
 import hsnr.arcehfabencasob.www.geocaching.DBS.RiddleDataSource;
 import hsnr.arcehfabencasob.www.geocaching.DBS.User;
 import hsnr.arcehfabencasob.www.geocaching.R;
@@ -34,6 +35,10 @@ public class MainActivity extends AppCompatActivity {
 
 
     protected void registry(View view) {
+        database.open();
+        ArrayList<String> kappa = new ArrayList<>();
+        kappa = database.getAllUsernames();
+        database.close();
         TextView error;
         error = (TextView) findViewById(R.id.errorField);
         EditText user;
@@ -42,7 +47,10 @@ public class MainActivity extends AppCompatActivity {
         pwd = (EditText) findViewById(R.id.password);
         user.setBackgroundColor(Color.argb(0,0,0,0));
         pwd.setBackgroundColor(Color.argb(0,0,0,0));
-
+        database.open();
+        ArrayList<String> kappa1 = new ArrayList<>();
+        kappa1 = database.getAllUsernames();
+        database.close();
         switch (checkRegistry(user.getText().toString(),pwd.getText().toString())){
             case 0: error.setTextColor(Color.RED);
                 error.setText("Bitte geben sie einen Namen an");
@@ -92,7 +100,9 @@ public class MainActivity extends AppCompatActivity {
             lege neuen user in db an => passwort nicht aktzeptabel return 2
                                      => alles ok return 3
          */
-
+        database.open();
+        ArrayList<String> kappa = new ArrayList<>();
+        kappa = database.getAllUsernames();database.close();
         if(Username.isEmpty()){
             return 0;
         }
@@ -101,10 +111,13 @@ public class MainActivity extends AppCompatActivity {
         }
         database.open();
         User user = new User(Username, password);
-        ArrayList<String> kappa = new ArrayList<>();
-        //kappa = database.getAllUsernames();
-        database.setUserInDatabase(user);
-        if(true){
+        User user2 = new User(Username + "2", password);
+        ArrayList<String> kappa1 = new ArrayList<>();
+        kappa1 = database.getAllUsernames();
+        int i = 0 + CursorToRiddleMode.MULTIPLE;
+
+        if(database.setUserInDatabase(user) == null){
+            database.close();
             return 1;
         }
         acc.put(Username, password);

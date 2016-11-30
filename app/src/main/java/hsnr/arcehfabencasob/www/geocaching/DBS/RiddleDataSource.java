@@ -39,7 +39,6 @@ public class RiddleDataSource {
     };
 
     private String[] columns_user = {
-            RiddleDbHelper.TABLE_USER_ID,
             RiddleDbHelper.TABLE_USER_PASSWORD,
             RiddleDbHelper.TABLE_USER_NAME
     };
@@ -407,15 +406,16 @@ public class RiddleDataSource {
      * @param user User : Der Nutzer welcher der Datenbankhinzugefügt werden soll.
      * */
     public User setUserInDatabase(User user) {
-        if(user.id != -1) {
-            throw new IllegalArgumentException("Der Nutzer darf nicht mit einer Id angelegt worden sein!");
-        }
         ContentValues values_user = new ContentValues();
         values_user.put(RiddleDbHelper.TABLE_USER_NAME, user.username);
         values_user.put(RiddleDbHelper.TABLE_USER_PASSWORD, user.password);
-        long insertId = database.insert(RiddleDbHelper.TABLE_USER, null, values_user);
 
-        Cursor cursor = database.query(RiddleDbHelper.TABLE_USER, columns_user, RiddleDbHelper.TABLE_USER_ID + "=" + insertId, null, null, null, null);
+        Cursor cursor = database.query(RiddleDbHelper.TABLE_USER, columns_user, RiddleDbHelper.TABLE_USER_NAME + "=" + "\"" + user.username + "\"", null, null, null, null);
+        if(cursor.getCount() > 1) {
+            return null;
+        }
+        database.insert(RiddleDbHelper.TABLE_USER, null, values_user);
+
         cursor.moveToFirst();
         return cursorToUser(cursor);
     }
@@ -427,8 +427,7 @@ public class RiddleDataSource {
     public User cursorToUser(Cursor cursor) {
         String username = cursor.getString(cursor.getColumnIndex(RiddleDbHelper.TABLE_USER_NAME));
         String password = cursor.getString(cursor.getColumnIndex(RiddleDbHelper.TABLE_USER_PASSWORD));
-        int id = cursor.getInt(cursor.getColumnIndex(RiddleDbHelper.TABLE_USER_ID));
-        return new User(id, username, password);
+        return new User(username, password);
     }
 
 

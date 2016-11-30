@@ -55,8 +55,7 @@ public class RiddleDbHelper extends SQLiteOpenHelper {
             "UNIQUE(" + TABLE_RIDDLES_SPECIFIC_ID + "," + TABLE_RIDDLES_SPECIFIC_QUESTIONNUMBER + "));";
 
     public static final String SQL_CREATE_TABLE_USER = "CREATE TABLE " + TABLE_USER +
-            "(" + TABLE_USER_ID + " INTEGER AUTOINCREMENT, " +
-            TABLE_USER_NAME + " TEXT NOT NULL PRIMARY KEY, " +
+            "(" + TABLE_USER_NAME + " TEXT NOT NULL PRIMARY KEY, " +
             TABLE_USER_PASSWORD + " TEXT NOT NULL);";
 
 
