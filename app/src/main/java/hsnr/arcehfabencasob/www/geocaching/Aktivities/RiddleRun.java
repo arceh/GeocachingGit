@@ -59,8 +59,8 @@ public class RiddleRun extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.M)
     protected void nextCp(View view){
         LatLng temp = map.getReQuestLatLng();
-        Toast.makeText(this, answer.toString() + temp.toString(), Toast.LENGTH_LONG).show();
-        if(map.compareCoords(answer,temp,5)) {//kontrolliere position
+        Toast.makeText(this, answer.toString() + " " + temp.toString(), Toast.LENGTH_LONG).show();
+        if(map.compareCoords(answer,temp,10)) {//kontrolliere position
             if (cpAkt >= cpAnz) {
                 Intent intent = new Intent(this, RiddleWin.class);
                 intent.putExtra("name", name);

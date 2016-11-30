@@ -2,6 +2,8 @@ package hsnr.arcehfabencasob.www.geocaching.Aktivities;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,24 +11,30 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 import hsnr.arcehfabencasob.www.geocaching.DBS.CursorToRiddleMode;
 import hsnr.arcehfabencasob.www.geocaching.DBS.RiddleDataSource;
 import hsnr.arcehfabencasob.www.geocaching.DBS.User;
 import hsnr.arcehfabencasob.www.geocaching.R;
+import hsnr.arcehfabencasob.www.geocaching.GlobaleCordinaten.Map;
 
 public class MainActivity extends AppCompatActivity {
 
     boolean i = false;
     protected RiddleDataSource database = new RiddleDataSource(this);
+    protected hsnr.arcehfabencasob.www.geocaching.GlobaleCordinaten.Map map;
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        map = new hsnr.arcehfabencasob.www.geocaching.GlobaleCordinaten.Map(this);
+        map.getReQuestLatLng();
     }
 
 
@@ -83,26 +91,21 @@ public class MainActivity extends AppCompatActivity {
         database.close();
     }
 
-    protected int checkRegistry(String Username,String password){
+    protected int checkRegistry(String username,String password){
         /* Datenbank:
             suche name in db => ist name leer return 0
                              => name schon vorhanden return 1
             lege neuen user in db an => passwort nicht aktzeptabel return 2
                                      => alles ok return 3
          */
-        if(Username.isEmpty()){
+        if(username.isEmpty()){
             return 0;
         }
         if(password.isEmpty()){
             return 2;
         }
         database.open();
-        User user = new User(Username, password);
-        User user2 = new User(Username + "2", password);
-        ArrayList<String> kappa1 = new ArrayList<>();
-        kappa1 = database.getAllUsernames();
-        int i = 0 + CursorToRiddleMode.MULTIPLE;
-
+        User user = new User(username, password);
         if(database.setUserInDatabase(user) == null){
             database.close();
             return 1;

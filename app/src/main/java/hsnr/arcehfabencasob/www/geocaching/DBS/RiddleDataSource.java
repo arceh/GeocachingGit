@@ -411,11 +411,11 @@ public class RiddleDataSource {
         values_user.put(RiddleDbHelper.TABLE_USER_PASSWORD, user.password);
 
         Cursor cursor = database.query(RiddleDbHelper.TABLE_USER, columns_user, RiddleDbHelper.TABLE_USER_NAME + "=" + "\"" + user.username + "\"", null, null, null, null);
-        if(cursor.getCount() > 1) {
+        if(cursor.moveToNext()) {
             return null;
         }
         database.insert(RiddleDbHelper.TABLE_USER, null, values_user);
-
+        cursor = database.query(RiddleDbHelper.TABLE_USER, columns_user, RiddleDbHelper.TABLE_USER_NAME + "=" + "\"" + user.username + "\"", null, null, null, null);
         cursor.moveToFirst();
         return cursorToUser(cursor);
     }
