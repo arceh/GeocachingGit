@@ -59,7 +59,6 @@ public class RiddleRun extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.M)
     protected void nextCp(View view){
         LatLng temp = map.getReQuestLatLng();
-        Toast.makeText(this, answer.toString() + " " + temp.toString(), Toast.LENGTH_LONG).show();
         if(map.compareCoords(answer,temp,10)) {//kontrolliere position
             if (cpAkt >= cpAnz) {
                 Intent intent = new Intent(this, RiddleWin.class);
@@ -78,7 +77,7 @@ public class RiddleRun extends AppCompatActivity {
                 questionView.setText(question);
             }
         } else {
-            Toast.makeText(this, "ALDA DU BIS FALSCH HIA", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Sie sind hier nicht richtig oder sie sind nicht nah genug dran", Toast.LENGTH_LONG).show();
         }
     }
 

@@ -136,11 +136,11 @@ public class MainPage extends AppCompatActivity {
             q2.put(4, new Question("Wer spielt gerne mit Bällen?", new Coordinate(42.32, 42.42)));
             Riddle r2 = new Riddle("Rätsel der Zwei", q2, "Wambofrau", 5.0f);
             HashMap<Integer, Question> q3 = new HashMap<>();
-            q3.put(1, new Question("Was ist die Hauptstadt von Georgien?", new Coordinate(6.5715,51.3164)));
-            q3.put(2, new Question("Was ist die Hauptstadt von Dark Souls?", new Coordinate(6.5708,51.3165)));
-            q3.put(3, new Question("Was ist die Hauptstadt von Bielefeld?", new Coordinate(6.5697,51.3163)));
-            q3.put(4, new Question("Was ist die Hauptstadt von Armin?", new Coordinate(6.5697,51.3169)));
-            q3.put(5, new Question("BEAAAARDS?", new Coordinate(6.5694,51.3175)));
+            q3.put(1, new Question("Was ist die Hauptstadt von Georgien?", new Coordinate(51.3164,6.5715)));
+            q3.put(2, new Question("Was ist die Hauptstadt von Dark Souls?", new Coordinate(51.3165,6.5708)));
+            q3.put(3, new Question("Was ist die Hauptstadt von Bielefeld?", new Coordinate(51.3163,6.5697)));
+            q3.put(4, new Question("Was ist die Hauptstadt von Armin?", new Coordinate(51.3169,6.5697)));
+            q3.put(5, new Question("BEAAAARDS?", new Coordinate(51.3175,6.5694)));
             Riddle r3 = new Riddle("Rätsel Bart", q3, "Bartfrau", 5.0f);
             database.setRiddleInDatabase(r1);
             database.setRiddleInDatabase(r2);
