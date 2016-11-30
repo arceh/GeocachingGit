@@ -1,9 +1,11 @@
 package hsnr.arcehfabencasob.www.geocaching.Aktivities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -33,21 +35,22 @@ import hsnr.arcehfabencasob.www.geocaching.R;
 public class MainPage extends AppCompatActivity {
 
     protected RiddleDataSource database = new RiddleDataSource(this);
+
+    //----------------------------------------------------
     protected Map map;
+    public int bla = 1;
+    HashMap<Integer, Question> q1 = new HashMap<>();
+    //----------------------------------------------------
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_page);
 
-        //liste mit allen rätseln
         ArrayAdapter<String> adapter;
-
         ArrayList<String> listItem = new ArrayList<String>();
-        /*
-        listItem.add("1.Rätsel");
-        listItem.add("2.Rätsel");
-        */
+
         database.open();
         listItem = database.getAllRiddleNames();
         database.close();
@@ -58,7 +61,9 @@ public class MainPage extends AppCompatActivity {
         container.setAdapter(adapter);
         initOnClick();
 
+        //-----------------------
         map = new Map(this);
+        //-----------------------
     }
 
     @Override
@@ -112,36 +117,63 @@ public class MainPage extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void fillDummy() {
+
         database.open();
-        HashMap<Integer, Question> q1 = new HashMap<>();
         LatLng test = map.getReQuestLatLng();
-        q1.put(1, new Question("Wie sieht ein Hund aus?", new Coordinate(test.latitude, test.longitude)));
-        q1.put(2, new Question("Wie sieht eine Katze aus?", new Coordinate(test.latitude, test.longitude)));
-        q1.put(3, new Question("Wie sieht eine Giraffe aus?", new Coordinate(test.latitude, test.longitude)));
-        Riddle r1 = new Riddle("Rätsel der Erste", q1, "Wambomann", 5.0f);
-        HashMap<Integer, Question> q2 = new HashMap<>();
-        q2.put(1, new Question("Was ist die Hauptstadt von Georgien?", new Coordinate(2.3, 5)));
-        q2.put(2, new Question("Was ist die Hauptstadt von Dark Souls?", new Coordinate(9.2, 9.76)));
-        q2.put(3, new Question("Was ist die Hauptstadt von Bielefeld?", new Coordinate(0, 0)));
-        q2.put(4, new Question("Was ist die Hauptstadt von Armin?", new Coordinate(69, 69.69)));
-        Riddle r2 = new Riddle("Rätsel der Zwei", q2, "Wambofrau", 5.0f);
-        HashMap<Integer, Question> q3 = new HashMap<>();
-        q3.put(1, new Question("Wer kam am 23.11.2016 zu spät zu EZS?", new Coordinate(69, 69.69)));
-        q3.put(2, new Question("Wer wird 2017 Präsident der Vereinigten Staaten?", new Coordinate(666, 666.666)));
-        q3.put(3, new Question("Wer trägt ein Bein von einem Vogel als Ohrring?", new Coordinate(78, 65.432)));
-        q3.put(4, new Question("Wer spielt gerne mit Bällen?", new Coordinate(42.32, 42.42)));
-        q3.put(5, new Question("BEAAAARDS?", new Coordinate(32, 245.23)));
-        Riddle r3 = new Riddle("Rätsel Bart", q3, "Bartfrau", 5.0f);
-        database.setRiddleInDatabase(r1);
-        database.setRiddleInDatabase(r2);
-        database.setRiddleInDatabase(r3);
+        if(bla == 1) {
+            q1.put(1, new Question("Wie sieht ein Hund aus?", new Coordinate(test.latitude, test.longitude)));
+        }
+        if(bla == 2) {
+            q1.put(2, new Question("Wie sieht eine Katze aus?", new Coordinate(test.latitude, test.longitude)));
+        }
+        if(bla == 3) {
+            q1.put(3, new Question("Wie sieht eine Giraffe aus?", new Coordinate(test.latitude, test.longitude)));
+            Riddle r1 = new Riddle("Rätsel der Erste", q1, "Wambomann", 5.0f);
+            HashMap<Integer, Question> q2 = new HashMap<>();
+            q2.put(1, new Question("Wer kam am 23.11.2016 zu spät zu EZS?", new Coordinate(69, 69.69)));
+            q2.put(2, new Question("Wer wird 2017 Präsident der Vereinigten Staaten?", new Coordinate(666, 666.666)));
+            q2.put(3, new Question("Wer trägt ein Bein von einem Vogel als Ohrring?", new Coordinate(78, 65.432)));
+            q2.put(4, new Question("Wer spielt gerne mit Bällen?", new Coordinate(42.32, 42.42)));
+            Riddle r2 = new Riddle("Rätsel der Zwei", q2, "Wambofrau", 5.0f);
+            HashMap<Integer, Question> q3 = new HashMap<>();
+            q3.put(1, new Question("Was ist die Hauptstadt von Georgien?", new Coordinate(6.5715,51.3164)));
+            q3.put(2, new Question("Was ist die Hauptstadt von Dark Souls?", new Coordinate(6.5708,51.3165)));
+            q3.put(3, new Question("Was ist die Hauptstadt von Bielefeld?", new Coordinate(6.5697,51.3163)));
+            q3.put(4, new Question("Was ist die Hauptstadt von Armin?", new Coordinate(6.5697,51.3169)));
+            q3.put(5, new Question("BEAAAARDS?", new Coordinate(6.5694,51.3175)));
+            Riddle r3 = new Riddle("Rätsel Bart", q3, "Bartfrau", 5.0f);
+            database.setRiddleInDatabase(r1);
+            database.setRiddleInDatabase(r2);
+            database.setRiddleInDatabase(r3);
+        }
+        bla++;
         database.close();
+        blabla();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void gpsTestenHeißtJetztDieFunktionWeilCarstenKappaKomischFandUndTrotzdemMochte(){
         LatLng test = map.getReQuestLatLng();
         Toast.makeText(this, test.toString(), Toast.LENGTH_LONG).show();
+    }
+
+    public void blabla() {
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("KAPPA")
+                .setMessage("Nexte Frage")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                {
+                    @RequiresApi(api = Build.VERSION_CODES.M)
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(bla < 4) {
+                            fillDummy();
+                        }
+                    }
+
+                })
+                .show();
     }
 
 }
