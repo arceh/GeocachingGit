@@ -101,7 +101,9 @@ public class MainActivity extends AppCompatActivity {
         }
         database.open();
         User user = new User(Username, password);
-        Toast.makeText(this, database.setUserInDatabase(user).toString(), Toast.LENGTH_LONG).show();
+        ArrayList<String> kappa = new ArrayList<>();
+        //dkappa = database.getAllUsernames();
+        database.setUserInDatabase(user);
         if(true){
             return 1;
         }

@@ -451,7 +451,7 @@ public class RiddleDataSource {
     public ArrayList<String> getAllUsernames() {
         ArrayList<String> usernames = new ArrayList<>();
         String[] columns = {RiddleDbHelper.TABLE_USER_NAME};
-        Cursor cursor = database.query(RiddleDbHelper.TABLE_USER, columns, null, null, null, null, null);
+        Cursor cursor = database.query(RiddleDbHelper.TABLE_USER, columns_user, null, null, null, null, null);
         cursor.moveToFirst();
         do {
             usernames.add(cursor.getString(cursor.getColumnIndex(RiddleDbHelper.TABLE_USER_NAME)));
