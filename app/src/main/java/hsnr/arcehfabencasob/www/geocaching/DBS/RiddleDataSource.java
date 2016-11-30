@@ -57,7 +57,6 @@ public class RiddleDataSource {
         dbHelper = new RiddleDbHelper(context);
     }
 
-
     /**
      * Öffnet die Datenquelle.
      * */

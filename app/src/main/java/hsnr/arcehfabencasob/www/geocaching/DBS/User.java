@@ -42,6 +42,7 @@ public class User {
     }
 
     static public boolean compareLoginCredentials(String username, String password, RiddleDataSource database) {
+
         String passwd = database.getPasswordByUsername(username);
         try {
             MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
