@@ -82,7 +82,7 @@ public class MainPage extends AppCompatActivity {
                 fillDummy();
                 return true;
             case R.id.cords:
-                gpsTestenHeißtJetztDieFunktionWeilCarstenKappaNichtMochte();
+                gpsTestenHeißtJetztDieFunktionWeilCarstenKappaKomischFandUndTrotzdemMochte();
                 return true;
             default:
         }
@@ -139,7 +139,7 @@ public class MainPage extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void gpsTestenHeißtJetztDieFunktionWeilCarstenKappaNichtMochte(){
+    public void gpsTestenHeißtJetztDieFunktionWeilCarstenKappaKomischFandUndTrotzdemMochte(){
         LatLng test = map.getReQuestLatLng();
         Toast.makeText(this, test.toString(), Toast.LENGTH_LONG).show();
     }

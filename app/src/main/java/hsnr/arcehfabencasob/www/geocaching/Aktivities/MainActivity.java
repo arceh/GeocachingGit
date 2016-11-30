@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
         database.open();
         User user = new User(Username, password);
         ArrayList<String> kappa = new ArrayList<>();
-        //dkappa = database.getAllUsernames();
+        //kappa = database.getAllUsernames();
         database.setUserInDatabase(user);
         if(true){
             return 1;
