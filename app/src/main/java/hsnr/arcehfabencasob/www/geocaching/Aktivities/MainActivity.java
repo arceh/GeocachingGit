@@ -21,24 +21,17 @@ import hsnr.arcehfabencasob.www.geocaching.R;
 public class MainActivity extends AppCompatActivity {
 
     boolean i = false;
-    Map<String,String> acc = new HashMap<>();
     protected RiddleDataSource database = new RiddleDataSource(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        acc.put("Assares","1");
-        acc.put("Sobbi","2");
-        acc.put("neversluckys","3");
     }
 
 
     protected void registry(View view) {
-        database.open();
-        ArrayList<String> kappa = new ArrayList<>();
-        kappa = database.getAllUsernames();
-        database.close();
+
         TextView error;
         error = (TextView) findViewById(R.id.errorField);
         EditText user;
@@ -47,10 +40,7 @@ public class MainActivity extends AppCompatActivity {
         pwd = (EditText) findViewById(R.id.password);
         user.setBackgroundColor(Color.argb(0,0,0,0));
         pwd.setBackgroundColor(Color.argb(0,0,0,0));
-        database.open();
-        ArrayList<String> kappa1 = new ArrayList<>();
-        kappa1 = database.getAllUsernames();
-        database.close();
+
         switch (checkRegistry(user.getText().toString(),pwd.getText().toString())){
             case 0: error.setTextColor(Color.RED);
                 error.setText("Bitte geben sie einen Namen an");
@@ -100,9 +90,6 @@ public class MainActivity extends AppCompatActivity {
             lege neuen user in db an => passwort nicht aktzeptabel return 2
                                      => alles ok return 3
          */
-        database.open();
-        ArrayList<String> kappa = new ArrayList<>();
-        kappa = database.getAllUsernames();database.close();
         if(Username.isEmpty()){
             return 0;
         }
@@ -120,7 +107,6 @@ public class MainActivity extends AppCompatActivity {
             database.close();
             return 1;
         }
-        acc.put(Username, password);
         database.close();
         return 3;
     }
