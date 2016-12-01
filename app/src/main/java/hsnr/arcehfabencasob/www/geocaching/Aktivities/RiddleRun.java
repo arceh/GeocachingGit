@@ -77,7 +77,7 @@ public class RiddleRun extends AppCompatActivity {
                 questionView.setText(question);
             }
         } else {
-            Toast.makeText(this, "Sie sind hier nicht richtig oder sie sind nicht nah genug dran", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Sie sind an der falschen Position.", Toast.LENGTH_LONG).show();
         }
     }
 
