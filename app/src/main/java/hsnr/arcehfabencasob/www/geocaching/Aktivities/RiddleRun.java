@@ -59,7 +59,7 @@ public class RiddleRun extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.M)
     protected void nextCp(View view){
         LatLng temp = map.getReQuestLatLng();
-        if(map.compareCoords(answer,temp,10)) {//kontrolliere position
+        if(map.compareCoords(answer,temp,40)) {//kontrolliere position
             if (cpAkt >= cpAnz) {
                 Intent intent = new Intent(this, RiddleWin.class);
                 intent.putExtra("name", name);
@@ -78,6 +78,7 @@ public class RiddleRun extends AppCompatActivity {
             }
         } else {
             Toast.makeText(this, "Sie sind an der falschen Position.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, String.valueOf(map.getDistanz(answer,temp)), Toast.LENGTH_LONG).show();
         }
     }
 

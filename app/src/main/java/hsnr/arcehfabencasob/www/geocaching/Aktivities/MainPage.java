@@ -148,7 +148,6 @@ public class MainPage extends AppCompatActivity {
         }
         bla++;
         database.close();
-        blabla();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -157,24 +156,7 @@ public class MainPage extends AppCompatActivity {
         Toast.makeText(this, test.toString(), Toast.LENGTH_LONG).show();
     }
 
-    public void blabla() {
-        new AlertDialog.Builder(this)
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .setTitle("KAPPA")
-                .setMessage("Nexte Frage")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener()
-                {
-                    @RequiresApi(api = Build.VERSION_CODES.M)
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if(bla < 4) {
-                            fillDummy();
-                        }
-                    }
 
-                })
-                .show();
-    }
 
 }
 
