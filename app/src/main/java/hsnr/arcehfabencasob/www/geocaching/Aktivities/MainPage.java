@@ -25,7 +25,7 @@ import hsnr.arcehfabencasob.www.geocaching.DBS.Question;
 import hsnr.arcehfabencasob.www.geocaching.DBS.Riddle;
 import hsnr.arcehfabencasob.www.geocaching.DBS.RiddleDataSource;
 import hsnr.arcehfabencasob.www.geocaching.GlobaleCordinaten.Coordinate;
-import hsnr.arcehfabencasob.www.geocaching.GlobaleCordinaten.Map;
+import hsnr.arcehfabencasob.www.geocaching.GlobaleCordinaten.My_GPS;
 import hsnr.arcehfabencasob.www.geocaching.R;
 
 /**
@@ -37,7 +37,7 @@ public class MainPage extends AppCompatActivity {
     protected RiddleDataSource database = new RiddleDataSource(this);
 
     //----------------------------------------------------
-    protected Map map;
+    protected My_GPS map;
     public int bla = 1;
     HashMap<Integer, Question> q1 = new HashMap<>();
     //----------------------------------------------------
@@ -62,7 +62,7 @@ public class MainPage extends AppCompatActivity {
         initOnClick();
 
         //-----------------------
-        map = new Map(this);
+        map = new My_GPS(this);
         //-----------------------
     }
 

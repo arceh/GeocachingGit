@@ -9,31 +9,24 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.maps.model.LatLng;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import hsnr.arcehfabencasob.www.geocaching.DBS.CursorToRiddleMode;
 import hsnr.arcehfabencasob.www.geocaching.DBS.RiddleDataSource;
 import hsnr.arcehfabencasob.www.geocaching.DBS.User;
 import hsnr.arcehfabencasob.www.geocaching.R;
-import hsnr.arcehfabencasob.www.geocaching.GlobaleCordinaten.Map;
+import hsnr.arcehfabencasob.www.geocaching.GlobaleCordinaten.My_GPS;
 
 public class MainActivity extends AppCompatActivity {
 
     boolean i = false;
     protected RiddleDataSource database = new RiddleDataSource(this);
-    protected hsnr.arcehfabencasob.www.geocaching.GlobaleCordinaten.Map map;
+    protected My_GPS map;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        map = new hsnr.arcehfabencasob.www.geocaching.GlobaleCordinaten.Map(this);
+        map = new My_GPS(this);
         map.getReQuestLatLng();
     }
 

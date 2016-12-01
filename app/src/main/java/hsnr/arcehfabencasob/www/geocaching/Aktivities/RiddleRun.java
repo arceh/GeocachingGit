@@ -11,11 +11,9 @@ import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 
-import java.io.Console;
-
 import hsnr.arcehfabencasob.www.geocaching.DBS.Riddle;
 import hsnr.arcehfabencasob.www.geocaching.DBS.RiddleDataSource;
-import hsnr.arcehfabencasob.www.geocaching.GlobaleCordinaten.Map;
+import hsnr.arcehfabencasob.www.geocaching.GlobaleCordinaten.My_GPS;
 import hsnr.arcehfabencasob.www.geocaching.R;
 
 /**
@@ -30,7 +28,7 @@ public class RiddleRun extends AppCompatActivity {
     LatLng answer;
     protected RiddleDataSource database = new RiddleDataSource(this);
     Riddle riddle;
-    protected Map map;
+    protected My_GPS map;
 
 
     @Override
@@ -53,7 +51,7 @@ public class RiddleRun extends AppCompatActivity {
         cpView.setText("Checkpoint: " + cpAkt + "/" + cpAnz);
         TextView questionView = (TextView) findViewById(R.id.riddle_run_riddle);
         questionView.setText(question);
-        map = new Map(this);
+        map = new My_GPS(this);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
