@@ -109,6 +109,7 @@ public class My_GPS implements ActivityCompat.OnRequestPermissionsResultCallback
                     Manifest.permission.ACCESS_COARSE_LOCATION,
                     Manifest.permission.INTERNET
             },10);
+
             Log.e("test","bin raus");
 
 
