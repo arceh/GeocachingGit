@@ -19,15 +19,12 @@ public class MainActivity extends AppCompatActivity {
 
     boolean i = false;
     protected RiddleDataSource database = new RiddleDataSource(this);
-    protected My_GPS map;
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        map = new My_GPS(this);
-        map.getReQuestLatLng();
     }
 
 

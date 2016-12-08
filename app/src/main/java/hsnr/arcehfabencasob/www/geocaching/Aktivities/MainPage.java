@@ -156,19 +156,26 @@ public class MainPage extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void gpsTestenHeißtJetztDieFunktionWeilCarstenKappaKomischFandUndTrotzdemMochte(){
-        LatLng test = map.getReQuestLatLng();
-        Toast.makeText(this, test.toString(), Toast.LENGTH_LONG).show();
+        boolean testen;
+        testen = map.permissioncheck(1);
+        if(testen){
+            LatLng test = map.getReQuestLatLng();
+            Toast.makeText(this, test.toString(), Toast.LENGTH_LONG).show();
+        }
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if(requestCode==10){
+        if(requestCode==1){
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED
-                    && (ActivityCompat.checkSelfPermission(that, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
-                    || ActivityCompat.checkSelfPermission(that, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)) {
-
+                    && (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                    || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)) {
+                LatLng test = map.getReQuestLatLng();
+                Toast.makeText(this, test.toString(), Toast.LENGTH_LONG).show();
             }
             else{
-                permissioncheck();
+                map.permissioncheck(1);
             }
         }
     }
