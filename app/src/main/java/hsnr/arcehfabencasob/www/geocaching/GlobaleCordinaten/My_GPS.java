@@ -177,6 +177,9 @@ public class My_GPS{
 
             }
             LatLng l = sortinghaufen();
+        if(l==null){
+            l = new LatLng(breite,laenge);
+        }
 
             if (ActivityCompat.checkSelfPermission(that, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(that, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
