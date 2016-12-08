@@ -30,6 +30,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import hsnr.arcehfabencasob.www.geocaching.Aktivities.MainActivity;
@@ -38,7 +39,7 @@ import hsnr.arcehfabencasob.www.geocaching.Aktivities.MainPage;
 import static android.content.Context.ACTIVITY_SERVICE;
 import static android.content.Context.LOCATION_SERVICE;
 
-public class My_GPS implements ActivityCompat.OnRequestPermissionsResultCallback{
+public class My_GPS{
 
     MapView mapView;
     GoogleMap maps;
@@ -51,7 +52,7 @@ public class My_GPS implements ActivityCompat.OnRequestPermissionsResultCallback
     private boolean triggergps = false;
     Context that;
     double timeout;
-    Thread t,pre;
+   private ArrayList<LatLng> superposition;
 
 
 
@@ -68,6 +69,7 @@ public class My_GPS implements ActivityCompat.OnRequestPermissionsResultCallback
     protected void onCreate(Context context) {
 
         service = (LocationManager) context.getSystemService(LOCATION_SERVICE);
+        superposition= new ArrayList<LatLng>();
         locationListener = new android.location.LocationListener() {
 
 
@@ -76,7 +78,8 @@ public class My_GPS implements ActivityCompat.OnRequestPermissionsResultCallback
                 Log.e("test", String.valueOf(location.getLongitude()));
                 laenge = location.getLongitude();
                 breite = location.getLatitude();
-                triggergps=true;
+                triggergps=false;
+                superposition.add(new LatLng(breite,laenge));
                 //LatLng mypos = new LatLng(breite, laenge);
 
 
@@ -101,14 +104,14 @@ public class My_GPS implements ActivityCompat.OnRequestPermissionsResultCallback
 
         //getReQuest(service, locationListener);
     }
-    public void permissioncheck(){
+    public void permissioncheck(int permiss){
         if (ActivityCompat.checkSelfPermission(that, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(that, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
             ActivityCompat.requestPermissions((Activity) that,new String[]{
                     Manifest.permission.ACCESS_FINE_LOCATION,
                     Manifest.permission.ACCESS_COARSE_LOCATION,
                     Manifest.permission.INTERNET
-            },10);
+            },permiss);
 
             Log.e("test","bin raus");
 
@@ -132,6 +135,7 @@ public class My_GPS implements ActivityCompat.OnRequestPermissionsResultCallback
                     tmp=System.currentTimeMillis()-timeout;
 
                 }
+
             } else {
             }
             LatLng l = new LatLng(breite, laenge);
@@ -188,19 +192,5 @@ public class My_GPS implements ActivityCompat.OnRequestPermissionsResultCallback
 
 
         }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-            if(requestCode==10){
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED
-                        && (ActivityCompat.checkSelfPermission(that, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
-                        || ActivityCompat.checkSelfPermission(that, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)) {
-
-                }
-                else{
-                    permissioncheck();
-                }
-            }
-    }
 }
 
