@@ -82,7 +82,6 @@ public class My_GPS{
                 laenge = location.getLongitude();
                 breite = location.getLatitude();
                 triggergps=false;
-                superposition.add(new LatLng(breite,laenge));
                 //LatLng mypos = new LatLng(breite, laenge);
 
 
@@ -172,6 +171,7 @@ public class My_GPS{
                 while(!triggergps && tmp<3000) {
                     getReQuest(service, locationListener);
                     tmp=System.currentTimeMillis()-timeout;
+                    superposition.add(new LatLng(breite,laenge));
 
                 }
 
@@ -211,21 +211,8 @@ public class My_GPS{
    private  void getReQuest(LocationManager lm, android.location.LocationListener ll) {
         if (ActivityCompat.checkSelfPermission(that, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(that, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
-            ActivityCompat.requestPermissions((Activity) that,new String[]{
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.INTERNET
-            },10);
-            try {
-
-            } catch(Exception ex) {
-
-            }
-            Log.e("test","bin raus");
-            return;
         }
         else {
-
-
                         lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, ll);
 
                 }
