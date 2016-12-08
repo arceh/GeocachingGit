@@ -31,6 +31,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import hsnr.arcehfabencasob.www.geocaching.Aktivities.MainActivity;
@@ -104,7 +107,7 @@ public class My_GPS{
 
         //getReQuest(service, locationListener);
     }
-    public void permissioncheck(int permiss){
+    public boolean permissioncheck(int permiss){
         if (ActivityCompat.checkSelfPermission(that, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(that, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
             ActivityCompat.requestPermissions((Activity) that,new String[]{
@@ -113,12 +116,48 @@ public class My_GPS{
                     Manifest.permission.INTERNET
             },permiss);
 
-            Log.e("test","bin raus");
+            return false;
 
 
         }
+        return true;
     }
 
+    private LatLng sortinghaufen(){
+        int median;
+        Collections.sort(superposition, new Comparator<LatLng>() {
+            @Override
+            public int compare(LatLng o1, LatLng o2) {
+                if(o1.latitude<=o2.latitude && o1.longitude<=o2.longitude){
+                    return -1;
+                }
+                else if(o1.latitude<=o2.latitude && o1.longitude>o2.latitude){
+                    return -1;
+                }
+                else if (o1.latitude>o2.latitude && o1.longitude<=o2.longitude){
+                    return 1;
+                }
+                else if(o1.latitude>o2.latitude && o1.longitude>o2.longitude){
+                    return 1;
+                }
+                else {
+                    return 0;
+                }
+            }
+        });
+        median=superposition.size()-1;
+        if(median>-1){
+            if(median%2==0){
+                median=median/2;
+            }
+            else{
+                median=(median+1)/2;
+            }
+            return superposition.get(median);
+
+        }
+        return null;
+    }
 
     /** Wichtig für die Verwendung**/
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -136,9 +175,8 @@ public class My_GPS{
 
                 }
 
-            } else {
             }
-            LatLng l = new LatLng(breite, laenge);
+            LatLng l = sortinghaufen();
 
             if (ActivityCompat.checkSelfPermission(that, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(that, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
