@@ -168,7 +168,7 @@ public class My_GPS{
             if (!triggergps) {
                 timeout = System.currentTimeMillis();
                 double tmp=System.currentTimeMillis()-timeout;
-                while(!triggergps && tmp<3000) {
+                while(!triggergps && tmp<5000) {
                     getReQuest(service, locationListener);
                     tmp=System.currentTimeMillis()-timeout;
                     superposition.add(new LatLng(breite,laenge));
@@ -186,6 +186,7 @@ public class My_GPS{
             }
             service.removeUpdates(locationListener);
             triggergps = false;
+            superposition.clear();
             return l;
 
 
