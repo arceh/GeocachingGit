@@ -122,6 +122,9 @@ public class MainPage extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void fillDummy() {
 
+        if(!map.permissioncheck(2)){
+            return;
+        }
         database.open();
         LatLng test = map.getReQuestLatLng();
         if(bla == 1) {
@@ -150,6 +153,8 @@ public class MainPage extends AppCompatActivity {
             database.setRiddleInDatabase(r2);
             database.setRiddleInDatabase(r3);
         }
+        if(bla == 4)
+            finish();
         bla++;
         database.close();
     }

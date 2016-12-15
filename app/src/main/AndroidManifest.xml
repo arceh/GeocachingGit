@@ -40,7 +40,8 @@
                 <category android:name="android.intent.category.Riddle" />
             </intent-filter>
         </activity>
-        <activity android:name=".Aktivities.RiddleRun">
+        <activity android:name=".Aktivities.RiddleRun"
+                  android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.riddleRun" />
 
