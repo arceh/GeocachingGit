@@ -49,13 +49,14 @@ public class My_GPS{
     Geocoder geo;
     String name;
     List<Address> kappa;
-    private android.location.LocationListener locationListener;
+    private android.location.LocationListener locationListener,locationClient;
     private LocationManager service;
-    private double laenge, breite,sended;
+    private double laenge, breite,breiteclient,laengeclient;
     private boolean triggergps = false;
     Context that;
     double timeout;
    private ArrayList<LatLng> superposition;
+    private Location gg,ww;
 
 
 
@@ -79,8 +80,9 @@ public class My_GPS{
             @Override
             public void onLocationChanged(Location location) {
                 Log.e("test", String.valueOf(location.getLongitude()));
-                laenge = location.getLongitude();
-                breite = location.getLatitude();
+                breite=location.getLatitude();
+                laenge=location.getLongitude();
+                gg=location;
                 triggergps=false;
                 //LatLng mypos = new LatLng(breite, laenge);
 
@@ -96,6 +98,31 @@ public class My_GPS{
             public void onProviderEnabled(String provider)
             {
                 Log.e("provider", provider);
+            }
+
+            @Override
+            public void onProviderDisabled(String provider) {
+
+            }
+        };
+        locationClient= new android.location.LocationListener(){
+
+            @Override
+            public void onLocationChanged(Location location) {
+
+                ww=location;
+                breiteclient=location.getLatitude();
+                laengeclient=location.getLongitude();
+            }
+
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+
+            }
+
+            @Override
+            public void onProviderEnabled(String provider) {
+
             }
 
             @Override
@@ -157,6 +184,21 @@ public class My_GPS{
         }
         return null;
     }
+    private boolean wifiIsBetter(Location g,Location w){
+        float t=0;
+        if(g!=null && w!=null) {
+            t = g.getAccuracy() - w.getAccuracy();
+        }
+        if(g!=null && w==null)
+            return false;
+        if(w!=null && g==null)
+            return true;
+
+        if(t<0){
+            return true;
+        }
+        return false;
+    }
 
     /** Wichtig für die Verwendung**/
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -168,10 +210,25 @@ public class My_GPS{
             if (!triggergps) {
                 timeout = System.currentTimeMillis();
                 double tmp=System.currentTimeMillis()-timeout;
-                while(!triggergps && tmp<3000) {
+                while(!triggergps && tmp<8000) {
+                    while(tmp<1000){
+                        tmp=System.currentTimeMillis()-timeout;
+                    }
+                    getReQuestWIfi(service,locationClient);
                     getReQuest(service, locationListener);
                     tmp=System.currentTimeMillis()-timeout;
-                    superposition.add(new LatLng(breite,laenge));
+                    LatLng g= new LatLng(breite,laenge);
+                    if(gg!=null)
+                        g=new LatLng(gg.getLatitude(),gg.getLongitude());
+                    LatLng w=new LatLng(breiteclient,laengeclient);
+                    if(ww!=null)
+                        w= new LatLng(ww.getLatitude(),ww.getLongitude());
+                    if(wifiIsBetter(gg,ww)){
+                        superposition.add(w);
+                    }
+                    else {
+                        superposition.add(g);
+                    }
 
                 }
 
@@ -220,5 +277,18 @@ public class My_GPS{
 
 
         }
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private  void getReQuestWIfi(LocationManager lm, android.location.LocationListener ll) {
+        if (ActivityCompat.checkSelfPermission(that, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(that, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+        }
+        else {
+            lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, ll);
+
+        }
+
+
+
+    }
 }
 
