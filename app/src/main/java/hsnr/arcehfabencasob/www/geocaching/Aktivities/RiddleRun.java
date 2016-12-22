@@ -57,7 +57,7 @@ public class RiddleRun extends AppCompatActivity {
         TextView nameView = (TextView) findViewById(R.id.riddle_run_name);
         nameView.setText(name);
         TextView cpView = (TextView) findViewById(R.id.riddle_run_cp);
-        cpView.setText("Checkpoint: " + cpAkt + "/" + cpAnz);
+        cpView.setText(R.string.checkpoint + cpAkt + "/" + cpAnz);
         TextView questionView = (TextView) findViewById(R.id.riddle_run_riddle);
         questionView.setText(question);
         map = new My_GPS(this);
@@ -89,7 +89,7 @@ public class RiddleRun extends AppCompatActivity {
             } else {
                 cpAkt++;
                 TextView cpView = (TextView) findViewById(R.id.riddle_run_cp);
-                cpView.setText("Checkpoint: " + cpAkt + "/" + cpAnz);
+                cpView.setText(R.string.checkpoint + cpAkt + "/" + cpAnz);
                 question = riddle.getQuestions().get(cpAkt).getQuestion().toString();
                 LatLng tmp = new LatLng(riddle.getQuestions().get(cpAkt).getAnswer().x, riddle.getQuestions().get(cpAkt).getAnswer().y);
                 answer = tmp;
@@ -97,7 +97,7 @@ public class RiddleRun extends AppCompatActivity {
                 questionView.setText(question);
             }
         } else {
-            Toast.makeText(this, "Sie sind an der falschen Position.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.wrongPos, Toast.LENGTH_LONG).show();
             Toast.makeText(this, String.valueOf(map.getDistanz(answer, temp)), Toast.LENGTH_LONG).show();
         }
     }
@@ -109,8 +109,8 @@ public class RiddleRun extends AppCompatActivity {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED
                     && (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
                     || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)) {
-                coords = map.getReQuestLatLng();
-                nextCpPlus(coords);
+                AsyncT async = new AsyncT();
+                async.execute(this);
             } else {
                 map.permissioncheck(1);
             }

@@ -7,6 +7,7 @@ import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -25,6 +26,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        View t = findViewById(R.id.main_Activity_Label);
+        ((TextView) t).setText(R.string.dTitleMain);
+        t = findViewById(R.id.user);
+        ((EditText) t).setHint(R.string.dt1Main);
+        t = findViewById(R.id.password);
+        ((EditText) t).setHint(R.string.dt2Main);
+        t = findViewById(R.id.loginButton);
+        ((Button) t).setText(R.string.dLogin);
+        t = findViewById(R.id.registryButton);
+        ((Button) t).setText(R.string.dRgistry);
     }
 
 
@@ -41,22 +52,22 @@ public class MainActivity extends AppCompatActivity {
 
         switch (checkRegistry(user.getText().toString(),pwd.getText().toString())){
             case 0: error.setTextColor(Color.RED);
-                error.setText("Bitte geben sie einen Namen an");
+                error.setText(R.string.emptyName);
                 user.setBackgroundColor(Color.argb(100,255,0,0));
                 break;
             case 1: error.setTextColor(Color.RED);
-                error.setText(user.getText().toString() + " bereits registriert");
+                error.setText(user.getText().toString() + R.string.alreadyExists);
                 user.setBackgroundColor(Color.argb(100,255,0,0));
                 break;
             case 2: error.setTextColor(Color.RED);
-                error.setText("Bitte geben sie ein gültiges Passwort an");
+                error.setText(R.string.emptyPassword);
                 pwd.setBackgroundColor(Color.argb(100,255,0,0));
                 break;
             case 3: error.setTextColor(Color.GREEN);
-                error.setText(user.getText().toString() + " wurde registriert");
+                error.setText(user.getText().toString() + R.string.registrySuccess);
                 break;
             default: error.setTextColor(Color.RED);
-                error.setText("Unbekannter Fehler bei Registrierung");
+                error.setText(R.string.unknowError);
         }
 
     }
@@ -76,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         } else {
             error.setTextColor(Color.RED);
-            error.setText("Anmeldung fehlgeschlagen \n Name oder Passwort falsch");
+            error.setText(R.string.wrongLogin);
         }
         database.close();
     }

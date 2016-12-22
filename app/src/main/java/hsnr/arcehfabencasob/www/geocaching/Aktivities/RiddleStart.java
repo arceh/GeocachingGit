@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import hsnr.arcehfabencasob.www.geocaching.DBS.RiddleDataSource;
@@ -23,16 +24,27 @@ public class RiddleStart extends AppCompatActivity {
         setContentView(R.layout.riddle_start);
         Bundle extras = getIntent().getExtras();
         String name = extras.getString("riddleName");
+
+        View t = findViewById(R.id.riddle_start_header3);
+        ((TextView) t).setText(R.string.checkpoint);
+        t = findViewById(R.id.riddle_start_header4);
+        ((TextView) t).setText(R.string.headerRating);
+        t = findViewById(R.id.riddle_start_header2);
+        ((TextView) t).setText(R.string.author);
+        t = findViewById(R.id.riddle_start_button);
+        ((Button) t).setText(R.string.start);
+
+
         TextView nameView = (TextView) findViewById(R.id.riddle_start_name);
         nameView.setText(name);
         TextView cpView = (TextView) findViewById(R.id.riddle_start_cp);
         TextView authorView = (TextView) findViewById(R.id.riddle_start_author);
         TextView rateView = (TextView) findViewById(R.id.riddle_start_rating);
+
         database.open();
         cpView.setText(String.valueOf(database.getRiddleCheckpointCountByName(name)));
         authorView.setText(database.getRiddleCreatorByName(name));
         rateView.setText(Float.toString(database.getRiddleRatingByName(name)));
-        //Durchmesser
         database.close();
     }
 
