@@ -67,9 +67,10 @@ public class RiddleRun extends AppCompatActivity {
 
         rights = map.permissioncheck(2);
         if (rights) {
-            coords = map.getReQuestLatLng();
-            nextCpPlus(coords);
-
+            //coords = map.getReQuestLatLng();
+            //nextCpPlus(coords);
+            AsyncT async = new AsyncT();
+            async.execute(this);
         }
     }
 
@@ -111,5 +112,6 @@ public class RiddleRun extends AppCompatActivity {
             }
         }
     }
+
 
 }

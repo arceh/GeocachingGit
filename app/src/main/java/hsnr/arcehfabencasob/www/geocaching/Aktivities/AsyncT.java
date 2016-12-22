@@ -1,0 +1,43 @@
+package hsnr.arcehfabencasob.www.geocaching.Aktivities;
+
+import android.content.Context;
+import android.os.AsyncTask;
+import android.os.Build;
+import android.os.Looper;
+import android.support.annotation.RequiresApi;
+import android.util.Log;
+
+import com.google.android.gms.maps.model.LatLng;
+
+import java.net.URL;
+
+import hsnr.arcehfabencasob.www.geocaching.GlobaleCordinaten.My_GPS;
+
+/**
+ * Created by uni on 22.12.16.
+ */
+
+public class AsyncT extends AsyncTask<RiddleRun, Integer, LatLng> {
+
+    private final String LOG_TAG = this.getClass().getSimpleName();
+    private RiddleRun rr;
+
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @Override
+    protected LatLng doInBackground(RiddleRun... rrs) {
+        Looper.prepare();
+        rr = rrs[0];
+        return rr.map.getReQuestLatLng();
+    }
+
+    protected void onProgressUpdate(Integer... progress) {
+        Log.d(LOG_TAG, "Async Task Update...");
+    }
+
+    protected void onPostExecute(LatLng result) {
+        Log.d(LOG_TAG, "Koordinaten: " + result.toString());
+        rr.nextCpPlus(result);
+        Looper.loop();
+    }
+}
