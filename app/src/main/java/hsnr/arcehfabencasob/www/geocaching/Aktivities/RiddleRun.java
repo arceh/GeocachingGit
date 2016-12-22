@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
@@ -35,7 +36,6 @@ public class RiddleRun extends AppCompatActivity {
     protected RiddleDataSource database = new RiddleDataSource(this);
     Riddle riddle;
     protected My_GPS map;
-    Thread refreshCoords;
     LatLng coords;
 
 
@@ -59,14 +59,6 @@ public class RiddleRun extends AppCompatActivity {
         TextView questionView = (TextView) findViewById(R.id.riddle_run_riddle);
         questionView.setText(question);
         map = new My_GPS(this);
-        refreshCoords = new Thread(){
-            @RequiresApi(api = Build.VERSION_CODES.M)
-            @Override
-            public void run(){
-                LatLng coords = map.getReQuestLatLng();
-                nextCpPlus(coords);
-            }
-        };
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -75,9 +67,9 @@ public class RiddleRun extends AppCompatActivity {
 
         rights = map.permissioncheck(2);
         if (rights) {
-            //refreshCoords.start();
-            LatLng coords = map.getReQuestLatLng();
+            coords = map.getReQuestLatLng();
             nextCpPlus(coords);
+
         }
     }
 
@@ -112,7 +104,8 @@ public class RiddleRun extends AppCompatActivity {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED
                     && (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
                     || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)) {
-                refreshCoords.start();
+                coords = map.getReQuestLatLng();
+                nextCpPlus(coords);
             } else {
                 map.permissioncheck(1);
             }
