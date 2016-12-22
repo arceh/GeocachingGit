@@ -18,6 +18,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import java.util.concurrent.Executors;
+
 import hsnr.arcehfabencasob.www.geocaching.DBS.Riddle;
 import hsnr.arcehfabencasob.www.geocaching.DBS.RiddleDataSource;
 import hsnr.arcehfabencasob.www.geocaching.GlobaleCordinaten.My_GPS;
@@ -70,7 +72,9 @@ public class RiddleRun extends AppCompatActivity {
             //coords = map.getReQuestLatLng();
             //nextCpPlus(coords);
             AsyncT async = new AsyncT();
-            async.execute(this);
+            async.executeOnExecutor(Executors.newSingleThreadExecutor(), this);
+            System.out.println(async.getStatus().toString());
+            //async.execute(this);
         }
     }
 

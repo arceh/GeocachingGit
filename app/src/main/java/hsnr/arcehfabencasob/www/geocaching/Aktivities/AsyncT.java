@@ -28,7 +28,8 @@ public class AsyncT extends AsyncTask<RiddleRun, Integer, LatLng> {
     protected LatLng doInBackground(RiddleRun... rrs) {
         Looper.prepare();
         rr = rrs[0];
-        return rr.map.getReQuestLatLng();
+        LatLng result = rr.map.getReQuestLatLng();
+        return result;
     }
 
     protected void onProgressUpdate(Integer... progress) {
@@ -36,8 +37,11 @@ public class AsyncT extends AsyncTask<RiddleRun, Integer, LatLng> {
     }
 
     protected void onPostExecute(LatLng result) {
+        //Looper.loop();
         Log.d(LOG_TAG, "Koordinaten: " + result.toString());
         rr.nextCpPlus(result);
+        Looper.myLooper().getThread().interrupt();
+        Log.d(LOG_TAG, this.getStatus().toString());
         Looper.loop();
     }
 }
