@@ -17,13 +17,16 @@
 
 
     <!-- Main Page -->
-
+    <string name="dTitleMP">Rätsel-Liste</string>
 
     <!-- Riddle Run -->
     <string name="checkpoint">Checkpoint: </string>
     <string name="wrongPos">Sie sind an der falschen Position</string>
 
     <!-- Riddle Start -->
+    <string name="headerRating">Bewertung: </string>
+    <string name="start">Starten</string>
+    <string name="author">Author: </string>
 
 
     <!-- Riddle Win -->
