@@ -3,6 +3,7 @@ package hsnr.arcehfabencasob.www.geocaching.Aktivities;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,6 +11,7 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +35,8 @@ public class RiddleRun extends AppCompatActivity {
     protected RiddleDataSource database = new RiddleDataSource(this);
     Riddle riddle;
     protected My_GPS map;
+    Thread refreshCoords;
+    LatLng coords;
 
 
     @Override
@@ -46,7 +50,6 @@ public class RiddleRun extends AppCompatActivity {
         riddle = database.getRiddlesByName(name).get(0);
         database.close();
         question = riddle.getQuestions().get(cpAkt).getQuestion().toString();
-        //lade antwort zu cpAnz
         LatLng tmp = new LatLng(riddle.getQuestions().get(cpAkt).getAnswer().x, riddle.getQuestions().get(cpAkt).getAnswer().y);
         answer = tmp;
         TextView nameView = (TextView) findViewById(R.id.riddle_run_name);
@@ -56,20 +59,30 @@ public class RiddleRun extends AppCompatActivity {
         TextView questionView = (TextView) findViewById(R.id.riddle_run_riddle);
         questionView.setText(question);
         map = new My_GPS(this);
+        refreshCoords = new Thread(){
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            @Override
+            public void run(){
+                LatLng coords = map.getReQuestLatLng();
+                nextCpPlus(coords);
+            }
+        };
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    protected void nextCp(View view){
+    protected void nextCp(View view) {
         boolean rights;
+
         rights = map.permissioncheck(2);
-        if(rights){
-            LatLng temp = map.getReQuestLatLng();
-            nextCpPlus(temp);
+        if (rights) {
+            //refreshCoords.start();
+            LatLng coords = map.getReQuestLatLng();
+            nextCpPlus(coords);
         }
     }
 
-    protected void nextCpPlus(LatLng temp){
-        if(map.compareCoords(answer,temp,20)) {//kontrolliere position
+    protected void nextCpPlus(LatLng temp) {
+        if (map.compareCoords(answer, temp, 20)) {//kontrolliere position
             if (cpAkt >= cpAnz) {
                 Intent intent = new Intent(this, RiddleWin.class);
                 intent.putExtra("name", name);
@@ -88,21 +101,19 @@ public class RiddleRun extends AppCompatActivity {
             }
         } else {
             Toast.makeText(this, "Sie sind an der falschen Position.", Toast.LENGTH_LONG).show();
-            Toast.makeText(this, String.valueOf(map.getDistanz(answer,temp)), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, String.valueOf(map.getDistanz(answer, temp)), Toast.LENGTH_LONG).show();
         }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if(requestCode==1){
+        if (requestCode == 1) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED
                     && (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
                     || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)) {
-                LatLng temp = map.getReQuestLatLng();
-                nextCpPlus(temp);
-            }
-            else{
+                refreshCoords.start();
+            } else {
                 map.permissioncheck(1);
             }
         }
