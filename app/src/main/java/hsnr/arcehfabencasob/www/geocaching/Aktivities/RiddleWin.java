@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import hsnr.arcehfabencasob.www.geocaching.R;
@@ -19,6 +20,12 @@ public class RiddleWin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.riddle_win);
         Bundle extras = getIntent().getExtras();
+        View t = findViewById(R.id.riddle_win_header);
+        ((TextView) t).setText(R.string.win);
+        t = findViewById(R.id.riddle_win_rate);
+        ((Button) t).setText(R.string.backToMenu);
+
+
 
     }
 

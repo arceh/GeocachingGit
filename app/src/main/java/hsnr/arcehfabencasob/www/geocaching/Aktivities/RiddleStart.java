@@ -30,10 +30,11 @@ public class RiddleStart extends AppCompatActivity {
         t = findViewById(R.id.riddle_start_header4);
         ((TextView) t).setText(R.string.headerRating);
         t = findViewById(R.id.riddle_start_header2);
-        ((TextView) t).setText(R.string.author);
+        ((TextView) t).setText(R.string.headerAuthor);
         t = findViewById(R.id.riddle_start_button);
         ((Button) t).setText(R.string.start);
-
+        t = findViewById(R.id.riddle_start_header5);
+        ((TextView) t).setText(R.string.header);
 
         TextView nameView = (TextView) findViewById(R.id.riddle_start_name);
         nameView.setText(name);

@@ -12,6 +12,7 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -60,6 +61,8 @@ public class RiddleRun extends AppCompatActivity {
         cpView.setText(R.string.checkpoint + cpAkt + "/" + cpAnz);
         TextView questionView = (TextView) findViewById(R.id.riddle_run_riddle);
         questionView.setText(question);
+        View t = findViewById(R.id.riddle_run_next);
+        ((Button) t).setText(R.string.checkPos);
         map = new My_GPS(this);
     }
 
@@ -110,7 +113,8 @@ public class RiddleRun extends AppCompatActivity {
                     && (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
                     || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)) {
                 AsyncT async = new AsyncT();
-                async.execute(this);
+                async.executeOnExecutor(Executors.newSingleThreadExecutor(), this);
+                System.out.println(async.getStatus().toString());
             } else {
                 map.permissioncheck(1);
             }

@@ -40,7 +40,6 @@
         android:paddingRight="10dp" />
 
     <Button
-        android:text="Position prüfen"
         android:layout_width="match_parent"
         android:layout_height="141dp"
         android:id="@+id/riddle_run_next"
