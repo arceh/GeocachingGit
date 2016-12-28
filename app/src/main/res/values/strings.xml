@@ -4,9 +4,9 @@
 
     <!-- Main Activity -->
     <string name="emptyName">Bitte geben sie einen Namen an</string>
-    <string name="alreadyExists"> bereits registriert</string>
+    <string name="alreadyExists">bereits registriert</string>
     <string name="emptyPassword">Bitte geben sie ein gültiges Passwort an</string>
-    <string name="registrySuccess"> wurde registriert</string>
+    <string name="registrySuccess">wurde registriert</string>
     <string name="unknowError">Unbekannter Fehler bei Registrierung</string>
     <string name="wrongLogin">Anmeldung fehlgeschlagen \n Name oder Passwort falsch</string>
     <string name="dTitleMain">Anmelden</string>
