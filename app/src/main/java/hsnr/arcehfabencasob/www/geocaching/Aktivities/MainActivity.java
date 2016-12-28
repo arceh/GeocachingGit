@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
                 user.setBackgroundColor(Color.argb(100,255,0,0));
                 break;
             case 1: error.setTextColor(Color.RED);
-                error.setText(user.getText().toString() + R.string.alreadyExists);
+                error.setText(user.getText().toString() + getString(R.string.alreadyExists));
                 user.setBackgroundColor(Color.argb(100,255,0,0));
                 break;
             case 2: error.setTextColor(Color.RED);
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
                 pwd.setBackgroundColor(Color.argb(100,255,0,0));
                 break;
             case 3: error.setTextColor(Color.GREEN);
-                error.setText(user.getText().toString() + R.string.registrySuccess);
+                error.setText(user.getText().toString() + getString(R.string.registrySuccess));
                 break;
             default: error.setTextColor(Color.RED);
                 error.setText(R.string.unknowError);

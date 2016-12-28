@@ -58,7 +58,7 @@ public class RiddleRun extends AppCompatActivity {
         TextView nameView = (TextView) findViewById(R.id.riddle_run_name);
         nameView.setText(name);
         TextView cpView = (TextView) findViewById(R.id.riddle_run_cp);
-        cpView.setText(R.string.checkpoint + cpAkt + "/" + cpAnz);
+        cpView.setText(getString(R.string.checkpoint) + cpAkt + "/" + cpAnz);
         TextView questionView = (TextView) findViewById(R.id.riddle_run_riddle);
         questionView.setText(question);
         View t = findViewById(R.id.riddle_run_next);
@@ -92,7 +92,7 @@ public class RiddleRun extends AppCompatActivity {
             } else {
                 cpAkt++;
                 TextView cpView = (TextView) findViewById(R.id.riddle_run_cp);
-                cpView.setText(R.string.checkpoint + cpAkt + "/" + cpAnz);
+                cpView.setText(getString(R.string.checkpoint) + cpAkt + "/" + cpAnz);
                 question = riddle.getQuestions().get(cpAkt).getQuestion().toString();
                 LatLng tmp = new LatLng(riddle.getQuestions().get(cpAkt).getAnswer().x, riddle.getQuestions().get(cpAkt).getAnswer().y);
                 answer = tmp;
