@@ -57,6 +57,7 @@ public class My_GPS{
     double timeout;
    private ArrayList<LatLng> superposition;
     private Location gg,ww;
+    private String test;
 
 
 
