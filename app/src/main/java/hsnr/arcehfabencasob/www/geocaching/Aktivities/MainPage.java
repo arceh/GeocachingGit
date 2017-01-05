@@ -42,8 +42,6 @@ public class MainPage extends AppCompatActivity {
 
     //----------------------------------------------------
     protected My_GPS map;
-    public int bla = 1;
-    HashMap<Integer, Question> q1 = new HashMap<>();
     //----------------------------------------------------
 
 
@@ -129,36 +127,14 @@ public class MainPage extends AppCompatActivity {
             return;
         }
         database.open();
-        LatLng test = map.getReQuestLatLng();
-        if(bla == 1) {
-            q1.put(1, new Question("Wie sieht ein Hund aus?", new Coordinate(test.latitude, test.longitude)));
-        }
-        if(bla == 2) {
-            q1.put(2, new Question("Wie sieht eine Katze aus?", new Coordinate(test.latitude, test.longitude)));
-        }
-        if(bla == 3) {
-            q1.put(3, new Question("Wie sieht eine Giraffe aus?", new Coordinate(test.latitude, test.longitude)));
-            Riddle r1 = new Riddle("Rätsel der Erste", q1, "Wambomann", 5.0f);
-            HashMap<Integer, Question> q2 = new HashMap<>();
-            q2.put(1, new Question("Wer kam am 23.11.2016 zu spät zu EZS?", new Coordinate(69, 69.69)));
-            q2.put(2, new Question("Wer wird 2017 Präsident der Vereinigten Staaten?", new Coordinate(666, 666.666)));
-            q2.put(3, new Question("Wer trägt ein Bein von einem Vogel als Ohrring?", new Coordinate(78, 65.432)));
-            q2.put(4, new Question("Wer spielt gerne mit Bällen?", new Coordinate(42.32, 42.42)));
-            Riddle r2 = new Riddle("Rätsel der Zwei", q2, "Wambofrau", 5.0f);
-            HashMap<Integer, Question> q3 = new HashMap<>();
-            q3.put(1, new Question("Wo liegt der größte Hörsaal?", new Coordinate(51.3165,6.5715)));
-            q3.put(2, new Question("Wird zur Übertragung von Drehung genutzt. ", new Coordinate(51.3165,6.5708)));
-            q3.put(3, new Question("Wo sind wir grade?", new Coordinate(51.3163,6.5697)));
-            q3.put(4, new Question("Wo befindet sich die nächste Werkstatt?", new Coordinate(51.3169,6.5697)));
-            q3.put(5, new Question("Wo ist der nächste Parkplatzeingang?", new Coordinate(51.3175,6.5694)));
-            Riddle r3 = new Riddle("Hochschule Führung", q3, "Armin Cehajic", 5.0f);
-            database.setRiddleInDatabase(r1);
-            database.setRiddleInDatabase(r2);
-            database.setRiddleInDatabase(r3);
-        }
-        if(bla == 4)
-            finish();
-        bla++;
+        HashMap<Integer, Question> q3 = new HashMap<>();
+        q3.put(1, new Question("Wo liegt der größte Hörsaal?", new Coordinate(51.3165,6.5715)));
+        q3.put(2, new Question("Wird zur Übertragung von Drehung genutzt. ", new Coordinate(51.3165,6.5708)));
+        q3.put(3, new Question("Wo sind wir grade?", new Coordinate(51.3163,6.5697)));
+        q3.put(4, new Question("Wo befindet sich die nächste Werkstatt?", new Coordinate(51.3169,6.5697)));
+        q3.put(5, new Question("Wo ist der nächste Parkplatzeingang?", new Coordinate(51.3175,6.5694)));
+        Riddle r3 = new Riddle("Hochschule Führung", q3, "Armin Cehajic", 5.0f);
+        database.setRiddleInDatabase(r3);
         database.close();
     }
 
