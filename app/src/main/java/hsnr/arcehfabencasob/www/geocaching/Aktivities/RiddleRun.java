@@ -38,6 +38,7 @@ public class RiddleRun extends AppCompatActivity {
     LatLng answer;
     protected RiddleDataSource database = new RiddleDataSource(this);
     Riddle riddle;
+    int id;
     protected My_GPS map;
     LatLng coords;
 
@@ -52,6 +53,7 @@ public class RiddleRun extends AppCompatActivity {
         database.open();
         riddle = database.getRiddlesByName(name).get(0);
         database.close();
+        id = riddle.getId();
         question = riddle.getQuestions().get(cpAkt).getQuestion().toString();
         LatLng tmp = new LatLng(riddle.getQuestions().get(cpAkt).getAnswer().x, riddle.getQuestions().get(cpAkt).getAnswer().y);
         answer = tmp;
@@ -69,23 +71,24 @@ public class RiddleRun extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.M)
     protected void nextCp(View view) {
         boolean rights;
-
         rights = map.permissioncheck(2);
         if (rights) {
-            //coords = map.getReQuestLatLng();
-            //nextCpPlus(coords);
+            Button btn = (Button) findViewById(R.id.riddle_run_next);
+            btn.setVisibility(View.GONE);
             AsyncT async = new AsyncT();
             async.executeOnExecutor(Executors.newSingleThreadExecutor(), this);
             System.out.println(async.getStatus().toString());
-            //async.execute(this);
         }
     }
 
     protected void nextCpPlus(LatLng temp) {
+        Button btn = (Button) findViewById(R.id.riddle_run_next);
+        btn.setVisibility(View.VISIBLE);
         if (map.compareCoords(answer, temp, 20)) {//kontrolliere position
             if (cpAkt >= cpAnz) {
                 Intent intent = new Intent(this, RiddleWin.class);
                 intent.putExtra("name", name);
+                intent.putExtra("id", id);
                 startActivity(intent);
                 finish();
                 return;
@@ -112,6 +115,8 @@ public class RiddleRun extends AppCompatActivity {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED
                     && (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
                     || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)) {
+                Button btn = (Button) findViewById(R.id.riddle_run_next);
+                btn.setVisibility(View.GONE);
                 AsyncT async = new AsyncT();
                 async.executeOnExecutor(Executors.newSingleThreadExecutor(), this);
                 System.out.println(async.getStatus().toString());
@@ -120,6 +125,4 @@ public class RiddleRun extends AppCompatActivity {
             }
         }
     }
-
-
 }

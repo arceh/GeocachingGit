@@ -35,5 +35,17 @@
     <string name="win">Gewonnen</string>
     <string name="backToMenu">Zurück zum Menü</string>
 
+    <!-- Create Info -->
+    <string name="infotext">bau keine scheiße</string>
+    <string name="next">weiter</string>
+
+    <!-- Create Riddle Info -->
+
+
+    <!-- Create Riddle Cps -->
+
+
+    <!-- Create Riddle Finish -->
+
 
 </resources>
