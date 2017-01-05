@@ -1,6 +1,5 @@
-package hsnr.arcehfabencasob.www.geocaching.Aktivities;
+package hsnr.arcehfabencasob.www.geocaching.Aktivities.Run;
 
-import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Looper;
@@ -8,10 +7,6 @@ import android.support.annotation.RequiresApi;
 import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
-
-import java.net.URL;
-
-import hsnr.arcehfabencasob.www.geocaching.GlobaleCordinaten.My_GPS;
 
 /**
  * Created by uni on 22.12.16.

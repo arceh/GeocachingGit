@@ -1,4 +1,4 @@
-package hsnr.arcehfabencasob.www.geocaching.Aktivities;
+package hsnr.arcehfabencasob.www.geocaching.Aktivities.Run;
 
 import android.content.Intent;
 import android.os.Bundle;
