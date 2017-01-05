@@ -4,7 +4,7 @@ package hsnr.arcehfabencasob.www.geocaching.DBS;
 
 import java.util.HashMap;
 
-import hsnr.arcehfabencasob.www.geocaching.GlobaleCordinaten.Coordinate;
+import hsnr.arcehfabencasob.www.geocaching.GlobaleKoordinaten.Coordinate;
 
 /**
  * Created by carsten on 03.11.16.

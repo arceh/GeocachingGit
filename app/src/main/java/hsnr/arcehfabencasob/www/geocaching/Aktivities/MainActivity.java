@@ -2,8 +2,6 @@ package hsnr.arcehfabencasob.www.geocaching.Aktivities;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,7 +12,6 @@ import android.widget.TextView;
 import hsnr.arcehfabencasob.www.geocaching.DBS.RiddleDataSource;
 import hsnr.arcehfabencasob.www.geocaching.DBS.User;
 import hsnr.arcehfabencasob.www.geocaching.R;
-import hsnr.arcehfabencasob.www.geocaching.GlobaleCordinaten.My_GPS;
 
 public class MainActivity extends AppCompatActivity {
 

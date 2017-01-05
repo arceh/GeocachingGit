@@ -1,4 +1,4 @@
-package hsnr.arcehfabencasob.www.geocaching.GlobaleCordinaten;
+package hsnr.arcehfabencasob.www.geocaching.GlobaleKoordinaten;
 
 /**
  * Created by carsten on 03.11.16.

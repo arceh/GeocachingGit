@@ -10,7 +10,7 @@ import android.content.ContentValues;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import hsnr.arcehfabencasob.www.geocaching.GlobaleCordinaten.Coordinate;
+import hsnr.arcehfabencasob.www.geocaching.GlobaleKoordinaten.Coordinate;
 
 /**
  * Created by carsten on 03.11.16.

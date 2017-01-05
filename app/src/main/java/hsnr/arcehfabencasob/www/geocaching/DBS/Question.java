@@ -1,6 +1,6 @@
 package hsnr.arcehfabencasob.www.geocaching.DBS;
 
-import hsnr.arcehfabencasob.www.geocaching.GlobaleCordinaten.Coordinate;
+import hsnr.arcehfabencasob.www.geocaching.GlobaleKoordinaten.Coordinate;
 
 /**
  * Created by carsten on 06.11.16.

@@ -20,7 +20,7 @@ import java.util.concurrent.Executors;
 
 import hsnr.arcehfabencasob.www.geocaching.DBS.Riddle;
 import hsnr.arcehfabencasob.www.geocaching.DBS.RiddleDataSource;
-import hsnr.arcehfabencasob.www.geocaching.GlobaleCordinaten.My_GPS;
+import hsnr.arcehfabencasob.www.geocaching.GlobaleKoordinaten.My_GPS;
 import hsnr.arcehfabencasob.www.geocaching.R;
 
 /**

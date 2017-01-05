@@ -27,8 +27,8 @@ import hsnr.arcehfabencasob.www.geocaching.Aktivities.Run.RiddleStart;
 import hsnr.arcehfabencasob.www.geocaching.DBS.Question;
 import hsnr.arcehfabencasob.www.geocaching.DBS.Riddle;
 import hsnr.arcehfabencasob.www.geocaching.DBS.RiddleDataSource;
-import hsnr.arcehfabencasob.www.geocaching.GlobaleCordinaten.Coordinate;
-import hsnr.arcehfabencasob.www.geocaching.GlobaleCordinaten.My_GPS;
+import hsnr.arcehfabencasob.www.geocaching.GlobaleKoordinaten.Coordinate;
+import hsnr.arcehfabencasob.www.geocaching.GlobaleKoordinaten.My_GPS;
 import hsnr.arcehfabencasob.www.geocaching.R;
 
 /**
