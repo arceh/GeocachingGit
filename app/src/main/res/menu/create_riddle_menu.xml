@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/create_riddle_cps_finish"
-        android:title="Fertigstellen"
+        android:title="@string/finish"
         app:showAsAction="never" />
     <item
         android:id="@+id/create_riddle_back"
-        android:title="Letzte Frage"
+        android:title="@string/lastQuest"
         app:showAsAction="never"/>
 </menu>

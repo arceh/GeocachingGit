@@ -18,6 +18,9 @@
 
     <!-- Main Page -->
     <string name="dTitleMP">Rätsel-Liste</string>
+    <!-- ->Menu -->
+    <string name="logout">Abmelden</string>
+    <string name="create">Erstelle ein neues Rätsel</string>
 
     <!-- Riddle Run -->
     <string name="checkpoint">Checkpoint: </string>
@@ -43,6 +46,9 @@
 
 
     <!-- Create Riddle Cps -->
+    <!-- ->Menu -->
+    <string name="lastQuest">Letzte Frage</string>
+    <string name="finish">Fertigstellen</string>
 
 
     <!-- Create Riddle Finish -->
