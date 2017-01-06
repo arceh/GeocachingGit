@@ -1,7 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--Das hinzufügen von Fragen -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:baselineAligned="false"
+    android:weightSum="1">
 
-</LinearLayout>
+    <TextView
+        android:text="TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="34sp"
+        android:textColor="#000000"
+        android:id="@+id/create_riddle_cps_name" />
+
+    <Button
+        android:text="Button"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:id="@+id/create_riddle_cps_button"
+        android:layout_weight="0.10"
+        android:textSize="25sp"
+        android:layout_alignParentBottom="true" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:textColor="#000000"
+        android:id="@+id/create_riddle_cps_anz"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/create_riddle_cps_name"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="Name"
+        android:ems="15"
+        android:id="@+id/create_riddle_cps_question"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="105dp"
+        android:layout_below="@+id/create_riddle_cps_anz"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true" />
+
+</RelativeLayout>
