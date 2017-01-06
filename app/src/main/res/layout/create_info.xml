@@ -6,16 +6,16 @@
     android:weightSum="1">
 
     <TextView
-        android:text="TextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="@string/infotext"
         android:id="@+id/create_info_text"
         android:layout_weight="0.88" />
 
     <Button
-        android:text="Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="@string/next"
         android:id="@+id/create_info_btn"
         android:layout_weight="0.13" />
 </LinearLayout>

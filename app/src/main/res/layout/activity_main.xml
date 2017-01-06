@@ -29,6 +29,7 @@
             android:layout_weight="0.29"
             android:textSize="30sp"
             android:textColor="#000000"
+            android:text="@string/dTitleMain"
             android:id="@+id/main_Activity_Label" />
 
         <EditText
@@ -37,6 +38,7 @@
             android:inputType="textPersonName"
             android:ems="10"
             android:id="@+id/user"
+            android:hint="@string/dt1Main"
             android:textSize="22sp" />
 
 
@@ -46,6 +48,7 @@
             android:inputType="textPassword"
             android:ems="10"
             android:id="@+id/password"
+            android:hint="@string/dt2Main"
             android:textSize="22sp" />
 
         <TextView
@@ -62,6 +65,7 @@
             android:layout_marginBottom="15dp"
             android:id="@+id/loginButton"
             android:onClick="login"
+            android:text="@string/dLogin"
             android:textSize="20sp" />
 
         <Button
@@ -70,6 +74,7 @@
             android:layout_weight="0.11"
             android:id="@+id/registryButton"
             android:onClick="registry"
+            android:text="@string/dRgistry"
             android:textSize="20sp" />
 
     </LinearLayout>

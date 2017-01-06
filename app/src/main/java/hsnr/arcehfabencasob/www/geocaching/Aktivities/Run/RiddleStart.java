@@ -25,17 +25,6 @@ public class RiddleStart extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         String name = extras.getString("riddleName");
 
-        View t = findViewById(R.id.riddle_start_header3);
-        ((TextView) t).setText(R.string.checkpoint);
-        t = findViewById(R.id.riddle_start_header4);
-        ((TextView) t).setText(R.string.headerRating);
-        t = findViewById(R.id.riddle_start_header2);
-        ((TextView) t).setText(R.string.headerAuthor);
-        t = findViewById(R.id.riddle_start_button);
-        ((Button) t).setText(R.string.start);
-        t = findViewById(R.id.riddle_start_header5);
-        ((TextView) t).setText(R.string.header);
-
         TextView nameView = (TextView) findViewById(R.id.riddle_start_name);
         nameView.setText(name);
         TextView cpView = (TextView) findViewById(R.id.riddle_start_cp);

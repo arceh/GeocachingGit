@@ -23,16 +23,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        View t = findViewById(R.id.main_Activity_Label);
-        ((TextView) t).setText(R.string.dTitleMain);
-        t = findViewById(R.id.user);
-        ((EditText) t).setHint(R.string.dt1Main);
-        t = findViewById(R.id.password);
-        ((EditText) t).setHint(R.string.dt2Main);
-        t = findViewById(R.id.loginButton);
-        ((Button) t).setText(R.string.dLogin);
-        t = findViewById(R.id.registryButton);
-        ((Button) t).setText(R.string.dRgistry);
     }
 
 

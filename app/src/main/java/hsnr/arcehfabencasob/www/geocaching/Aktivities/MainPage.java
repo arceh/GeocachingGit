@@ -49,9 +49,6 @@ public class MainPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_page);
 
-        View t = findViewById(R.id.main_page_header);
-        ((TextView) t).setText(R.string.dTitleMP);
-
         ArrayAdapter<String> adapter;
         ArrayList<String> listItem = new ArrayList<String>();
 

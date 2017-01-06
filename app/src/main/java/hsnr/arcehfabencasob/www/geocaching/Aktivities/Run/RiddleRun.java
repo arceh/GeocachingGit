@@ -60,8 +60,7 @@ public class RiddleRun extends AppCompatActivity {
         cpView.setText(getString(R.string.checkpoint) + " " + cpAkt + "/" + cpAnz);
         TextView questionView = (TextView) findViewById(R.id.riddle_run_riddle);
         questionView.setText(question);
-        View t = findViewById(R.id.riddle_run_next);
-        ((Button) t).setText(R.string.checkPos);
+
         map = new My_GPS(this);
     }
 

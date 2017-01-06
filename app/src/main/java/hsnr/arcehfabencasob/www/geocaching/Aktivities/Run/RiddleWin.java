@@ -20,13 +20,6 @@ public class RiddleWin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.riddle_win);
         Bundle extras = getIntent().getExtras();
-        View t = findViewById(R.id.riddle_win_header);
-        ((TextView) t).setText(R.string.win);
-        t = findViewById(R.id.riddle_win_rate);
-        ((Button) t).setText(R.string.backToMenu);
-
-
-
     }
 
     protected void rating(View view){
