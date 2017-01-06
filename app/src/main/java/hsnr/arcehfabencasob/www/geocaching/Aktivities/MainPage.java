@@ -103,7 +103,6 @@ public class MainPage extends AppCompatActivity {
                 TextView viewName = (TextView) view;
                 String name = viewName.getText().toString();
                 lookRiddle(name);
-
             }
         });
     }
@@ -118,10 +117,6 @@ public class MainPage extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void fillDummy() {
-
-        if(!map.permissioncheck(2)){
-            return;
-        }
         database.open();
         HashMap<Integer, Question> q3 = new HashMap<>();
         q3.put(1, new Question("Wo liegt der größte Hörsaal?", new Coordinate(51.3165,6.5715)));
@@ -132,6 +127,7 @@ public class MainPage extends AppCompatActivity {
         Riddle r3 = new Riddle("Hochschule Führung", q3, "Armin Cehajic", 5.0f);
         database.setRiddleInDatabase(r3);
         database.close();
+        finish();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
