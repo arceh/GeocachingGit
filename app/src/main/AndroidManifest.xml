@@ -55,6 +55,27 @@
                 <category android:name="android.intent.category.Riddle" />
             </intent-filter>
         </activity>
+        <activity android:name=".Aktivities.Create.CreateInfo">
+            <intent-filter>
+                <action android:name="android.intent.action.CreateInfo" />
+
+                <category android:name="android.intent.category.Riddle" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Aktivities.Create.CreateRiddleCps">
+            <intent-filter>
+                <action android:name="android.intent.action.CreateRiddleCps" />
+
+                <category android:name="android.intent.category.Riddle" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Aktivities.Create.CreateRiddleFinish">
+            <intent-filter>
+                <action android:name="android.intent.action.CreateRiddleFinish" />
+
+                <category android:name="android.intent.category.CreateRiddleFinish" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

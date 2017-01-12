@@ -13,8 +13,4 @@
         android:id="@+id/dummy"
         android:title="dummydaten"
         app:showAsAction="never" />
-    <item
-        android:id="@+id/cords"
-        android:title="maptesten"
-        app:showAsAction="never" />
 </menu>

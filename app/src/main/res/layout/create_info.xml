@@ -10,12 +10,15 @@
         android:layout_height="wrap_content"
         android:text="@string/infotext"
         android:id="@+id/create_info_text"
-        android:layout_weight="0.88" />
+        android:layout_weight="0.88"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/next"
+        android:onClick="accept"
         android:id="@+id/create_info_btn"
         android:layout_weight="0.13" />
 </LinearLayout>

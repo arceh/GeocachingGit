@@ -23,6 +23,8 @@ import com.google.android.gms.maps.model.LatLng;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import hsnr.arcehfabencasob.www.geocaching.Aktivities.Create.CreateInfo;
+import hsnr.arcehfabencasob.www.geocaching.Aktivities.Create.CreateRiddleCps;
 import hsnr.arcehfabencasob.www.geocaching.Aktivities.Run.RiddleStart;
 import hsnr.arcehfabencasob.www.geocaching.DBS.Question;
 import hsnr.arcehfabencasob.www.geocaching.DBS.Riddle;
@@ -38,10 +40,6 @@ import hsnr.arcehfabencasob.www.geocaching.R;
 public class MainPage extends AppCompatActivity {
 
     protected RiddleDataSource database = new RiddleDataSource(this);
-
-    //----------------------------------------------------
-    protected My_GPS map;
-    //----------------------------------------------------
 
 
     @Override
@@ -62,9 +60,6 @@ public class MainPage extends AppCompatActivity {
         container.setAdapter(adapter);
         initOnClick();
 
-        //-----------------------
-        map = new My_GPS(this);
-        //-----------------------
     }
 
     @Override
@@ -79,16 +74,14 @@ public class MainPage extends AppCompatActivity {
         int id = item.getItemId();
         switch(id) {
             case R.id.menuCreate:
-                Toast.makeText(this, "Gibt es noch nicht", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(this, CreateInfo.class);
+                startActivity(intent);
                 return true;
             case R.id.menuLogout:
                 finish();
                 return true;
             case R.id.dummy:
                 fillDummy();
-                return true;
-            case R.id.cords:
-                gpsTestenHeißtJetztDieFunktionWeilCarstenKappaKomischFandUndTrotzdemMochte();
                 return true;
             default:
         }
@@ -129,35 +122,6 @@ public class MainPage extends AppCompatActivity {
         database.close();
         finish();
     }
-
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    public void gpsTestenHeißtJetztDieFunktionWeilCarstenKappaKomischFandUndTrotzdemMochte(){
-        boolean testen;
-        testen = map.permissioncheck(1);
-        if(testen){
-            LatLng test = map.getReQuestLatLng();
-            Toast.makeText(this, test.toString(), Toast.LENGTH_LONG).show();
-        }
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if(requestCode==1){
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED
-                    && (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
-                    || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)) {
-                LatLng test = map.getReQuestLatLng();
-                Toast.makeText(this, test.toString(), Toast.LENGTH_LONG).show();
-            }
-            else{
-                map.permissioncheck(1);
-            }
-        }
-    }
-
-
-
 }
 
 
