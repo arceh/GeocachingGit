@@ -3,6 +3,7 @@ package hsnr.arcehfabencasob.www.geocaching.Aktivities.Run;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 import hsnr.arcehfabencasob.www.geocaching.DBS.Riddle;
@@ -38,6 +40,8 @@ public class RiddleRun extends AppCompatActivity {
     int id;
     protected My_GPS map;
     LatLng coords;
+    //Executor executor = Executors.newSingleThreadExecutor();
+    AsyncT async;
 
 
     @Override
@@ -71,7 +75,7 @@ public class RiddleRun extends AppCompatActivity {
         if (rights) {
             Button btn = (Button) findViewById(R.id.riddle_run_next);
             btn.setVisibility(View.GONE);
-            AsyncT async = new AsyncT();
+            async = new AsyncT();
             async.executeOnExecutor(Executors.newSingleThreadExecutor(), this);
             System.out.println(async.getStatus().toString());
         }
@@ -113,7 +117,6 @@ public class RiddleRun extends AppCompatActivity {
                     || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)) {
                 Button btn = (Button) findViewById(R.id.riddle_run_next);
                 btn.setVisibility(View.GONE);
-                AsyncT async = new AsyncT();
                 async.executeOnExecutor(Executors.newSingleThreadExecutor(), this);
                 System.out.println(async.getStatus().toString());
             } else {

@@ -3,6 +3,7 @@ package hsnr.arcehfabencasob.www.geocaching.Aktivities.Run;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Looper;
+import android.os.MessageQueue;
 import android.support.annotation.RequiresApi;
 import android.util.Log;
 
@@ -14,29 +15,28 @@ import com.google.android.gms.maps.model.LatLng;
 
 public class AsyncT extends AsyncTask<RiddleRun, Integer, LatLng> {
 
-    private final String LOG_TAG = this.getClass().getSimpleName();
     private RiddleRun rr;
-
+    private Thread t;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected LatLng doInBackground(RiddleRun... rrs) {
         Looper.prepare();
+        System.gc();
         rr = rrs[0];
         LatLng result = rr.map.getReQuestLatLng();
+        t = Looper.myLooper().getThread();
         return result;
     }
 
     protected void onProgressUpdate(Integer... progress) {
-        Log.d(LOG_TAG, "Async Task Update...");
+
     }
 
     protected void onPostExecute(LatLng result) {
-        //Looper.loop();
-        Log.d(LOG_TAG, "Koordinaten: " + result.toString());
         rr.nextCpPlus(result);
-        Looper.myLooper().getThread().interrupt();
-        Log.d(LOG_TAG, this.getStatus().toString());
-        Looper.loop();
+        System.gc();
     }
+
+
 }
