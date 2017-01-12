@@ -9,6 +9,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import hsnr.arcehfabencasob.www.geocaching.Aktivities.MainPage;
+import hsnr.arcehfabencasob.www.geocaching.DBS.Riddle;
 import hsnr.arcehfabencasob.www.geocaching.DBS.RiddleDataSource;
 import hsnr.arcehfabencasob.www.geocaching.DBS.RiddleDbHelper;
 import hsnr.arcehfabencasob.www.geocaching.R;
@@ -23,6 +24,7 @@ public class RiddleWin extends AppCompatActivity {
     private String nameofRiddle;
     private int id,anzahl;
     private float superrating;
+    private Riddle ridp;
     private RatingBar bar;
     protected RiddleDataSource database = new RiddleDataSource(this);
     @Override
@@ -44,12 +46,16 @@ public class RiddleWin extends AppCompatActivity {
         float tmp;
         tmp=((anzahl*superrating)+bar.getRating())/(anzahl+1);
         database.open();
-        database.getRiddleById(id).setRating(tmp);
+        ridp=database.getRiddleById(id);
+        ridp.setRating(tmp);
+        //database.delete(nameofRiddle);
+        database.setRiddleInDatabase(ridp);
         database.close();
         Intent intent = new Intent(this,MainPage.class);
         startActivity(intent);
         finish(); //schließen der Activity
         return;
     }
+
 
 }
