@@ -153,6 +153,18 @@ public class RiddleDataSource {
     }
 
 
+    public void deleteRiddle(Riddle r) {
+        long id = r.getId();
+        database.delete(RiddleDbHelper.TABLE_RIDDLES, RiddleDbHelper.TABLE_RIDDLES_COLUMN_ID + "=" + id, null);
+        database.delete(RiddleDbHelper.TABLE_RIDDLES_SPECIFIC, RiddleDbHelper.TABLE_RIDDLES_SPECIFIC_ID + "=" + id, null);
+    }
+
+    public void updateRiddle(Riddle r) {
+        deleteRiddle(r);
+
+    }
+
+
     /**
      * Liefert alle Rätsel in der bestimmten Reihenfolge.
      * @param Order String : Sortierreihenfolge.

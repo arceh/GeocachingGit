@@ -16,16 +16,13 @@ import com.google.android.gms.maps.model.LatLng;
 public class AsyncT extends AsyncTask<RiddleRun, Integer, LatLng> {
 
     private RiddleRun rr;
-    private Thread t;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected LatLng doInBackground(RiddleRun... rrs) {
         Looper.prepare();
-        System.gc();
         rr = rrs[0];
         LatLng result = rr.map.getReQuestLatLng();
-        t = Looper.myLooper().getThread();
         return result;
     }
 
@@ -35,7 +32,6 @@ public class AsyncT extends AsyncTask<RiddleRun, Integer, LatLng> {
 
     protected void onPostExecute(LatLng result) {
         rr.nextCpPlus(result);
-        System.gc();
     }
 
 
