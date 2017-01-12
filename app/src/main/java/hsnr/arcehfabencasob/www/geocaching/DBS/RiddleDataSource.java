@@ -82,6 +82,7 @@ public class RiddleDataSource {
         values_all_riddles.put(RiddleDbHelper.TABLE_RIDDLES_CREATORNAME, r.getCreatorName());
         values_all_riddles.put(RiddleDbHelper.TABLE_RIDDLES_RIDDLENAME, r.getRiddleName());
         values_all_riddles.put(RiddleDbHelper.TABLE_RIDDLES_RATING, r.getRating());
+        values_all_riddles.put(RiddleDbHelper.TABLE_RIDDLES_RATING_COUNT, r.getRatingCount());
         values_all_riddles.put(RiddleDbHelper.TABLE_RIDDLES_COUNT_QUESTIONS, r.getQuestionCount());
         values_all_riddles.put(RiddleDbHelper.TABLE_RIDDLES_TARGET_COORD, r.getTargetCoord());
 
@@ -114,9 +115,9 @@ public class RiddleDataSource {
         int RiddlenameId = cursor_Ar.getColumnIndex(RiddleDbHelper.TABLE_RIDDLES_RIDDLENAME);
         int CreatornameId = cursor_Ar.getColumnIndex(RiddleDbHelper.TABLE_RIDDLES_CREATORNAME);
         int RatingId = cursor_Ar.getColumnIndex(RiddleDbHelper.TABLE_RIDDLES_RATING);
+        int RatingCountId = cursor_Ar.getColumnIndex(RiddleDbHelper.TABLE_RIDDLES_RATING_COUNT);
 
         int RiddleId = cursor_Ar.getInt(ColumnId);
-
         Cursor question_cursor = database.query(RiddleDbHelper.TABLE_RIDDLES_SPECIFIC, columns_all_riddles_specific, RiddleDbHelper.TABLE_RIDDLES_SPECIFIC_ID + "=" + RiddleId, null, null, null, null);
         HashMap<Integer, Question> RiddleQuestions = new HashMap<Integer, Question>();
         question_cursor.moveToFirst();
@@ -135,7 +136,9 @@ public class RiddleDataSource {
         String Riddlename = cursor_Ar.getString(RiddlenameId);
         String RiddleCreatorname = cursor_Ar.getString(CreatornameId);
         float Riddlerating = cursor_Ar.getFloat(RatingId);
-        return new Riddle(Riddlename, RiddleQuestions, RiddleCreatorname, RiddleId, Riddlerating);
+        int RiddleCount = cursor_Ar.getInt(RatingCountId);
+
+        return new Riddle(Riddlename, RiddleQuestions, RiddleCreatorname, RiddleId, Riddlerating, RiddleCount);
     }
 
 
@@ -161,7 +164,7 @@ public class RiddleDataSource {
 
     public void updateRiddle(Riddle r) {
         deleteRiddle(r);
-
+        setRiddleInDatabase(r);
     }
 
 
