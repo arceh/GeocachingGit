@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
@@ -41,7 +42,21 @@ public class RiddleRun extends AppCompatActivity {
     protected My_GPS map;
     LatLng coords;
     //Executor executor = Executors.newSingleThreadExecutor();
-    AsyncT async;
+    //AsyncT async;
+    private Thread gpsThread = new Thread() {
+        @RequiresApi(api = Build.VERSION_CODES.M)
+        @Override
+        public void run() {
+            final LatLng res = map.getReQuestLatLng();
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    nextCpPlus(res);
+                }
+            });
+        }
+    };
+    public MyThread getGps = new MyThread(gpsThread);
 
 
     @Override
@@ -75,9 +90,10 @@ public class RiddleRun extends AppCompatActivity {
         if (rights) {
             Button btn = (Button) findViewById(R.id.riddle_run_next);
             btn.setVisibility(View.GONE);
-            async = new AsyncT();
-            async.executeOnExecutor(Executors.newSingleThreadExecutor(), this);
-            System.out.println(async.getStatus().toString());
+            new MyThread(gpsThread).start();
+            //async = new AsyncT();
+            //async.executeOnExecutor(Executors.newSingleThreadExecutor(), this);
+            //System.out.println(async.getStatus().toString());
         }
     }
 
@@ -92,6 +108,7 @@ public class RiddleRun extends AppCompatActivity {
                 startActivity(intent);
                 finish();
                 return;
+
             } else {
                 cpAkt++;
                 TextView cpView = (TextView) findViewById(R.id.riddle_run_cp);
@@ -117,8 +134,9 @@ public class RiddleRun extends AppCompatActivity {
                     || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)) {
                 Button btn = (Button) findViewById(R.id.riddle_run_next);
                 btn.setVisibility(View.GONE);
-                async.executeOnExecutor(Executors.newSingleThreadExecutor(), this);
-                System.out.println(async.getStatus().toString());
+                new MyThread(gpsThread).start();
+                //async.executeOnExecutor(Executors.newSingleThreadExecutor(), this);
+                //System.out.println(async.getStatus().toString());
             } else {
                 map.permissioncheck(1);
             }
