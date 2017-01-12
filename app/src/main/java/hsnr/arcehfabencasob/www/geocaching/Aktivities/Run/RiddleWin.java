@@ -35,8 +35,9 @@ public class RiddleWin extends AppCompatActivity {
         id=getIntent().getExtras().getInt("id");
         bar = (RatingBar) findViewById(R.id.ratingBar);
         database.open();
-        superrating=database.getRiddleRatingByName(nameofRiddle);
-        //anzahl=database.getNumberofRaitingsById(id);
+        ridp=database.getRiddleById(id);
+        superrating=ridp.getRating();
+        anzahl=ridp.getRatingCount();
         database.close();
 
     }
@@ -45,11 +46,9 @@ public class RiddleWin extends AppCompatActivity {
         //berechne rating und setzte neues rating
         float tmp;
         tmp=((anzahl*superrating)+bar.getRating())/(anzahl+1);
-        database.open();
-        ridp=database.getRiddleById(id);
         ridp.setRating(tmp);
-        //database.delete(nameofRiddle);
-        database.setRiddleInDatabase(ridp);
+        database.open();
+        database.updateRiddle(ridp);
         database.close();
         Intent intent = new Intent(this,MainPage.class);
         startActivity(intent);
