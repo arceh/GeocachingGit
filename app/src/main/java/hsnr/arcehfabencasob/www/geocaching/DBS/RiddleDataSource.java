@@ -28,7 +28,8 @@ public class RiddleDataSource {
             RiddleDbHelper.TABLE_RIDDLES_CREATORNAME,
             RiddleDbHelper.TABLE_RIDDLES_TARGET_COORD,
             RiddleDbHelper.TABLE_RIDDLES_COUNT_QUESTIONS,
-            RiddleDbHelper.TABLE_RIDDLES_RATING
+            RiddleDbHelper.TABLE_RIDDLES_RATING,
+            RiddleDbHelper.TABLE_RIDDLES_RATING_COUNT
     };
 
     private String[] columns_all_riddles_specific = {
@@ -115,6 +116,7 @@ public class RiddleDataSource {
         int RiddlenameId = cursor_Ar.getColumnIndex(RiddleDbHelper.TABLE_RIDDLES_RIDDLENAME);
         int CreatornameId = cursor_Ar.getColumnIndex(RiddleDbHelper.TABLE_RIDDLES_CREATORNAME);
         int RatingId = cursor_Ar.getColumnIndex(RiddleDbHelper.TABLE_RIDDLES_RATING);
+        System.out.println(RiddleDbHelper.TABLE_RIDDLES_RATING_COUNT);
         int RatingCountId = cursor_Ar.getColumnIndex(RiddleDbHelper.TABLE_RIDDLES_RATING_COUNT);
 
         int RiddleId = cursor_Ar.getInt(ColumnId);

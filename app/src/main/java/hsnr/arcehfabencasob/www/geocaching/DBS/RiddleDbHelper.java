@@ -46,7 +46,7 @@ public class RiddleDbHelper extends SQLiteOpenHelper {
             TABLE_RIDDLES_TARGET_COORD + " TEXT NOT NULL, " +
             TABLE_RIDDLES_COUNT_QUESTIONS + " INTEGER NOT NULL, " +
             TABLE_RIDDLES_RATING + " REAL, " +
-            TABLE_RIDDLES_RATING_COUNT + "REAL);";
+            TABLE_RIDDLES_RATING_COUNT + " INTEGER NOT NULL);";
 
     public static final String SQL_CREATE_TABLE_RIDDLES_SPECIFIC = "CREATE TABLE " + TABLE_RIDDLES_SPECIFIC +
             "(" + TABLE_RIDDLES_SPECIFIC_ID + " INTEGER NOT NULL, " +
