@@ -47,6 +47,7 @@ public class RiddleWin extends AppCompatActivity {
         float tmp;
         tmp=((anzahl*superrating)+bar.getRating())/(anzahl+1);
         ridp.setRating(tmp);
+        //update wieder
         database.open();
         database.updateRiddle(ridp);
         database.close();
