@@ -40,17 +40,16 @@
 
     <!-- Create Info -->
     <string name="infotext">
-
-        Erstellen Sie keine Rätsel während des Autofahrens!
+        ACHTUNG! Erstellen Sie keine Rätsel während des Autofahrens!
         Erstellen eines Rätsels:
         1. Geben Sie die Frage für den letzten Punkt an.
         2. Begeben Sie sich zu dem gewünschten Ziel ihres Rätsels.
-        3. Drücken Sie auf den Prüfe Position Knopf.
+        3. Drücken Sie auf den nächstes Rätsel Knopf, welcher sich im Menü oben rechts befindet.
         4. Wiederholen Sie die Schritte 1-3, bis Sie beim gewünschten Start Ihres Rätsels angekommen sind.
         5. Geben Sie den gewünschten Namen des Rätsels an.
         6. Betätigen Sie den Button Rätsel erstellen.
-
     </string>
+
     <string name="next">weiter</string>
 
     <!-- Create Riddle Info -->
@@ -58,7 +57,7 @@
 
     <!-- Create Riddle Cps -->
     <!-- ->Menu -->
-    <string name="lastQuest">Letzte Frage</string>
+    <string name="lastQuest">Vorherige Frage</string>
     <string name="finish">Fertigstellen</string>
 
 
