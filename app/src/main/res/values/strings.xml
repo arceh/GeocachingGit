@@ -49,13 +49,12 @@
         5. Geben Sie den gewünschten Namen des Rätsels an.
         6. Betätigen Sie den Button Rätsel erstellen.
     </string>
-
     <string name="next">weiter</string>
 
-    <!-- Create Riddle Info -->
-
-
     <!-- Create Riddle Cps -->
+    <string name="createRiddleCpsTitel">Erstellen eines Rätsel</string>
+    <string name="createRiddleCpsCP">Anzahl erstellter Fragen</string>
+    <string name="createRiddleQuestion">Hier Frage eingeben</string>
     <!-- ->Menu -->
     <string name="lastQuest">Vorherige Frage</string>
     <string name="finish">Fertigstellen</string>
