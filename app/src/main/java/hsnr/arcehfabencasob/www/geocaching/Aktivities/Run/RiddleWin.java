@@ -34,7 +34,7 @@ public class RiddleWin extends AppCompatActivity {
         bar = (RatingBar) findViewById(R.id.ratingBar);
         database.open();
         superrating=database.getRiddleRatingByName(nameofRiddle);
-        anzahl=database.getNumberofRaitingsById(id);
+        //anzahl=database.getNumberofRaitingsById(id);
         database.close();
 
     }

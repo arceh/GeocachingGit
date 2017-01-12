@@ -53,7 +53,7 @@
 
     <!-- Create Riddle Cps -->
     <string name="createRiddleCpsTitel">Erstellen eines Rätsel</string>
-    <string name="createRiddleCpsCP">Anzahl erstellter Fragen</string>
+    <string name="createRiddleCpsCP">Anzahl Fragen:</string>
     <string name="createRiddleQuestion">Hier Frage eingeben</string>
     <!-- ->Menu -->
     <string name="lastQuest">Vorherige Frage</string>
