@@ -53,8 +53,13 @@
 
     <!-- Create Riddle Cps -->
     <string name="createRiddleCpsTitel">Erstellen eines Rätsel</string>
-    <string name="createRiddleCpsCP">Anzahl Fragen:</string>
-    <string name="createRiddleQuestion">Hier Frage eingeben</string>
+    <string name="createRiddleCpsCP">Anzahl Fragen: </string>
+    <string name="createRiddleCpsQuestion">Hier Frage eingeben</string>
+    <string name="createRiddleCpsNext">Nächste Frage</string>
+    <string name="maxCp">
+        Maximale Anzahl an Fragen erreicht.\n
+        Schließen sie das Rätsel über das Menü oben rechts ab.
+    </string>
     <!-- ->Menu -->
     <string name="lastQuest">Vorherige Frage</string>
     <string name="finish">Fertigstellen</string>
