@@ -117,7 +117,7 @@ public class MainPage extends AppCompatActivity {
         q3.put(3, new Question("Wo sind wir grade?", new Coordinate(51.3163,6.5697)));
         q3.put(4, new Question("Wo befindet sich die nächste Werkstatt?", new Coordinate(51.3169,6.5697)));
         q3.put(5, new Question("Wo ist der nächste Parkplatzeingang?", new Coordinate(51.3175,6.5694)));
-        Riddle r3 = new Riddle("Hochschule Führung", q3, "Armin Cehajic", 5.0f);
+        Riddle r3 = new Riddle("Hochschule Führung", q3, "Armin Cehajic", 5.0f,42);
         database.setRiddleInDatabase(r3);
         database.close();
         finish();
