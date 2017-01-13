@@ -60,12 +60,14 @@
         Maximale Anzahl an Fragen erreicht.\n
         Schließen sie das Rätsel über das Menü oben rechts ab.
     </string>
+    <string name="minCp">Es müssen mindestens 3 Fragen vorhanden sein</string>
     <!-- ->Menu -->
     <string name="lastQuest">Vorherige Frage</string>
     <string name="finish">Fertigstellen</string>
 
-
     <!-- Create Riddle Finish -->
-
+    <string name="createRiddleFinishFinal">Erstelle Rätsel</string>
+    <string name="createRiddleFinishName">Hier den Namen des Rätsels eingeben</string>
+    <string name="createRiddleFinishTitel">Name:</string>
 
 </resources>

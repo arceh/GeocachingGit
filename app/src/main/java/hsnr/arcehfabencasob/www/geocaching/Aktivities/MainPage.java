@@ -40,12 +40,14 @@ import hsnr.arcehfabencasob.www.geocaching.R;
 public class MainPage extends AppCompatActivity {
 
     protected RiddleDataSource database = new RiddleDataSource(this);
-
+    protected String user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_page);
+        Bundle extras = getIntent().getExtras();
+        String user = extras.getString("user");
 
         ArrayAdapter<String> adapter;
         ArrayList<String> listItem = new ArrayList<String>();
@@ -75,6 +77,7 @@ public class MainPage extends AppCompatActivity {
         switch(id) {
             case R.id.menuCreate:
                 Intent intent = new Intent(this, CreateInfo.class);
+                intent.putExtra("user", user);
                 startActivity(intent);
                 return true;
             case R.id.menuLogout:

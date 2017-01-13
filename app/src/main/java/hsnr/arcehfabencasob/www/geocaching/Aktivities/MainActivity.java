@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
         database.open();
         if(User.compareLoginCredentials(user.getText().toString(),pwd.getText().toString(),database)){
             Intent intent = new Intent(this,MainPage.class);
+            intent.putExtra("user", user.getText().toString());
             startActivity(intent);
         } else {
             error.setTextColor(Color.RED);

@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.regex.Pattern;
@@ -31,11 +32,14 @@ public class CreateRiddleCps extends AppCompatActivity {
     protected EditText questionField;
     protected Button nextButton;
     protected HashMap<Integer, Question> newQuest = new HashMap<>();
+    protected String user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_riddle_cps);
+        Bundle extras = getIntent().getExtras();
+        String user = extras.getString("user");
         init();
     }
 
@@ -76,7 +80,7 @@ public class CreateRiddleCps extends AppCompatActivity {
             return;
         }
         anzCp++;
-        newQuest.put(anzCp, new Question(question, new Coordinate(51.3165,6.5715))); //hier Koordinaten benötigt
+        newQuest.put(anzCp, new Question(question, new Coordinate(51.3165,6.5715))); /*Todo :Hier Koordinaten anfragen*/
         cpField.setText(getString(R.string.createRiddleCpsCP) + anzCp);
         if(anzCp >= 10){
             questionField.setText(R.string.maxCp);
@@ -102,11 +106,17 @@ public class CreateRiddleCps extends AppCompatActivity {
     }
 
     protected void finishRiddle(){
-        if(anzCp <= 0){
-
+        if(anzCp <= 2){
+            Toast.makeText(this,R.string.minCp,Toast.LENGTH_LONG).show();
         } else {
-            Riddle riddle;
+            int id=0;
+            Riddle riddle = new Riddle("temporär",newQuest,user,0,0);
+            /*Todo : In Datenbank eintragen
+            * id muss weiter gegeben werden */
+
+
             Intent intent = new Intent(this, CreateRiddleFinish.class);
+            intent.putExtra("id",id);
             startActivity(intent);
             finish();
         }

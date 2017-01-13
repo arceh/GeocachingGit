@@ -14,14 +14,19 @@ import hsnr.arcehfabencasob.www.geocaching.R;
 
 public class CreateInfo extends AppCompatActivity {
 
+    protected String user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_info);
+        Bundle extras = getIntent().getExtras();
+        String user = extras.getString("user");
     }
 
     protected void accept(View view){
         Intent intent = new Intent(this, CreateRiddleCps.class);
+        intent.putExtra("user", user);
         startActivity(intent);
         finish();
     }

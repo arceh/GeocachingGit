@@ -1,9 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--Das Finale erstellen des Rätsels-->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 
+    <Button
+        android:text="@string/createRiddleFinishFinal"
+        android:layout_width="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_height="100dp"
+        android:id="@+id/create_riddle_finish_final"
+        android:textSize="25sp"
+        android:layout_alignParentEnd="true" />
 
-</LinearLayout>
+    <TextView
+        android:text="@string/createRiddleFinishTitel"
+        android:textSize="30sp"
+        android:gravity="center_horizontal|center_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/create_riddle_finish_titel"
+        android:textColor="#000000"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal|center_vertical"
+        android:inputType="textPersonName"
+        android:hint="@string/createRiddleFinishName"
+        android:ems="15"
+        android:layout_marginTop="15dp"
+        android:id="@+id/create_riddle_finish_name"
+        android:layout_below="@+id/create_riddle_finish_titel"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
+</RelativeLayout>
