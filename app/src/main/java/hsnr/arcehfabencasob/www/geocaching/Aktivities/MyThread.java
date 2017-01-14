@@ -1,4 +1,4 @@
-package hsnr.arcehfabencasob.www.geocaching.Aktivities.Run;
+package hsnr.arcehfabencasob.www.geocaching.Aktivities;
 
 import android.os.Looper;
 

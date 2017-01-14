@@ -13,12 +13,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.Pattern;
 
+import hsnr.arcehfabencasob.www.geocaching.Aktivities.MyThread;
 import hsnr.arcehfabencasob.www.geocaching.DBS.Question;
 import hsnr.arcehfabencasob.www.geocaching.DBS.Riddle;
+import hsnr.arcehfabencasob.www.geocaching.DBS.RiddleDataSource;
 import hsnr.arcehfabencasob.www.geocaching.GlobaleKoordinaten.Coordinate;
+import hsnr.arcehfabencasob.www.geocaching.GlobaleKoordinaten.My_GPS;
 import hsnr.arcehfabencasob.www.geocaching.R;
 
 /**
@@ -33,6 +39,22 @@ public class CreateRiddleCps extends AppCompatActivity {
     protected Button nextButton;
     protected HashMap<Integer, Question> newQuest = new HashMap<>();
     protected String user;
+    protected My_GPS map;
+    protected RiddleDataSource database = new RiddleDataSource(this);
+    private Thread gpsThread = new Thread() {
+        @RequiresApi(api = Build.VERSION_CODES.M)
+        @Override
+        public void run() {
+            //final LatLng res = ;   /*Todo : Hier Koordinaten anfragen*/
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    nextQuestion(new Coordinate(51.3165,6.5715));
+                }
+            });
+        }
+    };
+    public MyThread getGps = new MyThread(gpsThread);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +71,7 @@ public class CreateRiddleCps extends AppCompatActivity {
         questionField = (EditText) findViewById(R.id.create_riddle_cps_question);
         nextButton = (Button) findViewById(R.id.create_riddle_cps_button);
         cpField.setText(getString(R.string.createRiddleCpsCP) + anzCp);
+        map = new My_GPS(this);
     }
 
     @Override
@@ -64,23 +87,28 @@ public class CreateRiddleCps extends AppCompatActivity {
         switch (id) {
             case R.id.create_riddle_cps_finish:
                 finishRiddle();
-                break;
+                return true;
             case R.id.create_riddle_cps_back:
                 lastQuestion();
-                break;
+                return true;
             default:
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    protected void nextQuestion(View view){
+    protected void nextQuestionStart(View view){
+        new MyThread(gpsThread).start();
+        return;
+    }
+
+    protected void nextQuestion(Coordinate coords){
         String question = questionField.getText().toString();
         if(Pattern.matches(" *",question)){
             return;
         }
         anzCp++;
-        newQuest.put(anzCp, new Question(question, new Coordinate(51.3165,6.5715))); /*Todo :Hier Koordinaten anfragen*/
+        newQuest.put(anzCp, new Question(question, coords));
         cpField.setText(getString(R.string.createRiddleCpsCP) + anzCp);
         if(anzCp >= 10){
             questionField.setText(R.string.maxCp);
@@ -110,13 +138,17 @@ public class CreateRiddleCps extends AppCompatActivity {
             Toast.makeText(this,R.string.minCp,Toast.LENGTH_LONG).show();
         } else {
             int id=0;
-            Riddle riddle = new Riddle("temporär",newQuest,user,0,0);
-            /*Todo : In Datenbank eintragen
-            * id muss weiter gegeben werden */
-
-
+            Riddle riddle = new Riddle("temporär",newQuest,user,0f,0);
+            database.open();
+            ArrayList<Riddle> r = database.getRiddlesByName("temporär");
+            if(r != null) {
+                for (int i = 0; i < r.size(); i++) {
+                    database.deleteRiddle(r.get(i));
+                }
+            }
+            database.setRiddleInDatabase(riddle);
+            database.close();
             Intent intent = new Intent(this, CreateRiddleFinish.class);
-            intent.putExtra("id",id);
             startActivity(intent);
             finish();
         }

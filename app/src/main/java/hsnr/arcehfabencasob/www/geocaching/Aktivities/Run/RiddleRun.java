@@ -3,10 +3,8 @@ package hsnr.arcehfabencasob.www.geocaching.Aktivities.Run;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
@@ -18,9 +16,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
-
+import hsnr.arcehfabencasob.www.geocaching.Aktivities.MyThread;
 import hsnr.arcehfabencasob.www.geocaching.DBS.Riddle;
 import hsnr.arcehfabencasob.www.geocaching.DBS.RiddleDataSource;
 import hsnr.arcehfabencasob.www.geocaching.GlobaleKoordinaten.My_GPS;

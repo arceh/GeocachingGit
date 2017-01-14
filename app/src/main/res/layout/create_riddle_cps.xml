@@ -20,7 +20,7 @@
         android:layout_height="100dp"
         android:id="@+id/create_riddle_cps_button"
         android:textSize="25sp"
-        android:onClick="nextQuestion"
+        android:onClick="nextQuestionStart"
         android:layout_alignParentBottom="true" />
 
     <TextView
