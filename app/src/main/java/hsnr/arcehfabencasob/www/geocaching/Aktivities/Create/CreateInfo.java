@@ -21,7 +21,7 @@ public class CreateInfo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_info);
         Bundle extras = getIntent().getExtras();
-        String user = extras.getString("user");
+        user = extras.getString("user");
     }
 
     protected void accept(View view){

@@ -61,7 +61,7 @@ public class CreateRiddleCps extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_riddle_cps);
         Bundle extras = getIntent().getExtras();
-        String user = extras.getString("user");
+        user = extras.getString("user");
         init();
     }
 

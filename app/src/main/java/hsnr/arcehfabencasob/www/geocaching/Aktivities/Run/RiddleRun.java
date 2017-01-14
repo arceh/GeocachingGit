@@ -75,14 +75,13 @@ public class RiddleRun extends AppCompatActivity {
         cpView.setText(getString(R.string.checkpoint) + " " + cpAkt + "/" + cpAnz);
         TextView questionView = (TextView) findViewById(R.id.riddle_run_riddle);
         questionView.setText(question);
-
         map = new My_GPS(this);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     protected void nextCp(View view) {
         boolean rights;
-        rights = map.permissioncheck(2);
+        rights = map.permissioncheck(1);
         if (rights) {
             Button btn = (Button) findViewById(R.id.riddle_run_next);
             btn.setVisibility(View.GONE);
