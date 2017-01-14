@@ -146,7 +146,7 @@ public class CreateRiddleCps extends AppCompatActivity {
                     database.deleteRiddle(r.get(i));
                 }
             }
-            //database.setRiddleInDatabase(riddle); /* Todo : Fehler beim eintragen */
+            database.setRiddleInDatabase(riddle); /* Todo : Fehler beim eintragen */
             database.close();
             Intent intent = new Intent(this, CreateRiddleFinish.class);
             startActivity(intent);
