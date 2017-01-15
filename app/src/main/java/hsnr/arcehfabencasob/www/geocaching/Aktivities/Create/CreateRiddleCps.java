@@ -1,9 +1,13 @@
 package hsnr.arcehfabencasob.www.geocaching.Aktivities.Create;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -98,7 +102,11 @@ public class CreateRiddleCps extends AppCompatActivity {
     }
 
     protected void nextQuestionStart(View view){
-        new MyThread(gpsThread).start();
+        boolean rights;
+        rights = map.permissioncheck(2);
+        if (rights) {
+            new MyThread(gpsThread).start();
+        }
         return;
     }
 
@@ -152,6 +160,20 @@ public class CreateRiddleCps extends AppCompatActivity {
             intent.putExtra("anzCp",anzCp);
             startActivity(intent);
             finish();
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == 2) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                    && (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                    || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)) {
+                new MyThread(gpsThread).start();
+            } else {
+                map.permissioncheck(2);
+            }
         }
     }
 }
