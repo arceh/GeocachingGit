@@ -35,9 +35,34 @@
         android:inputType="textPersonName"
         android:hint="@string/createRiddleFinishName"
         android:ems="15"
-        android:layout_marginTop="15dp"
         android:id="@+id/create_riddle_finish_name"
         android:layout_below="@+id/create_riddle_finish_titel"
         android:layout_alignParentStart="true"
+        android:layout_marginTop="12dp"
         android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        android:text="@string/checkpoint"
+        android:id="@+id/create_riddle_finish_titel_Cp"
+        android:paddingLeft="5dp"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/create_riddle_finish_name"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/create_riddle_finish_cp"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        android:gravity="center_horizontal|center_vertical"
+        android:paddingRight="5dp"
+        android:layout_marginTop="19dp"
+        android:layout_below="@+id/create_riddle_finish_titel_Cp"
+        android:layout_alignParentStart="true" />
+
 </RelativeLayout>

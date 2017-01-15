@@ -85,9 +85,7 @@ public class MainPage extends AppCompatActivity {
         int id = item.getItemId();
         switch(id) {
             case R.id.menuCreate:
-                Intent intent = new Intent(this, CreateInfo.class);
-                intent.putExtra("user", user);
-                startActivity(intent);
+                createRiddle();
                 return true;
             case R.id.menuLogout:
                 finish();
@@ -115,6 +113,29 @@ public class MainPage extends AppCompatActivity {
         startActivity(intent);
     }
 
+    protected void createRiddle(){
+        Intent intent = new Intent(this, CreateInfo.class);
+        intent.putExtra("user", user);
+        startActivityForResult(intent,1);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==1)
+        {
+            ArrayAdapter<String> adapter;
+            ArrayList<String> listItem = new ArrayList<String>();
+            database.open();
+            listItem = database.getAllRiddleNames();
+            database.close();
+            adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,listItem);
+            ListView container;
+            container = (ListView) findViewById(R.id.main_page_contentList);
+            container.setAdapter(adapter);
+            initOnClick();
+        }
+    }
     //----------------------------------------------------------------------------------------------
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -133,6 +154,8 @@ public class MainPage extends AppCompatActivity {
         }
         database.close();
     }
+
+
 }
 
 

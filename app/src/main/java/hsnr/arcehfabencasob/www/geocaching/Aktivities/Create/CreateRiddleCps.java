@@ -149,6 +149,7 @@ public class CreateRiddleCps extends AppCompatActivity {
             database.setRiddleInDatabase(riddle);
             database.close();
             Intent intent = new Intent(this, CreateRiddleFinish.class);
+            intent.putExtra("anzCp",anzCp);
             startActivity(intent);
             finish();
         }

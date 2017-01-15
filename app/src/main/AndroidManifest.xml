@@ -73,7 +73,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.CreateRiddleFinish" />
 
-                <category android:name="android.intent.category.CreateRiddleFinish" />
+                <category android:name="android.intent.category.Riddle" />
             </intent-filter>
         </activity>
     </application>
