@@ -50,7 +50,8 @@ public class CreateRiddleCps extends AppCompatActivity {
         @Override
         public void run() {
             /* Abfragen der Aktuellen Position */
-            //final LatLng res = ;   /*Todo : Hier Koordinaten anfragen*/
+            final LatLng res = map.getReQuestLatLng();   /*Todo : Hier Koordinaten anfragen*/
+            final Coordinate coord = new Coordinate(res.latitude,res.longitude);
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
