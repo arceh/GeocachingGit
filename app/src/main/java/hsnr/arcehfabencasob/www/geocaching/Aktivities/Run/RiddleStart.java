@@ -7,7 +7,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.model.LatLng;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import hsnr.arcehfabencasob.www.geocaching.DBS.Question;
+import hsnr.arcehfabencasob.www.geocaching.DBS.Riddle;
 import hsnr.arcehfabencasob.www.geocaching.DBS.RiddleDataSource;
+import hsnr.arcehfabencasob.www.geocaching.GlobaleKoordinaten.Coordinate;
+import hsnr.arcehfabencasob.www.geocaching.GlobaleKoordinaten.My_GPS;
 import hsnr.arcehfabencasob.www.geocaching.R;
 
 /**
@@ -17,6 +26,7 @@ import hsnr.arcehfabencasob.www.geocaching.R;
 public class RiddleStart extends AppCompatActivity {
 
     protected RiddleDataSource database = new RiddleDataSource(this);
+    protected My_GPS myGps;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +42,16 @@ public class RiddleStart extends AppCompatActivity {
         TextView cpView = (TextView) findViewById(R.id.riddle_start_cp);
         TextView authorView = (TextView) findViewById(R.id.riddle_start_author);
         TextView rateView = (TextView) findViewById(R.id.riddle_start_rating);
+        TextView diameterView = (TextView) findViewById(R.id.riddle_start_diameter);
         database.open();
+        ArrayList<Riddle> allRiddle = database.getRiddlesByName(name);
+        Riddle r = allRiddle.get(0);
         cpView.setText(String.valueOf(database.getRiddleCheckpointCountByName(name)));
         authorView.setText(database.getRiddleCreatorByName(name));
         rateView.setText(Float.toString(database.getRiddleRatingByName(name)));
         database.close();
+        myGps = new My_GPS(this);
+        diameterView.setText(Float.toString(diameter(r)) + " km");
     }
 
     protected void startRiddle(View view){
@@ -55,6 +70,24 @@ public class RiddleStart extends AppCompatActivity {
         startActivity(intent);
         finish();
         return;
+    }
+
+    protected float diameter(Riddle r){
+        float result = 0;
+        HashMap<Integer,Question> q = r.getQuestions();
+        for(int i = 0; i< q.size();i++){
+            Coordinate a = q.get(i+1).getAnswer();
+            for (int j = i; j < q.size();j++){
+                Coordinate b = q.get(j+1).getAnswer();
+                LatLng x = new LatLng(a.x,a.y);
+                LatLng y = new LatLng(b.x,b.y);
+                float z = myGps.getDistanz(x,y);
+                if (z > result){
+                    result = z;
+                }
+            }
+        }
+        return (result/1000);
     }
 
 }

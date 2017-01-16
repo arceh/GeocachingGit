@@ -27,7 +27,6 @@ public class CreateRiddleFinish extends AppCompatActivity {
     protected ArrayList<Riddle> riddleArray;
     protected EditText nameField;
     protected TextView cpField;
-    protected My_GPS myGps;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +48,6 @@ public class CreateRiddleFinish extends AppCompatActivity {
         nameField = (EditText) findViewById(R.id.create_riddle_finish_name);
         cpField  = (TextView) findViewById(R.id.create_riddle_finish_cp);
         cpField.setText(String.valueOf(anzCp));
-        myGps = new My_GPS(this);
     }
 
     protected void createRiddle (View view){
@@ -59,22 +57,6 @@ public class CreateRiddleFinish extends AppCompatActivity {
         database.setRiddleInDatabase(riddle);
         database.close();
         finish();
-    }
-
-    protected float diameter(Riddle r){
-        float result = 0;
-        HashMap<Integer,Question> q = r.getQuestions();
-        for(int i = 0; i< q.size();i++){
-            for (int j = i; j < q.size();j++){
-                LatLng x = new LatLng(q.get(i).getAnswer().x,q.get(i).getAnswer().y);
-                LatLng y = new LatLng(q.get(j).getAnswer().x,q.get(j).getAnswer().y);
-                float z = myGps.getDistanz(x,y);
-                if (z > result){
-                    result = z;
-                }
-            }
-        }
-        return (result/1000);
     }
 
 }
