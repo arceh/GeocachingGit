@@ -33,13 +33,14 @@ public class RiddleWin extends AppCompatActivity {
         setContentView(R.layout.riddle_win);
         nameofRiddle=getIntent().getExtras().getString("name");
         id=getIntent().getExtras().getInt("id");
+    }
+    protected void init(){
         bar = (RatingBar) findViewById(R.id.ratingBar);
         database.open();
         ridp=database.getRiddleById(id);
         superrating=ridp.getRating();
         anzahl=ridp.getRatingCount();
         database.close();
-
     }
 
     protected void rating(View view){

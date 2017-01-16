@@ -27,6 +27,7 @@ import hsnr.arcehfabencasob.www.geocaching.R;
  */
 
 public class RiddleRun extends AppCompatActivity {
+    int distanzToTarget = 20;
     int cpAkt = 1;
     int cpAnz = 1;
     String name = "";
@@ -36,9 +37,6 @@ public class RiddleRun extends AppCompatActivity {
     Riddle riddle;
     int id;
     protected My_GPS map;
-    LatLng coords;
-    //Executor executor = Executors.newSingleThreadExecutor();
-    //AsyncT async;
     private Thread gpsThread = new Thread() {
         @RequiresApi(api = Build.VERSION_CODES.M)
         @Override
@@ -62,6 +60,10 @@ public class RiddleRun extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         name = extras.getString("name");
         cpAnz = extras.getInt("cp");
+        init();
+    }
+
+    protected void init(){
         database.open();
         riddle = database.getRiddlesByName(name).get(0);
         database.close();
@@ -86,16 +88,13 @@ public class RiddleRun extends AppCompatActivity {
             Button btn = (Button) findViewById(R.id.riddle_run_next);
             btn.setVisibility(View.GONE);
             new MyThread(gpsThread).start();
-            //async = new AsyncT();
-            //async.executeOnExecutor(Executors.newSingleThreadExecutor(), this);
-            //System.out.println(async.getStatus().toString());
         }
     }
 
     protected void nextCpPlus(LatLng temp) {
         Button btn = (Button) findViewById(R.id.riddle_run_next);
         btn.setVisibility(View.VISIBLE);
-        if (map.compareCoords(answer, temp, 20)) {//kontrolliere position
+        if (map.compareCoords(answer, temp, distanzToTarget)) {
             if (cpAkt >= cpAnz) {
                 Intent intent = new Intent(this, RiddleWin.class);
                 intent.putExtra("name", name);
@@ -116,7 +115,7 @@ public class RiddleRun extends AppCompatActivity {
             }
         } else {
             Toast.makeText(this, R.string.wrongPos, Toast.LENGTH_LONG).show();
-            Toast.makeText(this, String.valueOf(map.getDistanz(answer, temp)), Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, String.valueOf(map.getDistanz(answer, temp)), Toast.LENGTH_LONG).show();
         }
     }
 
@@ -130,8 +129,6 @@ public class RiddleRun extends AppCompatActivity {
                 Button btn = (Button) findViewById(R.id.riddle_run_next);
                 btn.setVisibility(View.GONE);
                 new MyThread(gpsThread).start();
-                //async.executeOnExecutor(Executors.newSingleThreadExecutor(), this);
-                //System.out.println(async.getStatus().toString());
             } else {
                 map.permissioncheck(1);
             }

@@ -49,12 +49,12 @@ public class MainPage extends AppCompatActivity {
         setContentView(R.layout.main_page);
         Bundle extras = getIntent().getExtras();
         user = extras.getString("user");
+        init();
+    }
 
-        ArrayAdapter<String> adapter;
-        ArrayList<String> listItem = new ArrayList<String>();
-
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    protected void init(){
         fillDummy();
-
         database.open();
         ArrayList<Riddle> r = database.getRiddlesByName("temporär");
         if(r != null) {
@@ -62,15 +62,8 @@ public class MainPage extends AppCompatActivity {
                 database.deleteRiddle(r.get(i));
             }
         }
-        listItem = database.getAllRiddleNames();
         database.close();
-
-        adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,listItem);
-        ListView container;
-        container = (ListView) findViewById(R.id.main_page_contentList);
-        container.setAdapter(adapter);
-        initOnClick();
-
+        refreshRiddles();
     }
 
     @Override
@@ -107,6 +100,19 @@ public class MainPage extends AppCompatActivity {
         });
     }
 
+    protected void refreshRiddles(){
+        ArrayAdapter<String> adapter;
+        ArrayList<String> listItem = new ArrayList<String>();
+        database.open();
+        listItem = database.getAllRiddleNames();
+        database.close();
+        adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,listItem);
+        ListView container;
+        container = (ListView) findViewById(R.id.main_page_contentList);
+        container.setAdapter(adapter);
+        initOnClick();
+    }
+
     protected void lookRiddle(String name){
         Intent intent = new Intent(this,RiddleStart.class);
         intent.putExtra("riddleName", name);
@@ -124,16 +130,7 @@ public class MainPage extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==1)
         {
-            ArrayAdapter<String> adapter;
-            ArrayList<String> listItem = new ArrayList<String>();
-            database.open();
-            listItem = database.getAllRiddleNames();
-            database.close();
-            adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,listItem);
-            ListView container;
-            container = (ListView) findViewById(R.id.main_page_contentList);
-            container.setAdapter(adapter);
-            initOnClick();
+            refreshRiddles();
         }
     }
     //----------------------------------------------------------------------------------------------

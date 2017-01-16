@@ -23,14 +23,15 @@ public class RiddleStart extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.riddle_start);
         Bundle extras = getIntent().getExtras();
-        String name = extras.getString("riddleName");
+        init(extras.getString("riddleName"));
+    }
 
+    protected void init(String name){
         TextView nameView = (TextView) findViewById(R.id.riddle_start_name);
         nameView.setText(name);
         TextView cpView = (TextView) findViewById(R.id.riddle_start_cp);
         TextView authorView = (TextView) findViewById(R.id.riddle_start_author);
         TextView rateView = (TextView) findViewById(R.id.riddle_start_rating);
-
         database.open();
         cpView.setText(String.valueOf(database.getRiddleCheckpointCountByName(name)));
         authorView.setText(database.getRiddleCreatorByName(name));
