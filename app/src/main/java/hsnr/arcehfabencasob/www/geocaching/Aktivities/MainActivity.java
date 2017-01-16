@@ -21,13 +21,15 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        /* Aufbau der Aktivität
+         * Erste Aktivität beim Start des Rätsels */
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
 
 
     protected void registry(View view) {
-
+        /* Registrieren neuer User */
         TextView error;
         error = (TextView) findViewById(R.id.errorField);
         EditText user;
@@ -60,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected void login(View view) {
+        /* Login-Daten überprüfen und zulassen oder ablehnen
+         * Starten der Aktivität mit alle Rätseln */
         TextView error;
         error = (TextView) findViewById(R.id.errorField);
         EditText user;
@@ -81,7 +85,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected int checkRegistry(String username,String password){
-        /* Datenbank:
+        /*  Kontrollieren der Eingabefelder
+            Datenbank:
             suche name in db => ist name leer return 0
                              => name schon vorhanden return 1
             lege neuen user in db an => passwort nicht aktzeptabel return 2

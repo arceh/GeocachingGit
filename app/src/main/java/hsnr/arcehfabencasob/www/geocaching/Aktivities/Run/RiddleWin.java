@@ -27,14 +27,19 @@ public class RiddleWin extends AppCompatActivity {
     private Riddle ridp;
     private RatingBar bar;
     protected RiddleDataSource database = new RiddleDataSource(this);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        /* Aufbau der Aktivität
+         * Übergebene Informationen abspeichern */
         super.onCreate(savedInstanceState);
         setContentView(R.layout.riddle_win);
         nameofRiddle=getIntent().getExtras().getString("name");
         id=getIntent().getExtras().getInt("id");
     }
+
     protected void init(){
+        /* Initialisieren der Variabeln */
         bar = (RatingBar) findViewById(R.id.ratingBar);
         database.open();
         ridp=database.getRiddleById(id);

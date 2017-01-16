@@ -18,6 +18,8 @@ public class CreateInfo extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        /* Aufbau der Aktivität
+         * Übergebene Informationen abspeichern  */
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_info);
         Bundle extras = getIntent().getExtras();
@@ -25,11 +27,10 @@ public class CreateInfo extends AppCompatActivity {
     }
 
     protected void accept(View view){
+        /* Starten der Aktivität zum Erstellen eines Rätsels */
         Intent intent = new Intent(this, CreateRiddleCps.class);
         intent.putExtra("user", user);
         startActivity(intent);
         finish();
     }
-
-
 }

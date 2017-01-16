@@ -45,6 +45,8 @@ public class MainPage extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        /* Aufbau der Aktivität
+         * Übergebene Informationen abspeichern */
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_page);
         Bundle extras = getIntent().getExtras();
@@ -54,6 +56,7 @@ public class MainPage extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     protected void init(){
+        /* Dummydaten setzen und temporäre Rätsel aus der Datenbank löschen */
         fillDummy();
         database.open();
         ArrayList<Riddle> r = database.getRiddlesByName("temporär");
@@ -68,6 +71,7 @@ public class MainPage extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        /* Aufbau des Options-Menü */
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
@@ -75,6 +79,7 @@ public class MainPage extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        /* Auslösen von Optionen im Menü */
         int id = item.getItemId();
         switch(id) {
             case R.id.menuCreate:
@@ -89,6 +94,8 @@ public class MainPage extends AppCompatActivity {
     }
 
     protected void initOnClick() {
+        /* Hinzufügen der Auslöser
+         * für die Elemente der Liste */
         ListView ContactList = (ListView) findViewById(R.id.main_page_contentList);
         ContactList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -101,8 +108,9 @@ public class MainPage extends AppCompatActivity {
     }
 
     protected void refreshRiddles(){
+        /* Füllen der Liste mit allen Rätseln */
         ArrayAdapter<String> adapter;
-        ArrayList<String> listItem = new ArrayList<String>();
+        ArrayList<String> listItem = new ArrayList<>();
         database.open();
         listItem = database.getAllRiddleNames();
         database.close();
@@ -114,12 +122,14 @@ public class MainPage extends AppCompatActivity {
     }
 
     protected void lookRiddle(String name){
+        /* Starten der Aktivität zum Spielen eines Rätsels */
         Intent intent = new Intent(this,RiddleStart.class);
         intent.putExtra("riddleName", name);
         startActivity(intent);
     }
 
     protected void createRiddle(){
+        /* Starten der Aktivität zum erstellen eines Rätsels */
         Intent intent = new Intent(this, CreateInfo.class);
         intent.putExtra("user", user);
         startActivityForResult(intent,1);
@@ -127,6 +137,7 @@ public class MainPage extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        /* Erneuert die Liste beim Abschluss der Create-Aktivität */
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==1)
         {
@@ -137,6 +148,7 @@ public class MainPage extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void fillDummy() {
+        /* Fügt der Datenbank ein Standart Rätsel hinzu */
         database.open();
         ArrayList<Riddle> r = database.getRiddlesByName("Hochschule Führung");
         if(r == null) {

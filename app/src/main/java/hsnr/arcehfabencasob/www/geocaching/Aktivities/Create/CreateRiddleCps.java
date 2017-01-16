@@ -49,6 +49,7 @@ public class CreateRiddleCps extends AppCompatActivity {
         @RequiresApi(api = Build.VERSION_CODES.M)
         @Override
         public void run() {
+            /* Abfragen der Aktuellen Position */
             //final LatLng res = ;   /*Todo : Hier Koordinaten anfragen*/
             runOnUiThread(new Runnable() {
                 @Override
@@ -62,6 +63,8 @@ public class CreateRiddleCps extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        /* Aufbau der Aktivität
+         * Übergebene Informationen abspeichern */
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_riddle_cps);
         Bundle extras = getIntent().getExtras();
@@ -70,6 +73,7 @@ public class CreateRiddleCps extends AppCompatActivity {
     }
 
     protected void init(){
+        /* Initialisieren der Variabeln */
         anzCp = 0;
         cpField = (TextView) findViewById(R.id.create_riddle_cps_anz);
         questionField = (EditText) findViewById(R.id.create_riddle_cps_question);
@@ -80,6 +84,7 @@ public class CreateRiddleCps extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        /* Erstellen des Options-Menü */
         getMenuInflater().inflate(R.menu.create_riddle_menu, menu);
         return true;
     }
@@ -87,6 +92,7 @@ public class CreateRiddleCps extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        /* Auslösen von Optionen im Menü */
         int id = item.getItemId();
         switch (id) {
             case R.id.create_riddle_cps_finish:
@@ -102,6 +108,7 @@ public class CreateRiddleCps extends AppCompatActivity {
     }
 
     protected void nextQuestionStart(View view){
+        /* Abfragen der Rechte für GPS und ermitteln der Position */
         boolean rights;
         rights = map.permissioncheck(2);
         if (rights) {
@@ -111,6 +118,8 @@ public class CreateRiddleCps extends AppCompatActivity {
     }
 
     protected void nextQuestion(Coordinate coords){
+        /* Speichern der Aktuellen Frage und die da zugehörige Antwort
+        *  Zurücksetzten der Felder */
         String question = questionField.getText().toString();
         if(Pattern.matches(" *",question)){
             return;
@@ -128,6 +137,7 @@ public class CreateRiddleCps extends AppCompatActivity {
     }
 
     protected void lastQuestion(){
+        /* Laden der letzten Frage */
         if(anzCp <= 0){
             return;
         }
@@ -142,6 +152,8 @@ public class CreateRiddleCps extends AppCompatActivity {
     }
 
     protected void finishRiddle(){
+        /* Starten der Aktivität zum Abschließen des erstell Vorgang
+        *  speichert Rätsel in Datenbank mit temporären Namen*/
         if(anzCp <= 2){
             Toast.makeText(this,R.string.minCp,Toast.LENGTH_LONG).show();
         } else {
@@ -166,6 +178,7 @@ public class CreateRiddleCps extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        /* Kontrollieren ob Rechte zugelassen wurden */
         if (requestCode == 2) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED
                     && (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED

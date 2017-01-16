@@ -30,6 +30,8 @@ public class CreateRiddleFinish extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        /* Speichern der Aktuellen Frage und die da zugehörige Antwort
+        *  Zurücksetzten der Felder */
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_riddle_finish);
         Bundle extras = getIntent().getExtras();
@@ -38,6 +40,8 @@ public class CreateRiddleFinish extends AppCompatActivity {
     }
 
     protected void init(int anzCp){
+        /* Initialisieren der Variablen
+        *  erstelltes Rätsel aus der Datenbank holen*/
         database.open();
         riddleArray = database.getRiddlesByName("temporär");
         if(riddleArray != null) {
@@ -51,6 +55,8 @@ public class CreateRiddleFinish extends AppCompatActivity {
     }
 
     protected void createRiddle (View view){
+        /* Abschließen des Rätsels
+        *  Speichern in Datenbank*/
         String name = nameField.getText().toString();
         riddle.setRiddleName(name);
         database.open();

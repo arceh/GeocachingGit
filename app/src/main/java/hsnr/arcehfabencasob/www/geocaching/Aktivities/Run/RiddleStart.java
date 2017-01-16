@@ -30,6 +30,8 @@ public class RiddleStart extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        /* Aufbau der Aktivität
+         * Übergebene Informationen abspeichern */
         super.onCreate(savedInstanceState);
         setContentView(R.layout.riddle_start);
         Bundle extras = getIntent().getExtras();
@@ -37,6 +39,7 @@ public class RiddleStart extends AppCompatActivity {
     }
 
     protected void init(String name){
+        /* Initialisieren der Variabeln */
         TextView nameView = (TextView) findViewById(R.id.riddle_start_name);
         nameView.setText(name);
         TextView cpView = (TextView) findViewById(R.id.riddle_start_cp);
@@ -55,6 +58,7 @@ public class RiddleStart extends AppCompatActivity {
     }
 
     protected void startRiddle(View view){
+        /* Starten der Aktivität zum Spielen eines Rätsels */
         int cp = 0;
         TextView nameView = (TextView) findViewById(R.id.riddle_start_name);
         String name = nameView.getText().toString();
@@ -73,6 +77,7 @@ public class RiddleStart extends AppCompatActivity {
     }
 
     protected float diameter(Riddle r){
+        /* Berechnung des maximalen Abstands von 2 Antworten*/
         float result = 0;
         HashMap<Integer,Question> q = r.getQuestions();
         for(int i = 0; i< q.size();i++){

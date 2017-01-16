@@ -41,6 +41,7 @@ public class RiddleRun extends AppCompatActivity {
         @RequiresApi(api = Build.VERSION_CODES.M)
         @Override
         public void run() {
+            /* Abfragen der Aktuellen Position */
             final LatLng res = map.getReQuestLatLng();
             runOnUiThread(new Runnable() {
                 @Override
@@ -55,6 +56,8 @@ public class RiddleRun extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        /* Aufbau der Aktivität
+         * Übergebene Informationen abspeichern */
         super.onCreate(savedInstanceState);
         setContentView(R.layout.riddle_run);
         Bundle extras = getIntent().getExtras();
@@ -64,6 +67,7 @@ public class RiddleRun extends AppCompatActivity {
     }
 
     protected void init(){
+        /* Initialisieren der Variabeln */
         database.open();
         riddle = database.getRiddlesByName(name).get(0);
         database.close();
@@ -82,6 +86,7 @@ public class RiddleRun extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     protected void nextCp(View view) {
+        /* Abfragen der Rechte und Position beziehen */
         boolean rights;
         rights = map.permissioncheck(1);
         if (rights) {
@@ -92,6 +97,7 @@ public class RiddleRun extends AppCompatActivity {
     }
 
     protected void nextCpPlus(LatLng temp) {
+        /* Vergleichen der Aktuellen Position mit der Antwort */
         Button btn = (Button) findViewById(R.id.riddle_run_next);
         btn.setVisibility(View.VISIBLE);
         if (map.compareCoords(answer, temp, distanzToTarget)) {
@@ -122,6 +128,7 @@ public class RiddleRun extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        /* Kontrollieren ob Rechte zugelassen wurden */
         if (requestCode == 1) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED
                     && (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
