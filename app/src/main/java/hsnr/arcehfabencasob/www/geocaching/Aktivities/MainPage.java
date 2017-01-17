@@ -166,5 +166,3 @@ public class MainPage extends AppCompatActivity {
 
 
 }
-
-
