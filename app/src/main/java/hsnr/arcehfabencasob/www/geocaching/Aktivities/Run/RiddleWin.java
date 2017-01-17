@@ -21,7 +21,7 @@ import hsnr.arcehfabencasob.www.geocaching.R;
 public class RiddleWin extends AppCompatActivity {
 
 
-    private String nameofRiddle;
+    private String nameofRiddle,superuser;
     private int id,anzahl;
     private float superrating;
     private Riddle ridp;
@@ -36,6 +36,7 @@ public class RiddleWin extends AppCompatActivity {
         setContentView(R.layout.riddle_win);
         nameofRiddle=getIntent().getExtras().getString("name");
         id=getIntent().getExtras().getInt("id");
+        init();
     }
 
     protected void init(){
@@ -44,13 +45,14 @@ public class RiddleWin extends AppCompatActivity {
         database.open();
         ridp=database.getRiddleById(id);
         superrating=ridp.getRating();
+        superuser=ridp.getCreatorName();
         anzahl=ridp.getRatingCount();
         database.close();
     }
 
     protected void rating(View view){
         //berechne rating und setzte neues rating
-        float tmp;
+        float tmp=0;
         tmp=((anzahl*superrating)+bar.getRating())/(anzahl+1);
         ridp.setRating(tmp);
         //update wieder
@@ -58,6 +60,7 @@ public class RiddleWin extends AppCompatActivity {
         database.updateRiddle(ridp);
         database.close();
         Intent intent = new Intent(this,MainPage.class);
+        intent.putExtra("user",superuser);
         startActivity(intent);
         finish(); //schließen der Activity
         return;

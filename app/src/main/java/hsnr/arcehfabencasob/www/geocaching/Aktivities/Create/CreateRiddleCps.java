@@ -55,7 +55,7 @@ public class CreateRiddleCps extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    nextQuestion(new Coordinate(51.3165,6.5715));
+                    nextQuestion(coord);
                 }
             });
         }
