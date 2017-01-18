@@ -122,6 +122,8 @@ public class CreateRiddleCps extends AppCompatActivity {
     protected void nextQuestionStart(View view){
         /* Abfragen der Rechte für GPS und ermitteln der Position */
         boolean rights;
+        Button btn = (Button) findViewById(R.id.create_riddle_cps_button);
+        btn.setVisibility(View.GONE);
         rights = map.permissioncheck(2);
         if (rights) {
             new MyThread(gpsThread).start();
@@ -132,6 +134,8 @@ public class CreateRiddleCps extends AppCompatActivity {
     protected void nextQuestion(Coordinate coords){
         /* Speichern der Aktuellen Frage und die da zugehörige Antwort
         *  Zurücksetzten der Felder */
+        Button btn = (Button) findViewById(R.id.create_riddle_cps_button);
+        btn.setVisibility(View.VISIBLE);
         String question = questionField.getText().toString();
         if(Pattern.matches(" *",question)){
             return;
