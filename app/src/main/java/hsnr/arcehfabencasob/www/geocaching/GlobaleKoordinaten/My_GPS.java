@@ -311,7 +311,9 @@ public class My_GPS{
             LatLng l = sortinghaufen();
         if(l==null){
             superposition.clear();
-            l = new LatLng(breite,laenge);
+            if(breite!=null)
+                l = new LatLng(breite,laenge);
+            return null;
         }
 
             if (ActivityCompat.checkSelfPermission(that, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(that, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
