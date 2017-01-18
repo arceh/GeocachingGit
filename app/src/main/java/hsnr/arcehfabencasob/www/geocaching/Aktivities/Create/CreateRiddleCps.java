@@ -51,17 +51,20 @@ public class CreateRiddleCps extends AppCompatActivity {
         public void run() {
             /* Abfragen der Aktuellen Position */
             final LatLng res = map.gpsPosAlt();   /*Todo : Hier Koordinaten anfragen*/
-            final Coordinate coord = new Coordinate(res.latitude,res.longitude);
+            final Coordinate coord;
+            if(res==null){
+                        /*Fehler behandlung Hier
+                        * Ein Toast wird schon geworfen*/
+               coord= new Coordinate(0, 0);
+            }
+            else {
+                 coord = new Coordinate(res.latitude, res.longitude);
+            }
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    if(coord==null){
-                        /*Fehler behandlung Hier
-                        * Ein Toast wird schon geworfen*/
-                    }
-                    else {
                         nextQuestion(coord);
-                    }
+
                 }
             });
         }
