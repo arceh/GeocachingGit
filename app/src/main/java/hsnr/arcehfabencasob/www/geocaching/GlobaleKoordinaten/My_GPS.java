@@ -13,6 +13,7 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -22,6 +23,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
+import hsnr.arcehfabencasob.www.geocaching.R;
 
 import static android.content.Context.LOCATION_SERVICE;
 
@@ -183,6 +186,50 @@ public class My_GPS{
         }
         return false;
     }
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void gpsAn(){
+        getReQuest(service,locationListener);
+    }
+
+    public void gpsAus(){
+        if (ActivityCompat.checkSelfPermission(that, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(that, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+        }
+        service.removeUpdates(locationListener);
+    }
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public LatLng gpsPosAlt(){
+        double tmp=System.currentTimeMillis()-timeout;
+        while(!triggergps && tmp<7000) {
+            getReQuestWIfi(service,locationClient);
+            getReQuest(service, locationListener);
+            tmp=System.currentTimeMillis()-timeout;
+            LatLng g = new LatLng(breite, laenge);
+            if (gg != null)
+                g = new LatLng(ww.getLatitude(), ww.getLongitude());
+            LatLng w = new LatLng(breiteclient, laengeclient);
+            if (ww != null)
+                w = new LatLng(ww.getLatitude(), ww.getLongitude());
+            if (wifiIsBetter(gg, ww)) {
+                superposition.add(w);
+            } else {
+                superposition.add(g);
+            }
+            ww = null;
+            gg = null;
+        }
+        LatLng l = sortinghaufen();
+        if(l==null){
+            Toast.makeText(that, R.string.Fehlergps, Toast.LENGTH_LONG).show();
+            superposition.clear();
+            return null;
+        }else{
+            superposition.clear();
+            return l;
+        }
+
+
+    }
 
     /** Wichtig für die Verwendung**/
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -202,8 +249,10 @@ public class My_GPS{
                     getReQuest(service, locationListener);
                     tmp=System.currentTimeMillis()-timeout;
                     LatLng g= new LatLng(breite,laenge);
-                    if(gg!=null)
-                        g=new LatLng(gg.getLatitude(),gg.getLongitude());
+                    if(gg!=null) {
+                        g = new LatLng(gg.getLatitude(), gg.getLongitude());
+
+                    }
                     LatLng w=new LatLng(breiteclient,laengeclient);
                     if(ww!=null)
                         w= new LatLng(ww.getLatitude(),ww.getLongitude());
@@ -219,6 +268,7 @@ public class My_GPS{
             }
             LatLng l = sortinghaufen();
         if(l==null){
+            superposition.clear();
             l = new LatLng(breite,laenge);
         }
 
@@ -227,6 +277,9 @@ public class My_GPS{
             }
             service.removeUpdates(locationListener);
             triggergps = false;
+            ww=null;
+            gg=null;
+            superposition.clear();
             return l;
 
 

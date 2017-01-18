@@ -50,12 +50,18 @@ public class CreateRiddleCps extends AppCompatActivity {
         @Override
         public void run() {
             /* Abfragen der Aktuellen Position */
-            final LatLng res = map.getReQuestLatLng();   /*Todo : Hier Koordinaten anfragen*/
+            final LatLng res = map.gpsPosAlt();   /*Todo : Hier Koordinaten anfragen*/
             final Coordinate coord = new Coordinate(res.latitude,res.longitude);
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    nextQuestion(coord);
+                    if(coord==null){
+                        /*Fehler behandlung Hier
+                        * Ein Toast wird schon geworfen*/
+                    }
+                    else {
+                        nextQuestion(coord);
+                    }
                 }
             });
         }
@@ -97,6 +103,7 @@ public class CreateRiddleCps extends AppCompatActivity {
         int id = item.getItemId();
         switch (id) {
             case R.id.create_riddle_cps_finish:
+                map.gpsAus();
                 finishRiddle();
                 return true;
             case R.id.create_riddle_cps_back:
@@ -108,6 +115,7 @@ public class CreateRiddleCps extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     protected void nextQuestionStart(View view){
         /* Abfragen der Rechte für GPS und ermitteln der Position */
         boolean rights;

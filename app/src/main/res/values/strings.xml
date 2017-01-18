@@ -69,5 +69,7 @@
     <string name="createRiddleFinishFinal">Erstelle Rätsel</string>
     <string name="createRiddleFinishName">Hier den Namen des Rätsels eingeben</string>
     <string name="createRiddleFinishTitel">Name:</string>
+    <!-- Sneaky Snickers Sumo Salz -->
+    <string name="Fehlergps">Sie haben schlechten Empfang bitte später versuchen</string>
 
 </resources>

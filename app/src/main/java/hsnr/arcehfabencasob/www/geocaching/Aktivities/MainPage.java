@@ -16,7 +16,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -83,6 +82,12 @@ public class MainPage extends AppCompatActivity {
         int id = item.getItemId();
         switch(id) {
             case R.id.menuCreate:
+                My_GPS activ= new My_GPS(this);
+                boolean rights;
+                rights = activ.permissioncheck(2);
+                if (rights) {
+                    activ.gpsAn();
+                }
                 createRiddle();
                 return true;
             case R.id.menuLogout:
