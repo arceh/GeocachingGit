@@ -100,28 +100,32 @@ public class RiddleRun extends AppCompatActivity {
         /* Vergleichen der Aktuellen Position mit der Antwort */
         Button btn = (Button) findViewById(R.id.riddle_run_next);
         btn.setVisibility(View.VISIBLE);
-        if (map.compareCoords(answer, temp, distanzToTarget)) {
-            if (cpAkt >= cpAnz) {
-                Intent intent = new Intent(this, RiddleWin.class);
-                intent.putExtra("name", name);
-                intent.putExtra("id", id);
-                startActivity(intent);
-                finish();
-                return;
+        if(temp != null) {
+            if (map.compareCoords(answer, temp, distanzToTarget)) {
+                if (cpAkt >= cpAnz) {
+                    Intent intent = new Intent(this, RiddleWin.class);
+                    intent.putExtra("name", name);
+                    intent.putExtra("id", id);
+                    startActivity(intent);
+                    finish();
+                    return;
 
+                } else {
+                    cpAkt++;
+                    TextView cpView = (TextView) findViewById(R.id.riddle_run_cp);
+                    cpView.setText(getString(R.string.checkpoint) + " " + cpAkt + "/" + cpAnz);
+                    question = riddle.getQuestions().get(cpAkt).getQuestion().toString();
+                    LatLng tmp = new LatLng(riddle.getQuestions().get(cpAkt).getAnswer().x, riddle.getQuestions().get(cpAkt).getAnswer().y);
+                    answer = tmp;
+                    TextView questionView = (TextView) findViewById(R.id.riddle_run_riddle);
+                    questionView.setText(question);
+                }
             } else {
-                cpAkt++;
-                TextView cpView = (TextView) findViewById(R.id.riddle_run_cp);
-                cpView.setText(getString(R.string.checkpoint) + " " + cpAkt + "/" + cpAnz);
-                question = riddle.getQuestions().get(cpAkt).getQuestion().toString();
-                LatLng tmp = new LatLng(riddle.getQuestions().get(cpAkt).getAnswer().x, riddle.getQuestions().get(cpAkt).getAnswer().y);
-                answer = tmp;
-                TextView questionView = (TextView) findViewById(R.id.riddle_run_riddle);
-                questionView.setText(question);
+                Toast.makeText(this, R.string.wrongPos, Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, String.valueOf(map.getDistanz(answer, temp)), Toast.LENGTH_LONG).show();
             }
         } else {
-            Toast.makeText(this, R.string.wrongPos, Toast.LENGTH_LONG).show();
-            //Toast.makeText(this, String.valueOf(map.getDistanz(answer, temp)), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.noPos, Toast.LENGTH_LONG).show();
         }
     }
 

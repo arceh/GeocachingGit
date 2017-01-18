@@ -26,6 +26,7 @@
     <string name="checkpoint">Checkpoint: </string>
     <string name="wrongPos">Sie sind an der falschen Position</string>
     <string name="checkPos">Position Prüfen</string>
+    <string name="noPos">Keine Position gefunden</string>
 
     <!-- Riddle Start -->
     <string name="headerRating">Bewertung: </string>
@@ -36,7 +37,7 @@
 
     <!-- Riddle Win -->
     <string name="win">Gewonnen</string>
-    <string name="backToMenu">Zurück zum Menü</string>
+    <string name="backToMenu">Rätsel bewerten</string>
 
     <!-- Create Info -->
     <string name="infotext">
