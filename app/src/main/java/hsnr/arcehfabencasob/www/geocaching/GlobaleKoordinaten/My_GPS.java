@@ -199,17 +199,24 @@ public class My_GPS{
     }
     @RequiresApi(api = Build.VERSION_CODES.M)
     public LatLng gpsPosAlt(){
+        timeout = System.currentTimeMillis();
         double tmp=System.currentTimeMillis()-timeout;
         while(!triggergps && tmp<7000) {
             getReQuestWIfi(service,locationClient);
             getReQuest(service, locationListener);
             tmp=System.currentTimeMillis()-timeout;
             LatLng g = new LatLng(breite, laenge);
-            if (gg != null)
-                g = new LatLng(ww.getLatitude(), ww.getLongitude());
             LatLng w = new LatLng(breiteclient, laengeclient);
-            if (ww != null)
+            if(gg==null && ww== null){
+
+            }else if (gg != null && ww==null){
+                g = new LatLng(ww.getLatitude(), ww.getLongitude());
+            }else if (ww != null && gg== null) {
                 w = new LatLng(ww.getLatitude(), ww.getLongitude());
+            }else if (ww != null && gg!= null) {
+                g = new LatLng(ww.getLatitude(), ww.getLongitude());
+                w = new LatLng(ww.getLatitude(), ww.getLongitude());
+            }
             if (wifiIsBetter(gg, ww)) {
                 superposition.add(w);
             } else {
@@ -217,6 +224,7 @@ public class My_GPS{
             }
             ww = null;
             gg = null;
+            triggergps = false;
         }
         LatLng l = sortinghaufen();
         if(l==null){
@@ -308,6 +316,7 @@ public class My_GPS{
         }
         else {
                         lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, ll);
+
 
                 }
 

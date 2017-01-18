@@ -82,12 +82,6 @@ public class MainPage extends AppCompatActivity {
         int id = item.getItemId();
         switch(id) {
             case R.id.menuCreate:
-                My_GPS activ= new My_GPS(this);
-                boolean rights;
-                rights = activ.permissioncheck(2);
-                if (rights) {
-                    activ.gpsAn();
-                }
                 createRiddle();
                 return true;
             case R.id.menuLogout:
