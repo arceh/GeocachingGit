@@ -40,6 +40,11 @@ public class CreateInfo extends AppCompatActivity {
         Intent intent = new Intent(this, CreateRiddleCps.class);
         //gp.gpsAn();
         gp.permissioncheck(this, 3);
+        intent = new Intent(this, CreateRiddleCps.class);
+        intent.putExtra("user",user);
+        gp.gpsAn();
+        startActivity(intent);
+        finish();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -49,12 +54,10 @@ public class CreateInfo extends AppCompatActivity {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED
                     && (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
                     || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)) {
-                gp.gpsAn();
-                Intent intent = new Intent(this, CreateRiddleCps.class);
-                startActivity(intent);
-                finish();
+
+
             } else {
-                gp.permissioncheck(this,1);
+                gp.permissioncheck(this,3);
             }
         }
     }
