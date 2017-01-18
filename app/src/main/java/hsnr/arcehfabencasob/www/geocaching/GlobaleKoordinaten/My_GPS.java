@@ -13,6 +13,7 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
@@ -37,17 +38,24 @@ public class My_GPS{
     List<Address> kappa;
     private android.location.LocationListener locationListener,locationClient;
     private LocationManager service;
-    private double laenge, breite,breiteclient,laengeclient;
+    private Double laenge, breite,breiteclient,laengeclient;
     private boolean triggergps = false;
     Context that;
     double timeout;
    private ArrayList<LatLng> superposition;
     private Location gg,ww;
     private String test;
+    private static My_GPS Instance=null;
+    public static My_GPS getInstance(Context text){
+        if(Instance==null){
+            Instance= new My_GPS(text);
+        }
+            return Instance;
+    }
 
 
 
-    public My_GPS(Context text) {
+    private My_GPS(Context text) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             this.onCreate(text);
         }
@@ -201,16 +209,27 @@ public class My_GPS{
     public LatLng gpsPosAlt(){
         timeout = System.currentTimeMillis();
         double tmp=System.currentTimeMillis()-timeout;
+        LatLng g =null;
+        if(Build.MANUFACTURER.equals("unknown") && Build.BRAND.equals("Android")){
+            if (ActivityCompat.checkSelfPermission(that, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(that, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            }
+            breite = service.getLastKnownLocation(LocationManager.GPS_PROVIDER).getLatitude();
+            laenge = service.getLastKnownLocation(LocationManager.GPS_PROVIDER).getLongitude();
+            g= new LatLng(breite,laenge);
+        }
+
+
         while(!triggergps && tmp<7000) {
             getReQuestWIfi(service,locationClient);
             getReQuest(service, locationListener);
             tmp=System.currentTimeMillis()-timeout;
-            LatLng g = new LatLng(breite, laenge);
-            LatLng w = new LatLng(breiteclient, laengeclient);
+
+            LatLng w=null;
             if(gg==null && ww== null){
 
             }else if (gg != null && ww==null){
-                g = new LatLng(ww.getLatitude(), ww.getLongitude());
+                g = new LatLng(gg.getLatitude(), gg.getLongitude());
             }else if (ww != null && gg== null) {
                 w = new LatLng(ww.getLatitude(), ww.getLongitude());
             }else if (ww != null && gg!= null) {
@@ -218,9 +237,11 @@ public class My_GPS{
                 w = new LatLng(ww.getLatitude(), ww.getLongitude());
             }
             if (wifiIsBetter(gg, ww)) {
-                superposition.add(w);
+                if(w!=null)
+                    superposition.add(w);
             } else {
-                superposition.add(g);
+                if(g!=null)
+                    superposition.add(g);
             }
             ww = null;
             gg = null;
@@ -261,11 +282,12 @@ public class My_GPS{
                         g = new LatLng(gg.getLatitude(), gg.getLongitude());
 
                     }
-                    LatLng w=new LatLng(breiteclient,laengeclient);
+                    LatLng w=null;
                     if(ww!=null)
                         w= new LatLng(ww.getLatitude(),ww.getLongitude());
                     if(wifiIsBetter(gg,ww)){
-                        superposition.add(w);
+                        if(ww!=null)
+                            superposition.add(w);
                     }
                     else {
                         superposition.add(g);

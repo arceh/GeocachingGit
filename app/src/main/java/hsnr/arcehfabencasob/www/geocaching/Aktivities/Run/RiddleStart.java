@@ -53,7 +53,7 @@ public class RiddleStart extends AppCompatActivity {
         authorView.setText(database.getRiddleCreatorByName(name));
         rateView.setText(Float.toString(database.getRiddleRatingByName(name)));
         database.close();
-        myGps = new My_GPS(this);
+        myGps =My_GPS.getInstance(this);
         diameterView.setText(Float.toString(diameter(r)) + " km");
     }
 

@@ -50,12 +50,13 @@ public class CreateRiddleCps extends AppCompatActivity {
         @Override
         public void run() {
             /* Abfragen der Aktuellen Position */
-            final LatLng res = map.getReQuestLatLng();   /*Todo : Hier Koordinaten anfragen*/
+            final LatLng res = map.gpsPosAlt();   /*Todo : Hier Koordinaten anfragen*/
             final Coordinate coord;
             if(res==null){
                         /*Fehler behandlung Hier
-                        * Ein Toast wird schon geworfen*/
-               coord= new Coordinate(0, 0);
+                        * Ein Toast wird schon geworfen
+                        * Wird nie aufgerufen*/
+               coord=null;
             }
             else {
                  coord = new Coordinate(res.latitude, res.longitude);
@@ -63,8 +64,11 @@ public class CreateRiddleCps extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    if(coord.x!=0 && coord.y!=0)
+                    if(coord!=null)
                         nextQuestion(coord);
+                    Button btn = (Button) findViewById(R.id.create_riddle_cps_button);
+                    btn.setVisibility(View.VISIBLE);
+
 
                 }
             });
@@ -90,7 +94,7 @@ public class CreateRiddleCps extends AppCompatActivity {
         questionField = (EditText) findViewById(R.id.create_riddle_cps_question);
         nextButton = (Button) findViewById(R.id.create_riddle_cps_button);
         cpField.setText(getString(R.string.createRiddleCpsCP) + anzCp);
-        map = new My_GPS(this);
+        map = My_GPS.getInstance(this);
     }
 
     @Override
@@ -134,8 +138,7 @@ public class CreateRiddleCps extends AppCompatActivity {
     protected void nextQuestion(Coordinate coords){
         /* Speichern der Aktuellen Frage und die da zugehörige Antwort
         *  Zurücksetzten der Felder */
-        Button btn = (Button) findViewById(R.id.create_riddle_cps_button);
-        btn.setVisibility(View.VISIBLE);
+
         String question = questionField.getText().toString();
         if(Pattern.matches(" *",question)){
             return;
