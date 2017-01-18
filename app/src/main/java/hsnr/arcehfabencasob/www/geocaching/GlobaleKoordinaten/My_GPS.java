@@ -311,8 +311,6 @@ public class My_GPS{
             LatLng l = sortinghaufen();
         if(l==null){
             superposition.clear();
-            if(breite!=null)
-                l = new LatLng(breite,laenge);
             return null;
         }
 
