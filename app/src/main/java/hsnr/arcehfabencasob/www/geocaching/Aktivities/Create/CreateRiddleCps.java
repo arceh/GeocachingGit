@@ -209,4 +209,9 @@ public class CreateRiddleCps extends AppCompatActivity {
             }
         }
     }
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        map.gpsAus();
+    }
 }
