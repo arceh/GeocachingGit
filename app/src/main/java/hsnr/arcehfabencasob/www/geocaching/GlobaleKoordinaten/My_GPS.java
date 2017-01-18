@@ -310,6 +310,13 @@ public class My_GPS{
             }
             LatLng l = sortinghaufen();
         if(l==null){
+            if (ActivityCompat.checkSelfPermission(that, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(that, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            }
+            service.removeUpdates(locationListener);
+            triggergps = false;
+            ww=null;
+            gg=null;
             superposition.clear();
             return null;
         }
