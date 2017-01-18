@@ -128,7 +128,7 @@ public class CreateRiddleCps extends AppCompatActivity {
         boolean rights;
         Button btn = (Button) findViewById(R.id.create_riddle_cps_button);
         btn.setVisibility(View.GONE);
-        rights = map.permissioncheck(2);
+        rights = map.permissioncheck(this,2);
         if (rights) {
             new MyThread(gpsThread).start();
         }
@@ -205,7 +205,7 @@ public class CreateRiddleCps extends AppCompatActivity {
                     || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)) {
                 new MyThread(gpsThread).start();
             } else {
-                map.permissioncheck(2);
+                map.permissioncheck(this,2);
             }
         }
     }

@@ -34,6 +34,13 @@ public class CreateInfo extends AppCompatActivity {
         /* Starten der Aktivität zum Erstellen eines Rätsels */
         Intent intent = new Intent(this, CreateRiddleCps.class);
         My_GPS gp= My_GPS.getInstance(this);
+        //gp.gpsAn();
+        gp.permissioncheck(this,1);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+
+        }
         gp.gpsAn();
         intent.putExtra("user", user);
         startActivity(intent);

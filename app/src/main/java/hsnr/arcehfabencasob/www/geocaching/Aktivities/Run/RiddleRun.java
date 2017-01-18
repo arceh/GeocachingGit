@@ -88,7 +88,7 @@ public class RiddleRun extends AppCompatActivity {
     protected void nextCp(View view) {
         /* Abfragen der Rechte und Position beziehen */
         boolean rights;
-        rights = map.permissioncheck(1);
+        rights = map.permissioncheck(this,1);
         if (rights) {
             Button btn = (Button) findViewById(R.id.riddle_run_next);
             btn.setVisibility(View.GONE);
@@ -137,7 +137,7 @@ public class RiddleRun extends AppCompatActivity {
                 btn.setVisibility(View.GONE);
                 new MyThread(gpsThread).start();
             } else {
-                map.permissioncheck(1);
+                map.permissioncheck(this,1);
             }
         }
     }
