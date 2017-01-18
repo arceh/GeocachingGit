@@ -264,8 +264,17 @@ public class My_GPS{
     @RequiresApi(api = Build.VERSION_CODES.M)
     public LatLng getReQuestLatLng() {
             getReQuest(service, locationListener);
+        if(service.getLastKnownLocation(LocationManager.GPS_PROVIDER)!=null) {
             breite = service.getLastKnownLocation(LocationManager.GPS_PROVIDER).getLatitude();
             laenge = service.getLastKnownLocation(LocationManager.GPS_PROVIDER).getLongitude();
+        }
+        else{
+            breite=null;
+            laenge=null;
+
+        }
+
+
             getReQuest(service, locationListener);
             if (!triggergps) {
                 timeout = System.currentTimeMillis();
@@ -277,7 +286,9 @@ public class My_GPS{
                     getReQuestWIfi(service,locationClient);
                     getReQuest(service, locationListener);
                     tmp=System.currentTimeMillis()-timeout;
-                    LatLng g= new LatLng(breite,laenge);
+                    LatLng g=null;
+                    if(breite!= null)
+                       g = new LatLng(breite,laenge);
                     if(gg!=null) {
                         g = new LatLng(gg.getLatitude(), gg.getLongitude());
 
@@ -290,7 +301,8 @@ public class My_GPS{
                             superposition.add(w);
                     }
                     else {
-                        superposition.add(g);
+                        if(g!=null)
+                            superposition.add(g);
                     }
 
                 }
