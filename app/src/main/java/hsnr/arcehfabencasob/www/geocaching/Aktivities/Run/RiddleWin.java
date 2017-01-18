@@ -59,9 +59,6 @@ public class RiddleWin extends AppCompatActivity {
         database.open();
         database.updateRiddle(ridp);
         database.close();
-        Intent intent = new Intent(this,MainPage.class);
-        intent.putExtra("user",superuser);
-        startActivity(intent);
         finish(); //schließen der Activity
         return;
     }
