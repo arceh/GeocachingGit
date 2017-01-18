@@ -128,7 +128,7 @@ public class My_GPS{
 
         //getReQuest(service, locationListener);
     }
-    public static boolean permissioncheck(Context text,int permiss){
+    public static boolean permissioncheck(Context text, int permiss){
         if (ActivityCompat.checkSelfPermission(text, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(text, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
             ActivityCompat.requestPermissions((Activity) text,new String[]{
