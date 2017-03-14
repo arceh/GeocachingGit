@@ -164,11 +164,5 @@ public class MainPage extends AppCompatActivity {
     }
 
 
-    private void killdummy(){
-        database.open();
-        ArrayList<Riddle> r = database.getRiddlesByName("Hochschule Führung");
-        database.deleteRiddle(r.get(0));
-        database.close();
-    }
 
 }
