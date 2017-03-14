@@ -96,7 +96,7 @@ public class MainPage extends AppCompatActivity {
         /* Hinzufügen der Auslöser
          * für die Elemente der Liste */
         ListView ContactList = (ListView) findViewById(R.id.main_page_contentList);
-        ContactList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        ContactList.setOnItemClickListener(     new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 TextView viewName = (TextView) view;
