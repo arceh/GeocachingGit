@@ -171,4 +171,9 @@ public class MainPage extends AppCompatActivity {
         database.close();
     }
 
+    private void blabla(){
+        database.open();
+        database.close();
+    }
+
 }
